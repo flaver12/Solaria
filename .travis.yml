@@ -1,10 +1,8 @@
 language: php
 php:
-  - '5.4'
-  - '5.5'
   - '5.6'
 deploy:
   provider: heroku
   api_key:
-    secure: "1a894ff3-52dc-47a4-aa87-0035c321dea2"
- app: farming-manager
+    secure: 1a894ff3-52dc-47a4-aa87-0035c321dea2
+  app: farming-manager
