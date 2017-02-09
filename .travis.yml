@@ -8,3 +8,8 @@ before_install:
 before_script:
  - composer install
 script: phpunit --configuration phpunit.xml --coverage-text
+
+deploy:
+  provider: heroku
+  api_key: 1a894ff3-52dc-47a4-aa87-0035c321dea2
+  app: farming-manager
