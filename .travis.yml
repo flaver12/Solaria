@@ -1,26 +1,9 @@
 language: php
-
-sudo: required
-dist: trusty
-
 php:
-  - '5.6'
-env:
-  global:
-    - ZEND_DONT_UNLOAD_MODULES=1
-    - CC="ccache gcc"
-    - PATH="$PATH:~/bin"
-    - PHALCON_VERSION="v3.0.3"
-
-install:
-  - git clone -q --depth=1 https://github.com/phalcon/cphalcon.git -b ${PHALCON_VERSION}
-  - ln -s ${TRAVIS_BUILD_DIR}/.temp ${TRAVIS_BUILD_DIR}/cphalcon/.temp
-  - ( cd cphalcon; zephir fullclean && zephir generate $ZEND_BACKEND )
-  - ( cd cphalcon/ext; export CFLAGS="-g3 -O1 -std=gnu90 -Wall -DZEPHIR_RELEASE=1"; /usr/bin/phpize &> /dev/null && ./configure --silent --enable-phalcon &> /dev/null && make --silent -j3 &> /dev/null && make --silent install )
-  - phpenv config-add cphalcon/tests/_ci/phalcon.ini
-
-deploy:
-  provider: heroku
-  api_key:
-    secure: 1a894ff3-52dc-47a4-aa87-0035c321dea2
-  app: farming-manager
+  -"5.4"
+  -"5.3"
+before_install:
+ - composer self-update
+before_script:
+ - composer install
+script: phpunit --configuration phpunit.xml --covrage-text
