@@ -11,5 +11,5 @@ script: phpunit --configuration phpunit.xml --coverage-text
 
 deploy:
   provider: heroku
-  api_key: 1a894ff3-52dc-47a4-aa87-0035c321dea2
+  api_key: API_KEY
   app: farming-manager
