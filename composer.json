@@ -1,5 +1,5 @@
 {
   "require": {
-    "ext-phalcon": ">=1.3.0"
+    "php": "5.5.12"
   }
 }
