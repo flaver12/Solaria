@@ -5,9 +5,11 @@
         }
     },
 
-    "require": {
+    "require-dev": {
         "phpunit/phpunit": "3.7.*",
         "jbbcode/jbbcode": "1.3.*",
-        "phalcon/incubator": "dev-master"
+        "techpivot/phalcon-ci-installer": "~1.0",
+        "phalcon/incubator": "dev-master",
+
     }
 }
