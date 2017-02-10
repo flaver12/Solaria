@@ -1,0 +1,28 @@
+body {
+	/*background-image: url(../img/background.png);*/
+}
+nav.ls-navbar {
+	background-color: green;
+}
+nav.ls-navbar a{
+		color: white;
+}
+nav.ls-navbar a.navbar-brand:hover {
+	color: white;
+}
+nav.ls-navbar a:hover{
+		color: green;
+}
+.welcome {
+	margin: 0px 0px 20px 0px ;
+}
+.newsetPosts {
+	margin-top: 60px;
+}
+.glyphicon-github:before {
+	content: url(../img/icons/git.png);
+	background-color: transparent;
+}
+.editor_frame {
+    width: 50%;
+}

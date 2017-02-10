@@ -1,0 +1,21 @@
+.userinfos {
+    float: left;
+    margin-top: 6px;
+}
+.content {
+    margin-left: 168px;
+    margin-top: -11px;
+}
+
+.username {
+    margin-top: 10px;
+}
+.editor {
+    margin-top: 160px;
+}
+.editor h2 {
+    text-align: center;
+}
+.replay {
+    margin-top: 180px;
+}
