@@ -1,5 +1,4 @@
 main.ini
 vendor
 composer.lock
-app/cache/metaData/*.php
-app/cache/views/*.compiled
+cache/view/*
