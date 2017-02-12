@@ -14,6 +14,3 @@ script: phpunit --configuration tests/phpunit.xml --coverage-text
 
 notifications:
   email: false
-
-after_success:
- "curl --ftp-create-dirs -T uploadfilename -u $FTP_USER:$FTP_PASSWORD ftp://vweb06.nitrado.net/"
