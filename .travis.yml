@@ -14,8 +14,3 @@ script: phpunit --configuration tests/phpunit.xml --coverage-text
 
 notifications:
   email: false
-
-deploy:
-  provider: heroku
-  api_key: $API_KEY
-  app: farming-manager
