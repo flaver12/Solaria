@@ -12,7 +12,7 @@ class Application {
         }
 
         //Set url up
-        $urlConfig = parse_ini_file(APP_PATH."/config/url.ini", true);
+        $urlConfig = parse_ini_file("../config/url.ini", true);
         URL::init($urlConfig);
 
         //Set template engine up!
