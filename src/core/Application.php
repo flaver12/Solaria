@@ -5,6 +5,12 @@ class Application {
     private static $loadedClasses = array();
 
     public function __construct() {
+
+        //fix for unit tests
+        if(!defined('APP_PATH')) {
+            define('APP_PATH', realpath('..'));
+        }
+
         //Set url up
         $urlConfig = parse_ini_file(APP_PATH."/config/url.ini", true);
         URL::init($urlConfig);
@@ -22,6 +28,11 @@ class Application {
 
     public function run() {
         Session::start();
+
+        //just for phpunit
+        if(!isset($_GET['_url'])) {
+            $_GET['_url'] = '/';
+        }
         URL::resolve($_GET['_url']);
     }
 
@@ -30,12 +41,12 @@ class Application {
         $instance = array_column(self::$loadedClasses, $className);
 
         if($instance == array()) {
-            if($params == array())
+            if($params == array()) {
                 $instance = new $className();
-            else
-                return;
-                //$class = new ReflectionClass($className);
-                //$instance = $class->newInstanceArgs($params);
+            } else {
+                $class = new ReflectionClass($className);
+                $instance = $class->newInstanceArgs($params);
+            }
 
             array_push(self::$loadedClasses, array($className => $instance));
         }

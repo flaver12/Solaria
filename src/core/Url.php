@@ -53,12 +53,16 @@ class URL {
     private static function buildAndCallController($controller, $action, $arguments = array()) {
 
         //prepare the vars
+        if(!class_exists($controller)) {
+            throw new Exception("Class ".$controller. " does not exist!");
+        }
+
         $controller = new $controller();
 
         if(method_exists($controller, $action)) {
             call_user_func_array(array($controller, $action), $arguments);
         } else {
-            throw new Exception("Method".$action. "does not exist!");
+            throw new Exception("Method ".$action. " does not exist!");
         }
     }
 
