@@ -4,13 +4,13 @@ class Application {
 
     private static $loadedClasses = array();
 
-    public function __construct() {
+    public function __construct($isUnitTest = false) {
 
         //fix for unit tests
         if(!defined('APP_PATH')) {
             define('APP_PATH', realpath('..'));
         }
-
+        
         //Set url up
         $urlConfig = parse_ini_file(APP_PATH."/config/url.ini", true);
         URL::init($urlConfig);
