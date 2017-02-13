@@ -2,7 +2,7 @@
 /*
 * Farming manager index class
 */
-define("APP_PATH", realpath('..'));
+define("APP_PATH", realpath('.'));
 
 $_GET['_url'] = isset($_GET['_url']) ? $_GET['_url']: '/';
 
