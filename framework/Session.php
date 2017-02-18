@@ -10,4 +10,8 @@ class Session {
         session_destroy();
     }
 
+    public static function set($name, $value) {
+
+    }
+
 }

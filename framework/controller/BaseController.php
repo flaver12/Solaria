@@ -3,8 +3,10 @@
 
 class BaseController {
 
-    public function __construct() {
+    protected $request;
 
+    public function __construct() {
+        $this->request = URL::getRequest();
     }
 
     public function __destruct() {
@@ -14,4 +16,5 @@ class BaseController {
     protected function set($name, $value) {
         Application::singelton('Template')->set($name, $value);
     }
+
 }
