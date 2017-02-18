@@ -6,4 +6,9 @@ class ApplicationTest extends PHPUnit_Framework_TestCase {
 		$expected = new DbCore('','','','');
         $this->assertEquals($expected, Application::singelton('DbCore', array('','','','')));
 	}
+
+	public function testNewInstance() {
+		$expected = new DbCore('','','','');
+        $this->assertEquals($expected, Application::newInstance('DbCore', array('','','','')));
+	}
 }

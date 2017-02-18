@@ -18,10 +18,11 @@ class DbCore {
         }
     }
 
-    public function sendQuery($query = '', $table) {
+    public function sendQuery($query = '', $table='') {
         $stmt = self::$db->prepare('SELECT id FROM post');
         $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Resultset');
+        $result = $stmt->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Row');
+        return Application::newInstance('Resultset', array($result, $table));
     }
 
     public function __destruct() {

@@ -1,7 +1,7 @@
 <?php
 
 class User extends BaseModel {
-
+    
     public function __construct() {
         $this->tableName = 'user';
     }

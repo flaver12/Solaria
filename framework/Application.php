@@ -3,6 +3,7 @@
 class Application {
 
     private static $loadedClasses = array();
+    private static $mainConf = null;
 
     public function __construct($isUnitTest = false) {
 
@@ -30,6 +31,8 @@ class Application {
             'auto_reload ' => $mainConf['view']['auto_reload']
         ));
         array_push(self::$loadedClasses, array('view' => $twig));
+
+        self::$mainConf = $mainConf;
     }
 
     public function run() {
@@ -62,6 +65,32 @@ class Application {
         }
 
         return $instance;
+    }
+
+    public static function newInstance($className, $params = array()) {
+        if($params == array()) {
+            $instance = new $className();
+        } else {
+            $class = new ReflectionClass($className);
+            $instance = $class->newInstanceArgs($params);
+        }
+
+        return $instance;
+    }
+
+    public static function purgeCache() {
+        if (is_dir(self::$mainConf['view']['cacheDir'])) {
+            $objects = scandir(self::$mainConf['view']['cacheDir']);
+            foreach ($objects as $object) {
+                if ($object != "." && $object != "..") {
+                    if (is_dir(self::$mainConf['view']['cacheDir']."/".$object))
+                        rmdir(self::$mainConf['view']['cacheDir']."/".$object);
+                    else
+                        unlink(self::$mainConf['view']['cacheDir']."/".$object);
+                }
+            }
+         //rmdir(self::$mainConf['view']['cacheDir']);
+        }
     }
 
 }
