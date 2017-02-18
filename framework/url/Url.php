@@ -6,9 +6,11 @@ class URL {
     private static $currentController = '';
     private static $currentAction = '';
     private static $url = '';
+    private static $request = null;
 
     public static function init($config) {
 
+        self::$request = new Request();
         self::$urls = $config;
         self::$url  = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
 
@@ -44,6 +46,7 @@ class URL {
             $controller = ucwords($uri[1]).'Controller';
             $action = $uri[2]."Action";
             $params = isset($uri[3]) ? $uri[3] : array();
+            self::$request->url = self::$url;
             self::buildAndCallController($controller, $action, $params);
 
         }
@@ -76,6 +79,10 @@ class URL {
 
     public static function getBaseURL() {
         return self::$url;
+    }
+
+    public static function getRequest() {
+        return self::$request;
     }
 
 }

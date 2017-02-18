@@ -7,7 +7,7 @@ class Template {
 
     public function __construct() {
         $this->variables = array();
-        $this->renderer = Application::singelton('renderer');
+        $this->renderer = Application::singelton('view');
     }
 
     public function render() {

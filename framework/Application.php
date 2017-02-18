@@ -11,19 +11,25 @@ class Application {
             define('APP_PATH', realpath('..'));
         }
 
+        //load main conf
+        $mainConf = parse_ini_file(APP_PATH."/config/main.ini", true);
+
         //Set url up
         $urlConfig = parse_ini_file(APP_PATH."/config/url.ini", true);
         URL::init($urlConfig);
 
+        //set up databases
+        self::singelton('DbCore', array($mainConf['db']['host'],$mainConf['db']['user'], $mainConf['db']['password'], $mainConf['db']['dbname']));
+
         //Set template engine up!
         Twig_Autoloader::register();
-        $loader = new Twig_Loader_Filesystem(APP_PATH.'/src/view');
+        $loader = new Twig_Loader_Filesystem(APP_PATH.'/application/view');
         $twig = new Twig_Environment($loader, array(
-            'cache' => APP_PATH.'/cache/view',
-            'debug' => true,
-            'auto_reload ' => true
+            'cache' => $mainConf['view']['cacheDir'],
+            'debug' => $mainConf['view']['debug'],
+            'auto_reload ' => $mainConf['view']['auto_reload']
         ));
-        array_push(self::$loadedClasses, array('renderer' => $twig));
+        array_push(self::$loadedClasses, array('view' => $twig));
     }
 
     public function run() {
