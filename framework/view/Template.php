@@ -11,7 +11,7 @@ class Template {
     }
 
     public function render() {
-        $this->set('basePath', URL::getBaseURL());
+        $this->set('helper', Application::singelton('ViewHelper'));
         $this->parentTemplates();
         echo $this->renderChildes();
     }

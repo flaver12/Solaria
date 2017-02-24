@@ -1,4 +1,3 @@
-{% from 'base.html' import link %}
 <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
@@ -8,7 +7,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          {{ link('Project name', 'home', 'navbar-brand') }}
+          {{ helper.link('Project name', 'home', 'navbar-brand') }}
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <form class="navbar-form navbar-right">
@@ -20,7 +19,7 @@
             </div>
             <button type="submit" class="btn btn-success">Sign in</button>
           </form>
-          {{ link('Sing up','sing-up' ,'navbar-brand btn btn-default') }}
+          {{ helper.link('Sing up','sing-up' ,'navbar-brand btn btn-default') }}
         </div><!--/.navbar-collapse -->
       </div>
     </nav>
