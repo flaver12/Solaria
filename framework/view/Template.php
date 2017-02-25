@@ -21,8 +21,8 @@ class Template {
     }
 
     private function renderChildes() {
-        $folder = URL::getController();
-        $file = URL::getAction();
+        $folder = Application::singelton('Dispatcher')->getController();
+        $file = Application::singelton('Dispatcher')->getAction();;
         $template = $this->renderer->load($folder.'/'.$file.'.html');
         return $template->render($this->prepVars());
     }

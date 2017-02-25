@@ -12,4 +12,8 @@ class Request {
         return false;
     }
 
+    public function getPost() {
+
+    }
+
 }

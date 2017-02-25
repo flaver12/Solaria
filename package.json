@@ -1,0 +1,30 @@
+{
+  "name": "fm",
+  "version": "1.0.0",
+  "description": "[![Build Status](https://travis-ci.org/flaver12/FM.svg?branch=master)](https://travis-ci.org/flaver12/FM)",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "dependencies": {
+    "gulp-csso": "^2.0.0",
+    "gulp-less": "^3.3.0",
+    "webpack": "^2.2.1"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/flaver12/FM.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/flaver12/FM/issues"
+  },
+  "homepage": "https://github.com/flaver12/FM#readme"
+}
