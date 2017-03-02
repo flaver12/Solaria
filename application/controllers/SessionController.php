@@ -5,7 +5,12 @@ class SessionController extends BaseController {
     public function registerUserAction() {
 
         if($this->request->isPost()) {
-            var_dump($_POST);die;
+            $username = $this->request->getPost('username');
+            $password = sha1($this->request->getPost('password'));
+            $user =  Application::singelton('User');
+            $user->password = $password;
+            $user->username = $username;
+            $user->save($user);
         } else {
             $this->set('name', 'flaver');
             $this->set('singUpForm', new SingUpForm());

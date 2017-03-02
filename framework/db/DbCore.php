@@ -19,18 +19,22 @@ class DbCore {
     }
 
     public function sendQuery($query = array(), $table='', $single = false) {
-
         if(!isset($query))
             throw new Exception("empty query given!");
 
         $stmt = self::$db->prepare($query[0]);
 
         if(isset($query[1])) {
-            $stmt->execute($query[1]);
+            $status = $stmt->execute($query[1]);
         } else {
-            $stmt->execute();
+            $status = $stmt->execute();
         }
 
+        if(strpos($query[0], 'INSERT INTO') !== false ||
+            strpos($query[0], 'UPDATE') !== false ||
+            strpos($query[0], 'DELETE') !== false) {
+            return $status;
+        }
 
         if($single) {
             $result = $stmt->fetchObject('Row');

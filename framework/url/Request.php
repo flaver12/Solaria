@@ -12,8 +12,8 @@ class Request {
         return false;
     }
 
-    public function getPost() {
-
+    public function getPost($value='') {
+        return ($value == '') ?  $_POST :  $_POST[$value]; 
     }
 
 }

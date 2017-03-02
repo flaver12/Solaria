@@ -9,7 +9,7 @@
     <meta name="author" content="">
     <!--<link rel="icon" href="../../favicon.ico">-->
 
-    <title>Jumbotron Template for Bootstrap</title>
+    <title>Ginos4Life</title>
 
     <!-- Bootstrap core CSS -->
     <!-- Custom styles for this template -->
@@ -23,13 +23,22 @@
   </head>
     <body>
         {{ include('partials/nav.html') }}
-        <div id="content">{% block content %}{% endblock %}</div>
+        <div id="content">
+            <div class="container">
+                {% block content %}{% endblock %}
+                <hr>
+                <footer>
+                  <p>&copy; 2016 flaver</p>
+                </footer>
+            </div>
+        </div>
         <!-- Bootstrap core JavaScript
         ================================================== -->
         <!-- Placed at the end of the document so the pages load faster -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
         <script src="assets/js/bootstrap.min.js"></script>
+        <script src='assets/js/greeter.js'></script>
         <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
         </body>
     </body>
