@@ -9,5 +9,11 @@ $_GET['_url'] = isset($_GET['_url']) ? $_GET['_url']: '/';
 //composer!!!
 require_once APP_PATH . '/vendor/autoload.php';
 
-$app = new Application();
-$app->run();
+try {
+    $app = new Application();
+    $app->run();
+
+} catch (Exception $e) {
+    echo "FM-ERROR:<br />";
+    echo $e->getMessage();
+}

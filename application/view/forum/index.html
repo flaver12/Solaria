@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <article class="overview">
+        {% for i in posts %}
+            {% if loop.first %}
+                <section class="topic first">
+            {% else %}
+                <section class="topic">
+            {% endif %}
+                <header class="row">
+                    <div class="col-md-12">
+                        <table>
+                            <tr>
+                                <td>
+                                    {{view.link_to(i['name'], '#', 'topic-header')}}
+                                </td>
+                                <td>
+                                    <img style="width: 140px; height: 140px;" src="http://lorempixel.com/output/nightlife-q-c-640-480-1.jpg" alt="user_img" class="img-circle right">
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </header>
+            </section>
+        {% endfor %}
+    </article>
+
+{% endblock %}

@@ -41,7 +41,7 @@ class URL {
                 }
             }
             $controller = ucwords($uri[1]).'Controller';
-            $action = $uri[2]."Action";
+            $action = isset($uri[2]) ? $uri[2]."Action" : 'indexAction';
             $params = isset($uri[3]) ? $uri[3] : array();
             self::$request->url = self::$url;
             $dp->buildAndCallController($controller, $action, $params);
