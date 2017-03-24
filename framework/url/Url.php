@@ -18,7 +18,7 @@ class URL {
 
     public static function resolve($url) {
 
-        $dp = Application::singelton('Dispatcher');
+        $dp = Application::singleton('Dispatcher');
 
         //if we have no url set it to root
         //and start the index controller
@@ -41,9 +41,19 @@ class URL {
                 }
             }
             $controller = ucwords($uri[1]).'Controller';
-            $action = isset($uri[2]) ? $uri[2]."Action" : 'indexAction';
-            $params = isset($uri[3]) ? $uri[3] : array();
+            $action = (isset($uri[2]) && $uri[2] != '' ) ? $uri[2]."Action" : 'indexAction';
+            echo $action;
+            $params = array();
+
+            for ($i=3; $i < (count($uri)); $i++) {
+                array_push($params, $uri[$i]);
+            }
             self::$request->url = self::$url;
+
+            if(strpos($action, '-') !== false) {
+                 $action = lcfirst(str_replace('-', '', ucwords($action, '-')));
+            }
+
             $dp->buildAndCallController($controller, $action, $params);
 
         }

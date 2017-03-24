@@ -18,4 +18,8 @@ class Resultset {
         return $this->rows;
     }
 
+    public function getFirst() {
+        return $this->rows[0];
+    }
+
 }

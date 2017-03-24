@@ -7,7 +7,7 @@ class SessionController extends BaseController {
         if($this->request->isPost()) {
             $username = $this->request->getPost('username');
             $password = sha1($this->request->getPost('password'));
-            $user =  Application::singelton('User');
+            $user =  Application::singleton('User');
             $user->password = $password;
             $user->username = $username;
             $user->save($user);

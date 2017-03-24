@@ -2,24 +2,32 @@
 
 {% block content %}
     <article class="overview">
-        {% for i in posts %}
+        {% for i in categories %}
             {% if loop.first %}
-                <section class="topic first">
+                <section class="category-first">
             {% else %}
-                <section class="topic">
+                <section class="category">
             {% endif %}
+                <div class="panel panel-default">
+                  <div class="panel-body">
+                    {{ i.name }}
+                  </div>
+                </div>
                 <header class="row">
                     <div class="col-md-12">
-                        <table>
-                            <tr>
-                                <td>
-                                    {{view.link_to(i['name'], '#', 'topic-header')}}
-                                </td>
-                                <td>
-                                    <img style="width: 140px; height: 140px;" src="http://lorempixel.com/output/nightlife-q-c-640-480-1.jpg" alt="user_img" class="img-circle right">
-                                </td>
-                            </tr>
-                        </table>
+                        <div class="list-group list-group-first">
+                        {% for j in i['topics'] %}
+                            {{ view.start_link('forum/view-topic/'~j.id, 'list-group-item') }}
+                                <h4 class="list-group-item-heading">{{ j.name }}</h4>
+                                <p class="list-group-item-text"><ul class="list-inline">
+                                      <li><b>Topics:</b> 12</li>
+                                      <li><b>Post:</b> 43</li>
+                                      <li><b>Latest Post:</b> xxxxx</li>
+                                    </ul>
+                                </p>
+                              {{ view.end_link() }}
+                        {% endfor %}
+                        </div>
                     </div>
                 </header>
             </section>

@@ -10,7 +10,7 @@ abstract class BaseModel {
         if(!isset($q)) {
             throw new Exception("Empty query given!!");
         }
-        $db = Application::singelton('DbCore');
+        $db = Application::singleton('DbCore');
         $result = $db->sendQuery($q, get_called_class());
 
         return $result;
@@ -18,7 +18,7 @@ abstract class BaseModel {
 
     public static function getAll() {
         return self::send(array(
-            'SELECT * FROM ' . strtolower(get_called_class())
+            'SELECT * FROM ' . strtolower(Application::getCaller())
         ));
     }
 
@@ -27,15 +27,19 @@ abstract class BaseModel {
             throw new Exception("No condition given!");
         }
 
-        $db = Application::singelton('DbCore');
-        return $db->sendQuery(array('SELECT * FROM '.strtolower(get_called_class()).' WHERE '.$condition), strtolower(get_called_class()), true);
+        $db = Application::singleton('DbCore');
+        $class = get_called_class();
+        if(strpos($class, 'Controller') !== false) {
+            $class = Application::getCaller();
+        }
+        return $db->sendQuery(array('SELECT * FROM '.strtolower($class).' WHERE '.$condition), strtolower($class));
 
     }
 
     //nerver call this function from a controller!!! NEVER!!!! AND DONT TOUCH IT NOOOO!!!
     //@AS_TODO phalcon like, if we have a obj, just UPDATE
     protected function save($obj) {
-        $db = Application::singelton('DbCore');
+        $db = Application::singleton('DbCore');
         $q = 'INSERT INTO '.strtolower(get_called_class()).' (';
         $values = array();
 

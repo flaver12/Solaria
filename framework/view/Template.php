@@ -4,16 +4,22 @@ class Template {
 
     private $variables;
     private $renderer = null;
+    private $renderView = true;
 
     public function __construct() {
         $this->variables = array();
-        $this->renderer = Application::singelton('view');
+        $this->renderer = Application::singleton('view');
     }
 
     public function render() {
-        $this->set('view', Application::singelton('ViewHelper'));
-        $this->parentTemplates();
-        echo $this->renderChildes();
+        if($this->renderView) {
+            $this->set('view', Application::singleton('ViewHelper'));
+            $this->set('url', URL::getBaseURL());
+            $this->parentTemplates();
+            echo $this->renderChildes();
+        } else {
+            return;
+        }
     }
 
     private function parentTemplates() {
@@ -21,8 +27,8 @@ class Template {
     }
 
     private function renderChildes() {
-        $folder = Application::singelton('Dispatcher')->getController();
-        $file = Application::singelton('Dispatcher')->getAction();;
+        $folder = Application::singleton('Dispatcher')->getController();
+        $file = Application::singleton('Dispatcher')->getAction();
         $template = $this->renderer->load($folder.'/'.$file.'.html');
         return $template->render($this->prepVars());
     }
@@ -33,6 +39,10 @@ class Template {
 
     public function set($name, $value) {
         $this->variables[$name] = $value;
+    }
+
+    public function noRenderer() {
+        $this->renderView = false;
     }
 
 

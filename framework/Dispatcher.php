@@ -7,7 +7,6 @@ class Dispatcher {
     private $currentAction;
 
     public function buildAndCallController($controller, $action, $arguments = array()) {
-
         $this->currentController = str_replace('controller', '', strtolower($controller));
         $this->currentAction = str_replace('action', '', strtolower($action));
 
@@ -15,8 +14,6 @@ class Dispatcher {
         if(!class_exists($controller)) {
             throw new Exception("Class ".$controller. " does not exist!");
         }
-
-        $controller = new $controller();
 
         if(method_exists($controller, $action)) {
             call_user_func_array(array($controller, $action), $arguments);

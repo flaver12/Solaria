@@ -20,13 +20,13 @@ class Application {
         URL::init($urlConfig);
 
         //set up databases
-        self::singelton('DbCore', array($mainConf['db']['host'],$mainConf['db']['user'], $mainConf['db']['password'], $mainConf['db']['dbname']));
+        self::singleton('DbCore', array($mainConf['db']['host'],$mainConf['db']['user'], $mainConf['db']['password'], $mainConf['db']['dbname']));
 
         //Set template engine up!
         Twig_Autoloader::register();
         $loader = new Twig_Loader_Filesystem(APP_PATH.'/application/view');
         $twig = new Twig_Environment($loader, array(
-            'cache' => $mainConf['view']['cacheDir'],
+            'cache' => APP_PATH.'/'.$mainConf['view']['cacheDir'],
             'debug' => $mainConf['view']['debug'],
             'auto_reload ' => $mainConf['view']['auto_reload']
         ));
@@ -45,7 +45,7 @@ class Application {
         URL::resolve($_GET['_url']);
     }
 
-    public static function singelton($className, $params = array()) {
+    public static function singleton($className, $params = array()) {
 
         $instance = array_column(self::$loadedClasses, $className);
 
@@ -91,6 +91,10 @@ class Application {
             }
          //rmdir(self::$mainConf['view']['cacheDir']);
         }
+    }
+
+    public static function getCaller() {
+        return debug_backtrace()[2]['class'];
     }
 
 }

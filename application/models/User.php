@@ -6,11 +6,4 @@ class User extends BaseModel {
     public $username;
     public $password;
 
-    public function __destruct() {
-        $this->saveObj($this);
-    }
-
-    /*public function save() {
-        parent::save();
-    }*/
 }

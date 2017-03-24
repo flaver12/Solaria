@@ -3,31 +3,27 @@
  class ForumController extends BaseController {
 
 	public function indexAction(){
-
-        //just test data
-        $posts = array(
-            0 => array(
-                'name' => 'My first post',
-                'created' => '12.12.12',
-                'username' => 'test'
-            ),
-            1 => array(
-                'name' => 'My first post',
-                'created' => '12.12.12',
-                'username' => 'test'
-            ),
-
-            2 => array(
-                'name' => 'My first post',
-                'created' => '12.12.12',
-                'username' => 'test'
-            ),
-
-
-        );
-
-        $this->set('posts', $posts);
-
+        $this->set('categories', Category::getAllWithTopics());
     }
+
+    public function viewTopicAction($id) {
+        $this->set('topic', Topic::getWithPosts($id));
+        $this->set('bbCodeForm', new BBCodeForm());
+    }
+
+    public function viewPostAction($id) {
+        $this->set('post',Post::get('id = '.$id)->getFirst());
+    }
+
+    public function createPostAction() {
+        $this->view()->noRenderer();
+        if($this->request->isPost()) {
+            echo "<pre>";
+            Application::singleton('BBCodeParser')->parse($this->request->getPost('content'));
+            var_dump($this->request->getPost('content'));die;
+            return;
+        }
+    }
+
 
 }

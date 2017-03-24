@@ -10,11 +10,15 @@ class BaseController {
     }
 
     public function __destruct() {
-        Application::singelton('Template')->render();
+        Application::singleton('Template')->render();
     }
 
     protected function set($name, $value) {
-        Application::singelton('Template')->set($name, $value);
+        Application::singleton('Template')->set($name, $value);
+    }
+
+    protected function view() {
+        return Application::singleton('Template');
     }
 
 }
