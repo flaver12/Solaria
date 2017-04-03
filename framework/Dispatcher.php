@@ -16,7 +16,7 @@ class Dispatcher {
         }
 
         if(method_exists($controller, $action)) {
-            call_user_func_array(array($controller, $action), $arguments);
+            call_user_func_array(array(new $controller, $action), $arguments);
         } else {
             throw new Exception("Method ".$action. " does not exist!");
         }

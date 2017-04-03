@@ -21,10 +21,18 @@
     </div>
 </header>
 
-<section id="breadcrumb">
-    <div class="container">
-        <ol class="breadcrumb">
-            <li class="active">Dashboard</li>
-        </ol>
-    </div>
-</section>
+{% if breadcrumb %}
+  <section id="breadcrumb">
+      <div class="container">
+          <ol class="breadcrumb">
+              {% for i in breadcrumb %}
+                {% if loop.last %}
+                    <li class="active">{{ view.link_to(i['name'], i['link']) }}</li>
+                {% else %}
+                    <li>{{ view.link_to(i['name'], i['link']) }}</li>
+                {% endif %}
+              {% endfor %}
+          </ol>
+      </div>
+  </section>
+{% endif %}

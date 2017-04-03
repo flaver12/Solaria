@@ -7,11 +7,13 @@
     }
 
     public function viewTopicAction($id) {
+        $this->set('breadcrumb', Topic::getBreadcrum());
         $this->set('topic', Topic::getWithPosts($id));
         $this->set('bbCodeForm', new BBCodeForm());
     }
 
     public function viewPostAction($id) {
+        $this->set('breadcrumb', Post::getBreadcrum());
         $this->set('post',Post::get('id = '.$id)->getFirst());
     }
 

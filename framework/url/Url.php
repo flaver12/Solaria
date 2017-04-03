@@ -40,9 +40,9 @@ class URL {
                     return;
                 }
             }
+
             $controller = ucwords($uri[1]).'Controller';
             $action = (isset($uri[2]) && $uri[2] != '' ) ? $uri[2]."Action" : 'indexAction';
-            echo $action;
             $params = array();
 
             for ($i=3; $i < (count($uri)); $i++) {

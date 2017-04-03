@@ -11,7 +11,11 @@ abstract class BaseModel {
             throw new Exception("Empty query given!!");
         }
         $db = Application::singleton('DbCore');
-        $result = $db->sendQuery($q, get_called_class());
+        $class = get_called_class();
+        if(strpos($class, 'Controller') !== false) {
+            $class = Application::getCaller();
+        }
+        $result = $db->sendQuery($q, $class);
 
         return $result;
     }

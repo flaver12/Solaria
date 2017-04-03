@@ -25,4 +25,32 @@ class Topic extends BaseModel {
 
         return $result;
     }
+
+
+    //@AS_TODO: fix this shit!
+    public function getBreadcrum() {
+      $q = "SELECT topic.id as topic_id, topic.name as topic_name, category.name as category_name, category.id as category_id
+            FROM topic
+            JOIN category ON topic.category_id = category.id";
+
+      $res = self::send(array($q));
+      $res = $res->getFirst();
+
+      $res = array(
+        0 => array(
+          'name'  => $res->category_name,
+          'id'    => $res->category_id,
+          'link'  => 'forum'
+        ),
+        1 => array(
+          'name'  => $res->topic_name,
+          'id'    => $res->topic_id,
+          'link'  => '/view-topic/'.$res->topic_id
+        )
+
+      );
+
+      return $res;
+
+    }
 }
