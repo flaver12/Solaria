@@ -1,5 +1,8 @@
 <?php
- //generate by fm-cli
+namespace FM\App\controllers;
+
+use FM\Framework\controller\BaseController;
+
  class ForumController extends BaseController {
 
 	public function indexAction(){

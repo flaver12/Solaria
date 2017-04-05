@@ -1,5 +1,7 @@
 <?php
 
+namespace FM\Framework\url;
+
 class Request {
 
     public $url;
@@ -13,7 +15,7 @@ class Request {
     }
 
     public function getPost($value='') {
-        return ($value == '') ?  $_POST :  $_POST[$value]; 
+        return ($value == '') ?  $_POST :  $_POST[$value];
     }
 
 }

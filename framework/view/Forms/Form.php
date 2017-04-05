@@ -1,5 +1,10 @@
 <?php
 //basic form class
+
+namespace FM\Framework\view\Forms;
+
+use FM\Framework\url\Url;
+
 class Form {
 
     private $items = array();

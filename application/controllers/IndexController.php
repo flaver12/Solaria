@@ -1,5 +1,9 @@
 <?php
 
+namespace FM\App\controllers;
+
+use FM\Framework\controller\BaseController;
+
 class IndexController extends BaseController {
 
     public function indexAction() {

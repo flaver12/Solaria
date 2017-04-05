@@ -1,27 +1,17 @@
 <?php
 
-class Category extends BaseModel {
+namespace FM\App\models;
 
-    public $id;
-    public $name;
-    public $created;
-    public $enabled;
+/**
+ * @Entity @Table(name="category")
+ **/
+class Category {
 
-    public function getAllWithTopics() {
-        $result = array();
-        $cats = self::getAll()->getRows();
-        $i = 0;
-        foreach($cats as $cat) {
-            $topics = Topic::get('category_id = '.$cat->id)->getRows();
-            $result[$i] = array(
-                'name' => $cat->name,
-                'topics' => $topics
-            );
+    /** @Id @Column(type="integer") @GeneratedValue **/
+    protected $id;
 
-            $i ++;
-        }
+    /** @Column(type="string") **/
+    protected $name;
 
-        return $result;
-    }
-
-}
+    /** @Column(type="string") **/
+    protected $created;

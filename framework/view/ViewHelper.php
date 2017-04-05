@@ -1,5 +1,9 @@
 <?php
 
+namespace FM\Framework\view;
+
+use FM\Framework\url\Url;
+
 //basic view helper fncs!
 class ViewHelper {
 
@@ -20,6 +24,10 @@ class ViewHelper {
     }
     public function include_script($path) {
         echo '<script src="'.URL::getBaseURL().'/'.$path.'"></script>';
+    }
+
+    public function parserBBCode($code) {
+        echo Application::singleton('BBCodeParser')->parse($code);
     }
 
 }

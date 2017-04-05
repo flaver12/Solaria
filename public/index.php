@@ -1,4 +1,6 @@
 <?php
+use FM\Framework\Application;
+
 /*
 * Farming manager index class
 */

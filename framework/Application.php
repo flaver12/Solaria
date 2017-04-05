@@ -1,5 +1,11 @@
 <?php
 
+namespace FM\Framework;
+
+use \Doctrine\ORM\Tools\Setup;
+use \Doctrine\ORM\EntityManager;
+use FM\Framework\url\Url;
+
 class Application {
 
     private static $loadedClasses = array();
@@ -15,22 +21,41 @@ class Application {
         //load main conf
         $mainConf = parse_ini_file(APP_PATH."/config/main.ini", true);
 
+        //db
+        // Create a simple "default" Doctrine ORM configuration for Annotations
+        $isDevMode = true;
+        $config = Setup::createAnnotationMetadataConfiguration(array(APP_PATH."/application/models"), $isDevMode);
+
+        // database configuration parameters
+        $conn = array(
+          'driver'   => 'pdo_mysql',
+          'user'     => 'root',
+          'password' => '',
+          'dbname'   => 'fm',
+        );
+
+        // obtaining the entity manager
+        $entityManager = EntityManager::create($conn, $config);
+
         //Set url up
         $urlConfig = parse_ini_file(APP_PATH."/config/url.ini", true);
         URL::init($urlConfig);
 
         //set up databases
-        self::singleton('DbCore', array($mainConf['db']['host'],$mainConf['db']['user'], $mainConf['db']['password'], $mainConf['db']['dbname']));
+        //self::singleton('DbCore', array($mainConf['db']['host'],$mainConf['db']['user'], $mainConf['db']['password'], $mainConf['db']['dbname']));
 
         //Set template engine up!
-        Twig_Autoloader::register();
-        $loader = new Twig_Loader_Filesystem(APP_PATH.'/application/view');
-        $twig = new Twig_Environment($loader, array(
+        \Twig_Autoloader::register();
+        $loader = new \Twig_Loader_Filesystem(APP_PATH.'/application/view');
+        $twig = new \Twig_Environment($loader, array(
             'cache' => APP_PATH.'/'.$mainConf['view']['cacheDir'],
             'debug' => $mainConf['view']['debug'],
             'auto_reload ' => $mainConf['view']['auto_reload']
         ));
+
+        //save some data
         array_push(self::$loadedClasses, array('view' => $twig));
+        array_push(self::$loadedClasses, array('entityManager' => $entityManager));
 
         self::$mainConf = $mainConf;
     }

@@ -1,4 +1,8 @@
 <?php
+namespace FM\Framework\view\Forms\fields;
+
+use FM\Framework\view\Forms\fields\FieldInterface;
+
 class TextAreaField implements FieldInterface {
 
     private $params;

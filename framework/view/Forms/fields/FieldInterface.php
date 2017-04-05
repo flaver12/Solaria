@@ -1,4 +1,6 @@
 <?php
+namespace FM\Framework\view\Forms\fields;
+
 
 interface FieldInterface {
 

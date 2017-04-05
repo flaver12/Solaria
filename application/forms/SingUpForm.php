@@ -1,5 +1,11 @@
 <?php
 
+namespace FM\App\forms;
+
+use FM\Framework\view\Forms\Form;
+use FM\Framework\view\Forms\fields\InputField;
+use FM\Framework\view\Forms\fields\Button;
+
 class SingUpForm extends Form {
 
     public function __construct() {

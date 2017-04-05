@@ -1,4 +1,5 @@
 <?php
+namespace FM\Framework;
 
 class Session {
 

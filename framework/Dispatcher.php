@@ -1,4 +1,5 @@
 <?php
+namespace FM\Framework;
 
 class Dispatcher {
 
@@ -10,15 +11,18 @@ class Dispatcher {
         $this->currentController = str_replace('controller', '', strtolower($controller));
         $this->currentAction = str_replace('action', '', strtolower($action));
 
+        //add namespace
+        $controller = 'FM\App\controllers\\'.$controller;
+
         //prepare the vars
         if(!class_exists($controller)) {
-            throw new Exception("Class ".$controller. " does not exist!");
+            throw new \Exception("Class ".$controller. " does not exist!");
         }
 
         if(method_exists($controller, $action)) {
             call_user_func_array(array(new $controller, $action), $arguments);
         } else {
-            throw new Exception("Method ".$action. " does not exist!");
+            throw new \Exception("Method ".$action. " does not exist!");
         }
     }
 

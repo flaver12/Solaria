@@ -1,13 +1,15 @@
 {
     "autoload": {
-      "classmap": [
-        "framework/",
-        "application/"
-      ]
+      "psr-4": {
+        "FM\\Framework\\": "framework",
+        "FM\\App\\": "application"
+      }
     },
     "require": {
         "twig/twig": "1.31.0",
         "phpunit/phpunit": "5.5.*",
-        "golonka/bbcodeparser": "^2.2"
+        "golonka/bbcodeparser": "^2.2",
+        "doctrine/orm": "2.4.*",
+        "symfony/yaml": "2.*"
     }
 }

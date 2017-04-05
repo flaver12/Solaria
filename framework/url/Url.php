@@ -1,5 +1,10 @@
 <?php
 
+namespace FM\Framework\url;
+
+use FM\Framework\url\Request;
+use FM\Framework\Application;
+
 class URL {
 
     private static $urls = array();
@@ -18,7 +23,7 @@ class URL {
 
     public static function resolve($url) {
 
-        $dp = Application::singleton('Dispatcher');
+        $dp = Application::singleton('FM\Framework\Dispatcher');
 
         //if we have no url set it to root
         //and start the index controller
