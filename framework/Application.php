@@ -119,7 +119,7 @@ class Application {
     }
 
     public static function getCaller() {
-        return debug_backtrace()[2]['class'];
+        return get_called_class();
     }
 
 }

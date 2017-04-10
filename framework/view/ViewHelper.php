@@ -2,7 +2,8 @@
 
 namespace FM\Framework\view;
 
-use FM\Framework\url\Url;
+use FM\Framework\Url\Url;
+use FM\Framework\Application;
 
 //basic view helper fncs!
 class ViewHelper {
@@ -27,7 +28,7 @@ class ViewHelper {
     }
 
     public function parserBBCode($code) {
-        echo Application::singleton('BBCodeParser')->parse($code);
+        echo Application::singleton('FM\Framework\View\BBCodeParser')->parse($code);
     }
 
 }

@@ -4,7 +4,6 @@ namespace FM\App\controllers;
 use FM\Framework\controller\BaseController;
 use FM\App\forms\SingUpForm;
 use FM\App\models\User;
-use FM\Framework\Application;
 
 class SessionController extends BaseController {
 
@@ -18,9 +17,8 @@ class SessionController extends BaseController {
             $user->setUsername($username);
             $user->setPassword($password);
 
-            $entityManager = Application::singleton('entityManager');
-            $entityManager->persist($user);
-            $entityManager->flush();
+            //save user
+            $user->save($user);
 
         } else {
             $this->set('name', 'flaver');

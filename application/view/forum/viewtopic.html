@@ -5,15 +5,15 @@
                 <section class="category">
                 <div class="panel panel-default">
                   <div class="panel-body">
-                    {{ topic[0]['name'] }}
+                    {{ topic.getName() }}
                   </div>
                 </div>
                 <header class="row">
                     <div class="col-md-12">
                         <div class="list-group list-group-first">
-                        {% for i in topic[0]['posts'] %}
-                            {{ view.start_link('forum/view-post/'~i.id, 'list-group-item') }}
-                                <h4 class="list-group-item-heading">{{ i.title }}</h4>
+                        {% for i in topic.getPosts() %}
+                            {{ view.start_link('forum/view-post/'~i.getId(), 'list-group-item') }}
+                                <h4 class="list-group-item-heading">{{ i.getTitle() }}</h4>
                                 <p class="list-group-item-text"><ul class="list-inline">
                                       <li><b>Topics:</b> 12</li>
                                       <li><b>Post:</b> 43</li>

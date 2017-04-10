@@ -2,10 +2,12 @@
 
 namespace FM\App\models;
 
+use FM\Framework\model\BaseModel;
+
 /**
  * @Entity @Table(name="user")
  **/
-class User {
+class User extends BaseModel {
 
     /** @Id @Column(type="integer") @GeneratedValue **/
     protected $id;

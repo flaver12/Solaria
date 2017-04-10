@@ -5,13 +5,13 @@
                 <section class="category">
                 <div class="panel panel-default">
                   <div class="panel-body">
-                    {{ post.title }}
+                    {{ post.getTitle() }}
                   </div>
                 </div>
                 <header class="row">
                     <div class="col-md-12">
                         <div class="list-group list-group-first">
-                          {{ view.parserBBCode(post.content) }}
+                          {{ view.parserBBCode(post.getContent()) }}
                         </div>
                     </div>
                 </header>
