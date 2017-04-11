@@ -22,7 +22,7 @@
              {% endif %}
              {% if use.status is null %}
              <li>{{view.link_to('Register', 'sing-up')}}</li>
-             <li><a href="#">Login</a></li>
+             <li><a href="#">{{view.link_to('Login', 'sing-in')}}</a></li>
              {% endif %}
          </ul>
        </div><!--/.nav-collapse -->

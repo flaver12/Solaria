@@ -7,7 +7,7 @@ use FM\Framework\controller\BaseController;
 class IndexController extends BaseController {
 
     public function indexAction() {
-        $this->set('the', 'test!');
+        $this->view->set('the', 'test!');
     }
 
     public function testAction() {

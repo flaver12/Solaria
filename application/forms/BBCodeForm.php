@@ -8,11 +8,13 @@ use FM\Framework\view\Forms\fields\TextAreaField;
 
 class BBCodeForm extends Form {
 
-    public function __construct() {
+    public function __construct($url) {
         $this->setMethod('POST');
         $this->setFormClass('form-inline');
-        $this->setURL('forum/create-post');
+        $this->setId('responseForm');
+        $this->setURL($url);
         $this->addItem(new TextAreaField('content', array('id' => "editor")));
+        $this->addItem(new InputField('', 'topic_id', array('class' => 'bbcode-form-topic-id',  'type' => 'hidden', 'value' => '',)));
         $this->addItem(new Button('Sing In!'));
     }
 }

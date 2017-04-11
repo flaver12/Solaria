@@ -1,9 +1,11 @@
 <?php
 namespace FM\App\controllers;
 
-use FM\Framework\controller\BaseController;
-use FM\App\forms\SingUpForm;
-use FM\App\models\User;
+use FM\Framework\Controller\BaseController;
+use FM\App\Forms\SingUpForm;
+use FM\App\Forms\LoginForm;
+use FM\App\Models\User;
+use FM\Framework\Session;
 
 class SessionController extends BaseController {
 
@@ -21,9 +23,28 @@ class SessionController extends BaseController {
             $user->save($user);
 
         } else {
-            $this->set('name', 'flaver');
-            $this->set('singUpForm', new SingUpForm());
+            $this->view->set('singUpForm', new SingUpForm());
         }
+
+    }
+
+    public function loginUserAction() {
+
+      if ($this->request->isPost()) {
+
+          $username = $this->request->getPost('username');
+          $password = sha1($this->request->getPost('password'));
+
+          $user = User::findBy(array('username' => $username, 'password' => $password));
+
+          //AS_TODO: when user not found then handel that
+          if($user != array()) {
+            Session::set('user', $user);
+          }
+
+      } else {
+          $this->view->set('loginForm', new LoginForm());
+      }
 
     }
 

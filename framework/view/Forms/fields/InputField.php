@@ -17,7 +17,7 @@ class InputField implements FieldInterface {
 
     public function render() {
         //htmls stuff here
-        echo '<label>'.$this->labelName.'</label> <input name="'.$this->name.'" class="'.$this->params['class'].'" type="'.$this->params['type'].'" />';
+        echo '<label>'.$this->labelName.'</label> <input name="'.$this->name.'" class="'.$this->params['class'].'" type="'.$this->params['type'].'"value="'.$this->params['value'].'" />';
 
     }
 

@@ -9,11 +9,12 @@ class Form {
 
     private $items = array();
     private $formClass = '';
+    private $id = '';
     private $method = '';
     private $url = '';
 
     public function render() {
-        echo '<form class="'.$this->formClass.'" method="'.$this->method.'" action="'.URL::getBaseURL().'/'.$this->url.'">';
+        echo '<form class="'.$this->formClass.'" id="'. $this->id .'" method="'.$this->method.'" action="'.URL::getBaseURL().'/'.$this->url.'">';
         foreach ($this->items as $item) {
             echo '<div class="form-group">';
                 $item->render();
@@ -36,6 +37,10 @@ class Form {
 
     protected function setURL($url) {
         $this->url = $url;
+    }
+
+    protected function setId($id) {
+      $this->id = $id;
     }
 
 }
