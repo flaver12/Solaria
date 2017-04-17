@@ -23,7 +23,7 @@ class SessionController extends BaseController {
             $user->save($user);
 
         } else {
-            $this->view->set('singUpForm', new SingUpForm());
+            $this->set('singUpForm', new SingUpForm());
         }
 
     }
@@ -43,7 +43,7 @@ class SessionController extends BaseController {
           }
 
       } else {
-          $this->view->set('loginForm', new LoginForm());
+          $this->set('loginForm', new LoginForm());
       }
 
     }

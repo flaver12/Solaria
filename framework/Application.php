@@ -29,9 +29,9 @@ class Application {
         // database configuration parameters
         $conn = array(
           'driver'   => 'pdo_mysql',
-          'user'     => 'root',
-          'password' => '',
-          'dbname'   => 'fm',
+          'user'     => $mainConf['db']['username'],
+          'password' => $mainConf['db']['password'],
+          'dbname'   => $mainConf['db']['name'],
         );
 
         // obtaining the entity manager

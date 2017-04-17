@@ -14,6 +14,7 @@ class BaseModel {
     $entityManager = Application::singleton('entityManager');
     $entityManager->persist($obj);
     $entityManager->flush();
+    return $obj;
   }
 
   public static function findAll() {

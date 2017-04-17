@@ -2,7 +2,9 @@
 
 namespace FM\App\controllers;
 
-use FM\Framework\controller\BaseController;
+use FM\Framework\Controller\BaseController;
+use FM\Framework\Acl\Acl;
+use FM\App\Models\User;
 
 class IndexController extends BaseController {
 

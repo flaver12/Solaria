@@ -16,7 +16,10 @@ class Session {
     }
 
     public static function get($name) {
-        return $_SESSION['fm'][$name];
+        if(isset($_SESSION['fm'][$name]))
+            return $_SESSION['fm'][$name];
+        else
+            return false;
     }
 
 }

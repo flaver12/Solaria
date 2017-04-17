@@ -86,7 +86,8 @@ use FM\Framework\Session;
 
             //AS_TODO: Find out what this shit is!!!!
             $post->setUser(User::find(Session::get('user')[0]->getId()));
-            $post->save($post);
+            $post = $post->save($post);
+            $this->response->redirect('/forum/view-post/'.$post->getId());
 
             return;
         }

@@ -3,6 +3,7 @@
 namespace FM\App\models;
 
 use FM\Framework\model\BaseModel;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @Entity @Table(name="user")
@@ -24,8 +25,15 @@ class User extends BaseModel {
      */
     protected $posts = null;
 
+    /**
+     * One User has Many UserRole ids.
+     * @OneToMany(targetEntity="FM\App\Models\UserRole", mappedBy="user_id")
+     */
+    protected $userRoles = null;
+
     public function __construct() {
-      $this->posts = new ArrayCollection();
+      $this->posts      = new ArrayCollection();
+      $this->userRoles  = new ArrayCollection();
     }
 
     public function setUsername($username) {
@@ -38,6 +46,10 @@ class User extends BaseModel {
 
     public function getPosts() {
       return $this->posts;
+    }
+
+    public function getUserRole() {
+        return $this->userRoles;
     }
 
     public function getId() {

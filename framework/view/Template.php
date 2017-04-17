@@ -22,6 +22,7 @@ class Template {
             $this->set('url', URL::getBaseURL());
             $this->parentTemplates();
             echo $this->renderChildes();
+            return;
         } else {
             return;
         }
