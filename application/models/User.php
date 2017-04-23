@@ -56,5 +56,9 @@ class User extends BaseModel {
       return $this->id;
     }
 
+    public function getUsername() {
+        return $this->username;
+    }
+
 
 }

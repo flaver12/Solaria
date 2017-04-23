@@ -22,4 +22,11 @@ class Session {
             return false;
     }
 
+    public static function exist($name) {
+        if(isset($_SESSION['fm'][$name]))
+            return true;
+        else
+            return false;
+    }
+
 }

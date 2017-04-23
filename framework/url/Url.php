@@ -11,6 +11,7 @@ class URL {
     private static $currentController = '';
     private static $currentAction = '';
     private static $url = '';
+    private static $surl = '';
     private static $request = null;
 
     public static function init($config) {
@@ -54,6 +55,11 @@ class URL {
                 array_push($params, $uri[$i]);
             }
             self::$request->url = self::$url;
+            $surl = str_replace('/public', '', $_SERVER['REQUEST_URI']);
+            $surlArr = explode("/",$surl);
+            $surlArr = array_shift($surlArr);
+            $surl = implode('/', $surlArr);
+            self::$surl = $surl;
 
             if(strpos($action, '-') !== false) {
                  $action = lcfirst(str_replace('-', '', ucwords($action, '-')));
@@ -67,6 +73,10 @@ class URL {
 
     public static function getBaseURL() {
         return self::$url;
+    }
+
+    public static function getURL() {
+        return self::$surl;
     }
 
     public static function getRequest() {

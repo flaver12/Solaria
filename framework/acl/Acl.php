@@ -3,6 +3,7 @@
 namespace FM\Framework\Acl;
 
 use FM\Framework\Session;
+use FM\Framework\Application;
 
 class Acl {
 
@@ -10,25 +11,32 @@ class Acl {
     protected $user = null;
     protected $usedGroupes = array();
 
-    public function __construct($user) {
+    public function __construct($user = null) {
 
         if (isset($user)) {
-            $this->user = $userId;
-        } else if(isset(Session::get('user'))) {
-            $this->user = Session::get('user');
+            $this->user = $user;
+        } else if(Session::exist('user')) {
+            $this->user = Session::get('user')[0];
         } else {
             return false;
         }
 
-        $this->getRoles($user);
+        $this->setUpgetRoles($this->user);
     }
 
-    public function getRoles($user) {
-        $roles = $user->getUserRoles();
-
+    protected function setUpgetRoles($user) {
+        $roles = $user->getUserRole();
         foreach($roles as $role) {
-            array_push($this->usedGroupes, $role->getRole()->getName());
+            var_dump($role);
+            die;
+            array_push($this->roles, $role->getRole()->getName());
         }
+
+        //Application::refreshInstance($this);
+    }
+
+    public function getRole() {
+        return $this->roles;
     }
 
 }

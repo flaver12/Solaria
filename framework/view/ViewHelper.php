@@ -9,11 +9,11 @@ use FM\Framework\Application;
 class ViewHelper {
 
     public function link_to($name, $value = "", $class="", $id=""){
-        echo '<a href="'.URL::getBaseURL().'/'.$value.'" class="'.$class.'">'.$name.'</a>';
+        echo '<a href="'.URL::getURL().'/'.$value.'" class="'.$class.'">'.$name.'</a>';
     }
 
     public function start_link($value = "", $class="", $id="") {
-        echo '<a href="'.URL::getBaseURL().'/'.$value.'" class="'.$class.'">';
+        echo '<a href="'.URL::getURL().'/'.$value.'" class="'.$class.'">';
     }
 
     public function end_link() {

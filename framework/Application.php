@@ -5,6 +5,8 @@ namespace FM\Framework;
 use \Doctrine\ORM\Tools\Setup;
 use \Doctrine\ORM\EntityManager;
 use FM\Framework\url\Url;
+use ReflectionClass;
+use Exception;
 
 class Application {
 
@@ -41,6 +43,9 @@ class Application {
         $urlConfig = parse_ini_file(APP_PATH."/config/url.ini", true);
         URL::init($urlConfig);
 
+        //create acl instance
+        self::singleton('FM\Framework\Acl\Acl');
+
         //set up databases
         //self::singleton('DbCore', array($mainConf['db']['host'],$mainConf['db']['user'], $mainConf['db']['password'], $mainConf['db']['dbname']));
 
@@ -61,6 +66,8 @@ class Application {
     }
 
     public function run() {
+
+        //start the session
         Session::start();
 
         //just for phpunit
@@ -71,13 +78,13 @@ class Application {
     }
 
     public static function singleton($className, $params = array()) {
-
         $instance = array_column(self::$loadedClasses, $className);
 
         if($instance == array()) {
-            if($params == array()) {
+            if(empty($params)) {
                 $instance = new $className();
             } else {
+                //create with params
                 $class = new ReflectionClass($className);
                 $instance = $class->newInstanceArgs($params);
             }
@@ -92,15 +99,16 @@ class Application {
         return $instance;
     }
 
-    public static function newInstance($className, $params = array()) {
-        if($params == array()) {
-            $instance = new $className();
-        } else {
-            $class = new ReflectionClass($className);
-            $instance = $class->newInstanceArgs($params);
+    public static function refreshInstance($instance) {
+        if(self::$loadedClasses[get_class($instance)]) {
+            self::$loadedClasses[get_class($instance)] = $instance;
+            return;
+        } else if(strpos(get_class($instance), 'Acl') !== false) {
+            self::$loadedClasses['acl'] = $instance;
+            return;
         }
+        throw new Exception("Don't use refreshInstance to create a new instance, use singleton!");
 
-        return $instance;
     }
 
     public static function purgeCache() {

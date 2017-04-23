@@ -40,6 +40,7 @@ class SessionController extends BaseController {
           //AS_TODO: when user not found then handel that
           if($user != array()) {
             Session::set('user', $user);
+            $this->response->redirect('/');
           }
 
       } else {
