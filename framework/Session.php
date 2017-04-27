@@ -29,4 +29,11 @@ class Session {
             return false;
     }
 
+    public static function delete($name) {
+        if(isset($_SESSION['fm'][$name]))
+            unset($_SESSION['fm'][$name]);
+        else
+            return false;
+    }
+
 }

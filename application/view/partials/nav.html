@@ -16,11 +16,11 @@
            <li><a href="#contact">Contact</a></li>
          </ul>
          <ul class="nav navbar-nav navbar-right">
-             {% if use.status is not null %}
+             {% if user is not null %}
              <li><a href="#">Welcome, USERNAME!</a></li>
-             <li><a href="#about">Logout</a></li>
+             <li>{{view.link_to('Logout', 'sing-out')}}</li>
              {% endif %}
-             {% if use.status is null %}
+             {% if user is null %}
              <li>{{view.link_to('Register', 'sing-up')}}</li>
              <li><a href="#">{{view.link_to('Login', 'sing-in')}}</a></li>
              {% endif %}

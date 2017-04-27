@@ -5,6 +5,8 @@ namespace FM\Framework;
 use \Doctrine\ORM\Tools\Setup;
 use \Doctrine\ORM\EntityManager;
 use FM\Framework\url\Url;
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
 use ReflectionClass;
 use Exception;
 
@@ -22,6 +24,7 @@ class Application {
 
         //load main conf
         $mainConf = parse_ini_file(APP_PATH."/config/main.ini", true);
+        self::$mainConf = $mainConf;
 
         //db
         // Create a simple "default" Doctrine ORM configuration for Annotations
@@ -33,7 +36,7 @@ class Application {
           'driver'   => 'pdo_mysql',
           'user'     => $mainConf['db']['username'],
           'password' => $mainConf['db']['password'],
-          'dbname'   => $mainConf['db']['name'],
+          'dbname'   => $mainConf['db']['dbname'],
         );
 
         // obtaining the entity manager
@@ -46,8 +49,9 @@ class Application {
         //create acl instance
         self::singleton('FM\Framework\Acl\Acl');
 
-        //set up databases
-        //self::singleton('DbCore', array($mainConf['db']['host'],$mainConf['db']['user'], $mainConf['db']['password'], $mainConf['db']['dbname']));
+        // create a log channel
+        $log = new Logger('App');
+        $log->pushHandler(new StreamHandler(APP_PATH.'/log/app.log', Logger::WARNING));
 
         //Set template engine up!
         \Twig_Autoloader::register();
@@ -61,8 +65,7 @@ class Application {
         //save some data
         array_push(self::$loadedClasses, array('view' => $twig));
         array_push(self::$loadedClasses, array('entityManager' => $entityManager));
-
-        self::$mainConf = $mainConf;
+        array_push(self::$loadedClasses, array('logger' => $log));
     }
 
     public function run() {
@@ -128,6 +131,10 @@ class Application {
 
     public static function getCaller() {
         return get_called_class();
+    }
+
+    public static function getConfig() {
+        return self::$mainConf;
     }
 
 }

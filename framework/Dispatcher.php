@@ -1,6 +1,10 @@
 <?php
 namespace FM\Framework;
 
+use FM\Framework\Acl\Acl;
+use FM\App\Models\Resource;
+use Exception;
+
 class Dispatcher {
 
 
@@ -11,6 +15,8 @@ class Dispatcher {
         $this->currentController = str_replace('controller', '', strtolower($controller));
         $this->currentAction = str_replace('action', '', strtolower($action));
 
+        //resourceName
+        $resourceName = $controller;
         //add namespace
         $controller = 'FM\App\controllers\\'.$controller;
 
@@ -20,9 +26,22 @@ class Dispatcher {
         }
 
         if(method_exists($controller, $action)) {
-            call_user_func_array(array(new $controller, $action), $arguments);
+            //do the acl check
+            $acl = new Acl(Session::get('user'));
+            $result = Resource::findBy(array('name' => $resourceName.'.'.$action));
+            if(empty($result)) {
+                call_user_func_array(array(new $controller, $action), $arguments);
+            } else {
+                if($acl->hasPermission($result)) {
+                    call_user_func_array(array(new $controller, $action), $arguments);
+                } else {
+                    throw new Exception("NO ERROR CONTROLLER DEFINED!");
+
+                }
+            }
+
         } else {
-            throw new \Exception("Method ".$action. " does not exist!");
+            throw new Exception("Method ".$action. " does not exist!");
         }
     }
 

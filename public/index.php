@@ -5,6 +5,7 @@ use FM\Framework\Application;
 * Farming manager index class
 */
 define("APP_PATH", realpath('..'));
+//error_reporting(0);
 
 $_GET['_url'] = isset($_GET['_url']) ? $_GET['_url']: '/';
 

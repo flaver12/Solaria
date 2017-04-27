@@ -8,6 +8,7 @@ use FM\App\Models\Topic;
 use FM\App\Models\Post;
 use FM\App\Models\User;
 use FM\Framework\Session;
+use FM\App\Models\Resource;
 
  class ForumController extends BaseController {
 
@@ -17,25 +18,30 @@ use FM\Framework\Session;
 
     public function viewTopicAction($id) {
 
-        //load topic
-        $topic = Topic::find($id);
+        //aclCheck
+        if($this->aclCheck('viewTopicAction', $id)) {
+            //load topic
+            $topic = Topic::find($id);
 
-        //created breadcrumbs
-        $breadcrumbs = array(
-          0 => array(
-              'name' => $topic->getCategory()->getName(),
-              'link' => 'forum'
-          ),
+            //created breadcrumbs
+            $breadcrumbs = array(
+              0 => array(
+                  'name' => $topic->getCategory()->getName(),
+                  'link' => 'forum'
+              ),
 
-          1 => array(
-              'name' => $topic->getName(),
-              'link' => 'forum/view-topic/'.$topic->getId()
-          )
+              1 => array(
+                  'name' => $topic->getName(),
+                  'link' => 'forum/view-topic/'.$topic->getId()
+              )
 
-        );
-        $this->set('breadcrumb', $breadcrumbs);
-        $this->set('topic', $topic);
-        $this->set('bbCodeForm', new BBCodeForm('forum/create-post'));
+            );
+            $this->set('breadcrumb', $breadcrumbs);
+            $this->set('topic', $topic);
+            $this->set('bbCodeForm', new BBCodeForm('forum/create-post'));
+        } else {
+            $this->response->redirect('forum');
+        }
     }
 
     public function viewPostAction($id) {
@@ -85,9 +91,9 @@ use FM\Framework\Session;
             $post->setTopic(Topic::find($this->request->getPost('topic_id')));
 
             //AS_TODO: Find out what this shit is!!!!
-            $post->setUser(User::find(Session::get('user')[0]->getId()));
+            $post->setUser(User::find(Session::get('user')->getId()));
             $post = $post->save($post);
-            $this->response->redirect('/forum/view-post/'.$post->getId());
+            $this->response->redirect('forum/view-post/'.$post->getId());
 
             return;
         }
@@ -103,13 +109,27 @@ use FM\Framework\Session;
             $post->setTopic(Topic::find($this->request->getPost('topic_id')));
 
             //AS_TODO: Find out what this shit is!!!!
-            $post->setUser(User::find(Session::get('user')[0]->getId()));
+            $post->setUser(User::find(Session::get('user')->getId()));
             $post->setResponse(Post::find($this->request->getPost('post_id')));
             $post->save($post);
 
-            $this->response->redirect('/forum/view-post/'.$this->request->getPost('post_id'));
+            $this->response->redirect('forum/view-post/'.$this->request->getPost('post_id'));
             return;
         }
+    }
+
+    protected function aclCheck($name, $id) {
+        $result = Resource::findBy(array('name' => $name.'.'.$id));
+        if(empty($result)) {
+            return true;
+        } else {
+            if($this->acl->hasPermission($result)) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
     }
 
 

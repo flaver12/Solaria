@@ -4,12 +4,12 @@ namespace FM\App\controllers;
 
 use FM\Framework\Controller\BaseController;
 use FM\App\Models\User;
+        use FM\App\Models\Resource;
 
 class IndexController extends BaseController {
 
     public function indexAction() {
         $this->set('the', 'test!');
-        //var_dump($this->acl->getRole());
     }
 
     public function testAction() {

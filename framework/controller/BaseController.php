@@ -16,12 +16,15 @@ class BaseController {
     protected $acl;
 
     public function __construct() {
+        Application::singleton('logger')->warning('base controller loading');
         $this->request = URL::getRequest();
         $this->view = Application::singleton('FM\Framework\View\Template');
         $this->response = Application::singleton('FM\Framework\Url\Response');
         if(Session::exist('user')) {
             $this->set('user', Session::get('user'));
-            $this->acl = new Acl(Session::get('user')[0]);
+            $this->acl = new Acl(Session::get('user'));
+        } else {
+            $this->acl = new Acl();
         }
     }
 
