@@ -27,9 +27,16 @@ class Role extends BaseModel {
      */
     protected $rolePermission= null;
 
+    /**
+     * One Role has Many UserRole.
+     * @OneToMany(targetEntity="FM\App\Models\ResourceRole", mappedBy="role_id")
+     */
+    protected $resourceRole= null;
+
     public function __construct() {
         $this->userRoles  = new ArrayCollection();
         $this->rolePermission  = new ArrayCollection();
+        $this->resourceRole  = new ArrayCollection();
     }
 
     public function getId() {
@@ -46,5 +53,9 @@ class Role extends BaseModel {
 
     public function getRolePermission() {
         return $this->rolePermission;
+    }
+
+    public function getResourceRole() {
+        return $this->resourceRole;
     }
 }

@@ -9,17 +9,17 @@
                 <section class="category">
             {% endif %}
                 <div class="panel panel-default">
-                  <div class="panel-body">
+                  <div class="panel-body topic_name">
                     {{ i.getName() }}
                   </div>
                 </div>
                 <header class="row">
                     <div class="col-md-12">
                         <div class="list-group list-group-first">
-                        {% for j in i.getTopics() %}
+                        {% for j in topics[i.getId()]%}
                             {% if view.checkPermission('viewTopicAction', j.getId(), user) == true %}
-                                {{ view.start_link('forum/view-topic/'~j.getId(), 'list-group-item') }}
-                                    <h4 class="list-group-item-heading">{{ j.getName() }}</h4>
+                                {{ view.start_link('forum/view-topic/'~j.getId(), 'list-group-item post_pre') }}
+                                    <h4 class="list-group-item-heading post_pre_title">{{ j.getName() }}</h4>
                                     <p class="list-group-item-text"><ul class="list-inline">
                                           <li><b>Topics:</b> 12</li>
                                           <li><b>Post:</b> 43</li>

@@ -29,6 +29,10 @@ class ViewHelper {
         echo '<script src="'.URL::getUrlPath().'/'.$path.'"></script>';
     }
 
+    public function include_img($path) {
+        echo '<img src="'.URL::getUrlPath().'/'.$path.'" class="img-responsive center-block" />';
+    }
+
     public function parserBBCode($code) {
         echo Application::singleton('FM\Framework\View\BBCodeParser')->parse($code);
     }
@@ -45,6 +49,11 @@ class ViewHelper {
                 return false;
             }
         }
+    }
+
+    public function isAdmin($user) {
+        $acl = new Acl($user);
+        return $acl-isAdmin();
     }
 
 }

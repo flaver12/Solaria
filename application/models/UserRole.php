@@ -48,4 +48,12 @@ class UserRole extends BaseModel {
      public function getRoleId() {
          return $this->role_id;
      }
+
+     public function setUser($user) {
+         $this->user = $user;
+     }
+
+     public function setRole($role) {
+         $this->role = $role;
+     }
 }

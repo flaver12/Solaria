@@ -4,8 +4,10 @@ namespace FM\Framework\Acl;
 
 use FM\Framework\Session;
 use FM\Framework\Application;
+
 use FM\App\Models\User;
 use FM\App\Models\Role;
+use FM\App\Models\UserRole;
 
 class Acl {
 
@@ -38,7 +40,7 @@ class Acl {
     }
 
     protected function setUpgetRoles($user) {
-        $roles = $user->getUserRole();
+        $roles = UserRole::findBy(array('user_id' => $user->getId()));;
         foreach($roles as $role) {
             foreach ($role->getRole()->getRolePermission() as $rolePermission) {
                 $this->roles[$role->getRole()->getName()][$rolePermission->getPermission()->getName()] = self::ALLOW;
@@ -79,6 +81,30 @@ class Acl {
             }
         }
         return false;
+    }
+
+    public function hasNeededRole($result) {
+        $hasPermission = false;
+        foreach ($result as $resource) {
+            $resourceRoles = $resource->getResourceRole();
+
+            $permission = $resource->getPermission();
+            $neddedPermission = $permission->getName();
+
+            foreach ($resourceRoles as $resourceRole) {
+                $name = $resourceRole->getRole()->getName();
+
+                if(isset($this->getRole()[$name])) {
+                    foreach ($this->getRole()[$name] as $permission => $value) {
+                        if($permission == $neddedPermission && $value == self::ALLOW) {
+                            $hasPermission = true;;
+                        }
+                    }
+                }
+            }
+        }
+
+        return $hasPermission;
     }
 
 }

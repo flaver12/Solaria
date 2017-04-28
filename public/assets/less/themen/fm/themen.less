@@ -4,7 +4,8 @@
 
 //misc
 body {
-    background: @bgcolor;
+    background: @bgcolor !important;
+    color: @colDefault;
 }
 
 .right {
@@ -18,6 +19,7 @@ body {
 }
 
 //NAVBAR!
+
 .navbar{
     min-height:  33px !important;
     margin-bottom: 0;
@@ -30,6 +32,13 @@ body {
             padding-top: 6px !important;
             padding-bottom: 0px !important;
             height: 33px;
+            background-color: #272F38;
+            margin-left: 5px;
+            margin-right: 5px;
+
+            .active {
+                background-color: #465463 !important;
+            }
         }
     }
 }
@@ -42,7 +51,7 @@ body {
 
 //header
 #header {
-    background: #333;
+    //background: #272F38;
     color: white;
     padding-bottom: 10px;
     margin-bottom: 15px;

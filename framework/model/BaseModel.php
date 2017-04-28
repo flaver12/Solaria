@@ -17,6 +17,13 @@ class BaseModel {
     return $obj;
   }
 
+  public function delete($obj) {
+    $entityManager = Application::singleton('entityManager');
+    $entityManager->remove($obj);
+    $entityManager->flush();
+    return $obj;
+  }
+
   public static function findAll() {
     return self::getRepo()->findAll();
   }

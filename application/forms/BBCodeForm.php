@@ -10,7 +10,7 @@ class BBCodeForm extends Form {
 
     public function __construct($url) {
         $this->setMethod('POST');
-        $this->setFormClass('form-inline');
+        $this->setFormClass('.form-inline .bbcodeColor');
         $this->setId('responseForm');
         $this->setURL($url);
         $this->addItem(new TextAreaField('content', array('id' => "editor")));

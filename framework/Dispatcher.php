@@ -27,16 +27,27 @@ class Dispatcher {
 
         if(method_exists($controller, $action)) {
             //do the acl check
-            $acl = new Acl(Session::get('user'));
-            $result = Resource::findBy(array('name' => $resourceName.'.'.$action));
-            if(empty($result)) {
+            $acl            = new Acl(Session::get('user'));
+            $result         = Resource::findBy(array('name' => $resourceName.'.'.$action));
+            $resultStart    = Resource::findBy(array('name' => $resourceName.'.*'));
+
+            if(empty($result) && empty($resultStart)) {
                 call_user_func_array(array(new $controller, $action), $arguments);
             } else {
-                if($acl->hasPermission($result)) {
-                    call_user_func_array(array(new $controller, $action), $arguments);
-                } else {
-                    throw new Exception("NO ERROR CONTROLLER DEFINED!");
+                if(empty($result) && !empty($resultStart)) {
+                    if($acl->hasNeededRole($resultStart)) {
+                        call_user_func_array(array(new $controller, $action), $arguments);
+                    } else {
+                        throw new Exception("NO ERROR CONTROLLER DEFINED!");
 
+                    }
+                } else {
+                    if($acl->hasPermission($result)) {
+                        call_user_func_array(array(new $controller, $action), $arguments);
+                    } else {
+                        throw new Exception("NO ERROR CONTROLLER DEFINED!");
+
+                    }
                 }
             }
 

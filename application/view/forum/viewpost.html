@@ -4,24 +4,31 @@
     <article class="overview">
                 <section class="category">
                 <div class="panel panel-default">
-                  <div class="panel-body">
+                  <div class="panel-body topic_name">
                     {{ post.getTitle() }}
                   </div>
                 </div>
                 <header class="row">
-                    <div class="col-md-12">
-                        <div class="list-group list-group-first">
+                    <div class="col-md-2 user-row">
+                        <img src="http://lorempixel.com/output/animals-q-c-128-128-1.jpg" alt="userPic" class="img-responsive center-block" />
+                    </div>
+                    <div class="col-md-10">
+                        <div class="list-group list-group-first post_body">
                           {{ view.parserBBCode(post.getContent()) }}
+                          <div class="post-edit-bar"><span class="glyphicon glyphicon glyphicon-pencil" aria-hidden="true"></span> Bearbeiten</div>
                         </div>
                     </div>
                 </header>
             </section>
             <hr />
             {% for i in response %}
-            <section class="category">>
-            <header class="row">
-                <div class="col-md-12">
-                    <div class="list-group list-group-first">
+            <section class="category">
+            <header class="row post-response">
+                <div class="col-md-2 user-row">
+                    <img src="http://lorempixel.com/output/animals-q-c-128-128-1.jpg" alt="userPic" class="img-responsive center-block" />
+                </div>
+                <div class="col-md-10">
+                    <div class="list-group list-group-first post_body">
                       {{ view.parserBBCode(i.getContent()) }}
                     </div>
                 </div>
@@ -46,6 +53,12 @@
                     .attr("value", {{ post.getId() }})
                     .appendTo("#responseForm");
                   $('.bbcode-form-topic-id').val({{ topic_id }});
+                  $('.wysibb').attr('style', 'color: black;');
+                  $( ".post_body" ).hover(function() {
+                      $('.post-edit-bar').attr('style', 'display: block;');
+                  }, function() {
+                       $('.post-edit-bar').attr('style', 'display: none;');
+                  });
               })
           </script>
           {{ bbCodeForm.render() }}

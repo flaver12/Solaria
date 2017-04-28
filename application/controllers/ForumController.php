@@ -13,8 +13,21 @@ use FM\App\Models\Resource;
  class ForumController extends BaseController {
 
   	public function indexAction(){
-          $this->set('categories', Category::findAll());
-      }
+        $catgeories = Category::findAll();
+        $topics = array();
+        foreach ($catgeories as $catgeory) {
+            $topic = Topic::findBy(array('category_id' => $catgeory->getId()));
+
+            $i = 0;
+            foreach ($topic as $topic) {
+                $topics[$catgeory->getId()][$i] = $topic;
+                $i ++;
+            }
+        }
+
+        $this->set('categories', $catgeories);
+        $this->set('topics', $topics);
+    }
 
     public function viewTopicAction($id) {
 
@@ -22,6 +35,9 @@ use FM\App\Models\Resource;
         if($this->aclCheck('viewTopicAction', $id)) {
             //load topic
             $topic = Topic::find($id);
+
+            //load posts
+            $posts = Post::findBy(array('topic_id' => $topic->getId()));
 
             //created breadcrumbs
             $breadcrumbs = array(
@@ -38,6 +54,7 @@ use FM\App\Models\Resource;
             );
             $this->set('breadcrumb', $breadcrumbs);
             $this->set('topic', $topic);
+            $this->set('posts', $posts);
             $this->set('bbCodeForm', new BBCodeForm('forum/create-post'));
         } else {
             $this->response->redirect('forum');

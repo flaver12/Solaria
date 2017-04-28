@@ -4,6 +4,7 @@ namespace FM\Framework\view;
 
 use FM\Framework\Application;
 use FM\Framework\url\Url;
+use Exception;
 
 class Template {
 
