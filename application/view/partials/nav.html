@@ -21,7 +21,7 @@
          </ul>
          <ul class="nav navbar-nav navbar-right">
              {% if user is not null %}
-             <li><a href="#">Welcome, USERNAME!</a></li>
+             <li> {{ view.link_to('Willkommen, '~user.getUsername(), 'profile/'~user.getId()) }}</li>
              <li>{{view.link_to('Logout', 'sing-out')}}</li>
              {% endif %}
              {% if user is null %}

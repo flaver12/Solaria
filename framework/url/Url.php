@@ -47,7 +47,11 @@ class URL {
                     self::resolveWithParams(ucwords($settings['controller']).'Controller', $action, $uri);
                 }
                 if($urlName == $name) {
-                    $dp->buildAndCallController(ucwords($settings['controller']).'Controller', $settings['action']."Action");
+                    $params = array();
+                    for ($i=2; $i < (count($uri)); $i++) {
+                        array_push($params, $uri[$i]);
+                    }
+                    $dp->buildAndCallController(ucwords($settings['controller']).'Controller', $settings['action']."Action", $params);
                     return;
                 }
             }

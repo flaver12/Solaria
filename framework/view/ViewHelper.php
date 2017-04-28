@@ -6,6 +6,7 @@ use FM\Framework\Url\Url;
 use FM\Framework\Application;
 use FM\Framework\Acl\Acl;
 use FM\App\Models\Resource;
+use FM\App\Models\Post;
 
 //basic view helper fncs!
 class ViewHelper {
@@ -54,6 +55,10 @@ class ViewHelper {
     public function isAdmin($user) {
         $acl = new Acl($user);
         return $acl-isAdmin();
+    }
+
+    public function countUserPosts($userId) {
+        return count(Post::findBy(array('user_id' => $userId)));
     }
 
 }

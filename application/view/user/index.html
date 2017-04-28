@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <img src="http://lorempixel.com/output/animals-q-c-128-128-1.jpg" alt="userPic" class="img-responsive" />
+            {{ profile_user.getUsername() }} <span class="label label-success">Online</span>
+        </div>
+    </div>
+{% endblock %}

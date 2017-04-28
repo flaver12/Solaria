@@ -11,6 +11,8 @@
                 <header class="row">
                     <div class="col-md-2 user-row">
                         <img src="http://lorempixel.com/output/animals-q-c-128-128-1.jpg" alt="userPic" class="img-responsive center-block" />
+                        <div class="post-username">{{ post.getUser().getUsername() }} <span class="label label-success">Online</span></div>
+                        <div class="post-numbers">Beiträge {{ view.countUserPosts(post.getUser().getId()) }}</div>
                     </div>
                     <div class="col-md-10">
                         <div class="list-group list-group-first post_body">
@@ -26,6 +28,8 @@
             <header class="row post-response">
                 <div class="col-md-2 user-row">
                     <img src="http://lorempixel.com/output/animals-q-c-128-128-1.jpg" alt="userPic" class="img-responsive center-block" />
+                    <div class="post-username">{{ i.getUser().getUsername() }} <span class="label label-default">Offline</span></div>
+                    <div class="post-numbers">Beiträge {{ view.countUserPosts(i.getUser().getId()) }}</div>
                 </div>
                 <div class="col-md-10">
                     <div class="list-group list-group-first post_body">
@@ -54,11 +58,6 @@
                     .appendTo("#responseForm");
                   $('.bbcode-form-topic-id').val({{ topic_id }});
                   $('.wysibb').attr('style', 'color: black;');
-                  $( ".post_body" ).hover(function() {
-                      $('.post-edit-bar').attr('style', 'display: block;');
-                  }, function() {
-                       $('.post-edit-bar').attr('style', 'display: none;');
-                  });
               })
           </script>
           {{ bbCodeForm.render() }}
