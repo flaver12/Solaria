@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <article class="overview">
+                <section class="category">
+                <div class="panel panel-default">
+                  <div class="panel-body topic_name">
+                    {{ topic.getName() }}
+                    {% set topicId = topic.getId() %}
+                  </div>
+                </div>
+                <header class="row">
+                    <div class="col-md-12">
+                        <div class="list-group list-group-first">
+                        {% for i in posts %}
+                            {% if i.getPostId() == NULL %}
+                              {{ view.start_link('forum/view-post/'~i.getId(), 'list-group-item post_pre') }}
+                                  <h4 class="list-group-item-heading post_pre_title">{{ i.getTitle() }}</h4>
+                                  <p class="list-group-item-text"><ul class="list-inline">
+                                        <li><b>Topics:</b> 12</li>
+                                        <li><b>Post:</b> 43</li>
+                                        <li><b>Latest Post:</b> xxxxx</li>
+                                      </ul>
+                                  </p>
+                                {{ view.end_link() }}
+                              {% endif %}
+                        {% endfor %}
+                        </div>
+                    </div>
+                </header>
+            </section>
+    </article>
+    {% if user %}
+      <section class="create-post">
+          <script>
+              var wbbOpt = {
+                  buttons: "bold,italic,underline,strike,sup,sub,|,img,video,link,|,bullist,numlist,|,fontcolor,fontsize,fontfamily,|, justifyleft, justifycenter,justifyright,|, quote,code,table,removeFormat",
+                  smileList: [
+                      {title:CURLANG.sm1, img: '<img src="{{ url }}/img/smiles/sm1.png" class="sm">', bbcode:":)"},
+                      {title:CURLANG.sm8 ,img: '<img src="{{ url }}/img/smiles/sm8.png" class="sm">', bbcode:":("}
+                  ]
+              }
+              $(function() {
+                  $("#editor").wysibb(wbbOpt);
+                  $('.bbcode-form-topic-id').val({{ topicId }});
+                  $('.wysibb').attr('style', 'color: black;');
+              })
+          </script>
+          {{ bbCodeForm.render() }}
+      </section>
+    {% endif %}
+{% endblock %}
