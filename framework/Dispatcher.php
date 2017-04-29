@@ -18,7 +18,7 @@ class Dispatcher {
         //resourceName
         $resourceName = $controller;
         //add namespace
-        $controller = 'FM\App\controllers\\'.$controller;
+        $controller = 'FM\App\Controllers\\'.$controller;
 
         //prepare the vars
         if(!class_exists($controller)) {
