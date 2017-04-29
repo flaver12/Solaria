@@ -46,9 +46,6 @@ class Application {
         $urlConfig = parse_ini_file(APP_PATH."/config/url.ini", true);
         URL::init($urlConfig);
 
-        //create acl instance
-        self::singleton('FM\Framework\Acl\Acl');
-
         // create a log channel
         $log = new Logger('App');
         $log->pushHandler(new StreamHandler(APP_PATH.'/log/app.log', Logger::WARNING));
