@@ -1,8 +1,8 @@
 {
     "autoload": {
       "psr-4": {
-        "FM\\Framework\\": "framework",
-        "FM\\App\\": "application"
+        "FM\\Framework\\": "Framework",
+        "FM\\App\\": "Application"
       }
     },
     "require": {
