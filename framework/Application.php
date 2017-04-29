@@ -29,7 +29,7 @@ class Application {
         //db
         // Create a simple "default" Doctrine ORM configuration for Annotations
         $isDevMode = true;
-        $config = Setup::createAnnotationMetadataConfiguration(array(APP_PATH."/application/Models"), $isDevMode);
+        $config = Setup::createAnnotationMetadataConfiguration(array(APP_PATH."/Application/Models"), $isDevMode);
 
         // database configuration parameters
         $conn = array(
@@ -52,7 +52,7 @@ class Application {
 
         //Set template engine up!
         \Twig_Autoloader::register();
-        $loader = new \Twig_Loader_Filesystem(APP_PATH.'/application/View');
+        $loader = new \Twig_Loader_Filesystem(APP_PATH.'/Application/View');
         $twig = new \Twig_Environment($loader, array(
             'cache' => APP_PATH.'/'.$mainConf['view']['cacheDir'],
             'debug' => $mainConf['view']['debug'],
