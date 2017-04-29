@@ -1,6 +1,6 @@
 <?php
 
-namespace FM\Framework\view;
+namespace FM\Framework\View;
 
 use FM\Framework\Application;
 use FM\Framework\Url\Url;

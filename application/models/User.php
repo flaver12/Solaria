@@ -1,8 +1,8 @@
 <?php
 
-namespace FM\App\models;
+namespace FM\App\Models;
 
-use FM\Framework\model\BaseModel;
+use FM\Framework\Model\BaseModel;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**

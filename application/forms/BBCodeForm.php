@@ -1,10 +1,10 @@
 <?php
 namespace FM\App\forms;
 
-use FM\Framework\view\Forms\Form;
-use FM\Framework\view\Forms\fields\InputField;
-use FM\Framework\view\Forms\fields\Button;
-use FM\Framework\view\Forms\fields\TextAreaField;
+use FM\Framework\View\Forms\Form;
+use FM\Framework\View\Forms\Fields\InputField;
+use FM\Framework\View\Forms\Fields\Button;
+use FM\Framework\View\Forms\Fields\TextAreaField;
 
 class BBCodeForm extends Form {
 

@@ -22,8 +22,6 @@ class Acl {
 
         if (isset($user)) {
             $this->user = $user;
-        } else if(Session::exist('user')) {
-            $this->user = Session::get('user');
         } else {
             $this->user = null;
             return false;

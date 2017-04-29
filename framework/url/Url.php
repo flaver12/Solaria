@@ -48,7 +48,7 @@ class Url {
                 }
                 if($urlName == $name) {
                     $params = array();
-                    for ($i=2; $i < (count($uri)); $i++) {
+                    for ($i=1; $i < (count($uri)); $i++) {
                         array_push($params, $uri[$i]);
                     }
                     $dp->buildAndCallController(ucwords($settings['controller']).'Controller', $settings['action']."Action", $params);
@@ -56,8 +56,12 @@ class Url {
                 }
             }
 
-            $controller = ucwords($uri[1]).'Controller';
-            $action = (isset($uri[2]) && $uri[2] != '' ) ? $uri[2]."Action" : 'indexAction';
+            if($uri[0] == "") {
+                $uri = array_splice($uri, 1);
+            }
+
+            $controller = ucwords($uri[0]).'Controller';
+            $action = (isset($uri[1]) && $uri[1] != '' ) ? $uri[1]."Action" : 'indexAction';
             self::resolveWithParams($controller, $action, $uri);
 
 
@@ -69,7 +73,7 @@ class Url {
         $dp = Application::singleton('FM\Framework\Dispatcher');
         $params = array();
 
-        for ($i=3; $i < (count($uri)); $i++) {
+        for ($i=2; $i < (count($uri)); $i++) {
             array_push($params, $uri[$i]);
         }
         self::$request->url = self::$url;

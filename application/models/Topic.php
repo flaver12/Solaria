@@ -23,14 +23,14 @@ class Topic extends BaseModel {
 
  /**
   * Many Topics have One Category.
-  * @ManyToOne(targetEntity="FM\App\models\Category")
+  * @ManyToOne(targetEntity="FM\App\Models\Category")
   * @JoinColumn(name="category_id", referencedColumnName="id")
   */
   protected $category;
 
   /**
    * One Topic has Many Posts.
-   * @OneToMany(targetEntity="FM\App\models\Post", mappedBy="topic_id")
+   * @OneToMany(targetEntity="FM\App\Models\Post", mappedBy="topic_id")
    */
   protected $posts = null;
 
