@@ -3,7 +3,7 @@
 namespace FM\Framework\view;
 
 use FM\Framework\Application;
-use FM\Framework\url\Url;
+use FM\Framework\Url\Url;
 use Exception;
 
 class Template {
@@ -19,7 +19,7 @@ class Template {
 
     public function render() {
         if($this->renderView) {
-            $this->set('view', Application::singleton('FM\Framework\view\ViewHelper'));
+            $this->set('view', Application::singleton('FM\Framework\View\ViewHelper'));
             $this->set('url', URL::getBaseURL());
             $this->parentTemplates();
             echo $this->renderChildes();

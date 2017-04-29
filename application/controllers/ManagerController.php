@@ -1,7 +1,7 @@
 <?php
-namespace FM\App\controllers;
+namespace FM\App\Controllers;
 
-use FM\Framework\controller\BaseController;
+use FM\Framework\Controller\BaseController;
 
  class ManagerController extends BaseController {
 

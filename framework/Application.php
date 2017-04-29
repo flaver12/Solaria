@@ -4,7 +4,7 @@ namespace FM\Framework;
 
 use \Doctrine\ORM\Tools\Setup;
 use \Doctrine\ORM\EntityManager;
-use FM\Framework\url\Url;
+use FM\Framework\Url\Url;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 use ReflectionClass;
@@ -29,7 +29,7 @@ class Application {
         //db
         // Create a simple "default" Doctrine ORM configuration for Annotations
         $isDevMode = true;
-        $config = Setup::createAnnotationMetadataConfiguration(array(APP_PATH."/application/models"), $isDevMode);
+        $config = Setup::createAnnotationMetadataConfiguration(array(APP_PATH."/application/Models"), $isDevMode);
 
         // database configuration parameters
         $conn = array(
@@ -55,7 +55,7 @@ class Application {
 
         //Set template engine up!
         \Twig_Autoloader::register();
-        $loader = new \Twig_Loader_Filesystem(APP_PATH.'/application/view');
+        $loader = new \Twig_Loader_Filesystem(APP_PATH.'/application/View');
         $twig = new \Twig_Environment($loader, array(
             'cache' => APP_PATH.'/'.$mainConf['view']['cacheDir'],
             'debug' => $mainConf['view']['debug'],

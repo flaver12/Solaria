@@ -1,7 +1,7 @@
 <?php
-namespace FM\Framework\view\Forms\fields;
+namespace FM\Framework\View\Forms\Fields;
 
-use FM\Framework\view\Forms\fields\FieldInterface;
+use FM\Framework\View\Forms\Fields\FieldInterface;
 
 class InputField implements FieldInterface {
 

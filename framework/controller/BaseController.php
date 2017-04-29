@@ -1,7 +1,7 @@
 <?php
 //by flaver
 
-namespace FM\Framework\controller;
+namespace FM\Framework\Controller;
 
 use FM\Framework\Url\Url;
 use FM\Framework\Application;

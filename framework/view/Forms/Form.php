@@ -1,9 +1,9 @@
 <?php
 //basic form class
 
-namespace FM\Framework\view\Forms;
+namespace FM\Framework\View\Forms;
 
-use FM\Framework\url\Url;
+use FM\Framework\Url\Url;
 
 class Form {
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace FM\Framework\url;
+namespace FM\Framework\Url;
 
 class Request {
 

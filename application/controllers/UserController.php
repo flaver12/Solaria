@@ -1,6 +1,6 @@
 <?php
 
-namespace FM\App\controllers;
+namespace FM\App\Controllers;
 
 use FM\Framework\Controller\BaseController;
 use FM\App\Models\User;

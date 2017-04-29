@@ -4,7 +4,7 @@
 *
 * This is a simple wrapper class for a doctrine model
 */
-namespace FM\Framework\model;
+namespace FM\Framework\Model;
 
 use FM\Framework\Application;
 
