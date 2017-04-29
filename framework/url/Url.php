@@ -5,7 +5,7 @@ namespace FM\Framework\Url;
 use FM\Framework\Url\Request;
 use FM\Framework\Application;
 
-class URL {
+class Url {
 
     private static $urls = array();
     private static $currentController = '';

@@ -20,7 +20,7 @@ class Template {
     public function render() {
         if($this->renderView) {
             $this->set('view', Application::singleton('FM\Framework\View\ViewHelper'));
-            $this->set('url', URL::getBaseURL());
+            $this->set('url', Url::getBaseURL());
             $this->parentTemplates();
             echo $this->renderChildes();
             return;

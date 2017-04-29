@@ -12,11 +12,11 @@ use FM\App\Models\Post;
 class ViewHelper {
 
     public function link_to($name, $value = "", $class="", $id=""){
-        echo '<a href="'.URL::getBaseURL().'/'.$value.'" class="'.$class.'">'.$name.'</a>';
+        echo '<a href="'.Url::getBaseURL().'/'.$value.'" class="'.$class.'">'.$name.'</a>';
     }
 
     public function start_link($value = "", $class="", $id="") {
-        echo '<a href="'.URL::getBaseURL().'/'.$value.'" class="'.$class.'">';
+        echo '<a href="'.Url::getBaseURL().'/'.$value.'" class="'.$class.'">';
     }
 
     public function end_link() {
@@ -24,14 +24,14 @@ class ViewHelper {
     }
 
     public function include_css($path) {
-        echo '<link href="'.URL::getUrlPath().'/'.$path.'" rel="stylesheet" />';
+        echo '<link href="'.Url::getUrlPath().'/'.$path.'" rel="stylesheet" />';
     }
     public function include_script($path) {
-        echo '<script src="'.URL::getUrlPath().'/'.$path.'"></script>';
+        echo '<script src="'.Url::getUrlPath().'/'.$path.'"></script>';
     }
 
     public function include_img($path) {
-        echo '<img src="'.URL::getUrlPath().'/'.$path.'" class="img-responsive center-block" />';
+        echo '<img src="'.Url::getUrlPath().'/'.$path.'" class="img-responsive center-block" />';
     }
 
     public function parserBBCode($code) {

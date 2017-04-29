@@ -44,7 +44,7 @@ class Application {
 
         //Set url up
         $urlConfig = parse_ini_file(APP_PATH."/config/url.ini", true);
-        URL::init($urlConfig);
+        Url::init($urlConfig);
 
         // create a log channel
         $log = new Logger('App');
@@ -74,7 +74,7 @@ class Application {
         if(!isset($_GET['_url'])) {
             $_GET['_url'] = '/';
         }
-        URL::resolve($_GET['_url']);
+        Url::resolve($_GET['_url']);
     }
 
     public static function singleton($className, $params = array()) {
