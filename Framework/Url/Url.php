@@ -48,7 +48,7 @@ class Url {
                 }
                 if($urlName == $name) {
                     $params = array();
-                    for ($i=1; $i < (count($uri)); $i++) {
+                    for ($i=2; $i < (count($uri)); $i++) {
                         array_push($params, $uri[$i]);
                     }
                     $dp->buildAndCallController(ucwords($settings['controller']).'Controller', $settings['action']."Action", $params);

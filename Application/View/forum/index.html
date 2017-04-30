@@ -16,8 +16,8 @@
                 <header class="row">
                     <div class="col-md-12">
                         <div class="list-group list-group-first">
-                        {% for j in topics[i.getId()]%}
-                            {% if view.checkPermission('viewTopicAction', j.getId(), user) == true %}
+                        {% for j in i.getTopics() %}
+                            {% if view.checkRole('viewTopicAction', j.getId(), user) == true %}
                                 {{ view.start_link('forum/view-topic/'~j.getId(), 'list-group-item post_pre') }}
                                     <h4 class="list-group-item-heading post_pre_title">{{ j.getName() }}</h4>
                                     <p class="list-group-item-text"><ul class="list-inline">
@@ -27,8 +27,6 @@
                                         </ul>
                                     </p>
                                   {{ view.end_link() }}
-                            {% else %}
-                                <h1>Ehhm</h1>
                             {% endif %}
                         {% endfor %}
                         </div>
@@ -37,5 +35,4 @@
             </section>
         {% endfor %}
     </article>
-
 {% endblock %}

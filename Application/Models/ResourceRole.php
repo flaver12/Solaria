@@ -20,14 +20,14 @@ class ResourceRole extends BaseModel {
 
     /**
      * Many Users have One UserGroupId.
-     * @ManyToOne(targetEntity="FM\App\Models\Role")
+     * @ManyToOne(targetEntity="FM\App\Models\Role",  inversedBy="resourceRole")
      * @JoinColumn(name="role_id", referencedColumnName="id")
      */
      protected $role;
 
      /**
       * Many Users have One UserGroupId.
-      * @ManyToOne(targetEntity="FM\App\Models\Resource")
+      * @ManyToOne(targetEntity="FM\App\Models\Resource",  inversedBy="resourceRole")
       * @JoinColumn(name="resource_id", referencedColumnName="id")
       */
      protected $resource;
@@ -47,5 +47,13 @@ class ResourceRole extends BaseModel {
 
      public function getRoleId() {
          return $this->role_id;
+     }
+
+     public function setResource($resource) {
+         $this->resource = $resource;
+     }
+
+     public function setRole($role) {
+         $this->role = $role;
      }
 }

@@ -19,4 +19,8 @@ try {
 } catch (Exception $e) {
     echo "FM-ERROR:<br />";
     echo $e->getMessage();
+    echo "<br />";
+    echo "<pre>";
+    echo $e->getTraceAsString();
+    echo "</pre>";
 }

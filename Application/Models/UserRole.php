@@ -20,14 +20,14 @@ class UserRole extends BaseModel {
 
     /**
      * Many Users have One UserGroupId.
-     * @ManyToOne(targetEntity="FM\App\Models\User")
+     * @ManyToOne(targetEntity="FM\App\Models\User", inversedBy="userRoles")
      * @JoinColumn(name="user_id", referencedColumnName="id")
      */
      protected $user;
 
      /**
       * Many Users have One UserGroupId.
-      * @ManyToOne(targetEntity="FM\App\Models\Role")
+      * @ManyToOne(targetEntity="FM\App\Models\Role", inversedBy="userRoles")
       * @JoinColumn(name="role_id", referencedColumnName="id")
       */
      protected $role;

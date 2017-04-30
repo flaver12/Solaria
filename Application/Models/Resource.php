@@ -27,7 +27,7 @@ class Resource extends BaseModel {
 
     /**
      * One Role has Many UserRole.
-     * @OneToMany(targetEntity="FM\App\Models\ResourceRole", mappedBy="resource_id")
+     * @OneToMany(targetEntity="FM\App\Models\ResourceRole", mappedBy="resource")
      */
     protected $resourceRole = null;
 
@@ -50,5 +50,13 @@ class Resource extends BaseModel {
 
     public function getResourceRole() {
         return $this->resourceRole;
+    }
+
+    public function setPermission($permission) {
+        $this->permission = $permission;
+    }
+
+    public function setName($name) {
+        $this->name = $name;
     }
 }

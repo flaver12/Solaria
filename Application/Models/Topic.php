@@ -1,7 +1,7 @@
 <?php
 
-namespace FM\App\models;
-use FM\Framework\model\BaseModel;
+namespace FM\App\Models;
+use FM\Framework\Model\BaseModel;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
@@ -23,14 +23,14 @@ class Topic extends BaseModel {
 
  /**
   * Many Topics have One Category.
-  * @ManyToOne(targetEntity="FM\App\Models\Category")
+  * @ManyToOne(targetEntity="FM\App\Models\Category", inversedBy="topics")
   * @JoinColumn(name="category_id", referencedColumnName="id")
   */
   protected $category;
 
   /**
    * One Topic has Many Posts.
-   * @OneToMany(targetEntity="FM\App\Models\Post", mappedBy="topic_id")
+   * @OneToMany(targetEntity="FM\App\Models\Post", mappedBy="topic")
    */
   protected $posts = null;
 
@@ -66,6 +66,14 @@ class Topic extends BaseModel {
 
   public function getPosts() {
     return $this->posts;
+  }
+
+  public function setName($name) {
+      $this->name = $name;
+  }
+
+  public function setCategory($category) {
+      $this->category = $category;
   }
 
 }

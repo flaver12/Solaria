@@ -12,7 +12,7 @@
                 <header class="row">
                     <div class="col-md-12">
                         <div class="list-group list-group-first">
-                        {% for i in posts %}
+                        {% for i in topic.getPosts() %}
                             {% if i.getPostId() == NULL %}
                               {{ view.start_link('forum/view-post/'~i.getId(), 'list-group-item post_pre') }}
                                   <h4 class="list-group-item-heading post_pre_title">{{ i.getTitle() }}</h4>

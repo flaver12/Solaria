@@ -52,6 +52,20 @@ class ViewHelper {
         }
     }
 
+    public function checkRole($name, $id, $user){
+        $acl = new Acl($user);
+        $result = Resource::findBy(array('name' => $name.'.'.$id));
+        if(empty($result)) {
+            return true;
+        } else {
+            if($acl->hasNeededRole($result)) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+
     public function isAdmin($user) {
         $acl = new Acl($user);
         return $acl-isAdmin();

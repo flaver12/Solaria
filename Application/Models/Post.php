@@ -1,7 +1,7 @@
 <?php
 
-namespace FM\App\models;
-use FM\Framework\model\BaseModel;
+namespace FM\App\Models;
+use FM\Framework\Model\BaseModel;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
@@ -29,7 +29,7 @@ class Post extends BaseModel {
 
   /**
    * Many Posts have One Topic.
-   * @ManyToOne(targetEntity="FM\App\Models\Topic")
+   * @ManyToOne(targetEntity="FM\App\Models\Topic", inversedBy="posts")
    * @JoinColumn(name="topic_id", referencedColumnName="id")
    */
    protected $topic;

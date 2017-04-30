@@ -38,7 +38,7 @@ class Acl {
     }
 
     protected function setUpgetRoles($user) {
-        $roles = UserRole::findBy(array('user_id' => $user->getId()));;
+        $roles = $user->getUserRole();
         foreach($roles as $role) {
             foreach ($role->getRole()->getRolePermission() as $rolePermission) {
                 $this->roles[$role->getRole()->getName()][$rolePermission->getPermission()->getName()] = self::ALLOW;
@@ -50,6 +50,11 @@ class Acl {
 
     public function getRole() {
         return $this->roles;
+    }
+
+    public function setUser($user) {
+        $this->user = User::find($user->getId());
+        $this->setUpgetRoles($this->user);
     }
 
     public function isAdmin() {
@@ -66,6 +71,7 @@ class Acl {
             if(is_null($permission)) {
                 return true;
             }
+
             if(is_null($this->user)) {
                 return false;
             }

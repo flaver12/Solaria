@@ -1,5 +1,13 @@
 <?php
-
+/**
+*
+* The application class runs everything
+* soo look what you are chaning here
+*
+* @author Flavio Kleiber <flaverkleiber@yahoo.de>
+* @package FM\Framework
+* @copyright 2016-2017 Flavio Kleiber
+*/
 namespace FM\Framework;
 
 use \Doctrine\ORM\Tools\Setup;
@@ -12,9 +20,22 @@ use Exception;
 
 class Application {
 
+    /**
+    * @var array contains all objs of the singleton fnc
+    */
     private static $loadedClasses = array();
+
+    /**
+    * @var array contains the content of the main.ini conf
+    */
     private static $mainConf = null;
 
+    /**
+    * Call the __constrcut only ones, the framework will other wise do some very strange things
+    *
+    * @param bool isUnitTest only used when you want to run the app in a unit test mod
+    * @return void
+    */
     public function __construct($isUnitTest = false) {
 
         //fix for unit tests
@@ -65,6 +86,11 @@ class Application {
         array_push(self::$loadedClasses, array('logger' => $log));
     }
 
+    /**
+    * Starts the session und the dispatching
+    *
+    * @return void
+    */
     public function run() {
 
         //start the session
@@ -77,6 +103,15 @@ class Application {
         Url::resolve($_GET['_url']);
     }
 
+    /**
+    * Creates or loads a instance of a class
+    * use this one when ever possible
+    *
+    * @example Application::singleton('My\Foo\Bar', array('firstParam', 2, true));
+    * @var string className name of the class with the namespace
+    * @var array params if the class needs params to be created the can be given here
+    * @return Object
+    */
     public static function singleton($className, $params = array()) {
         $instance = array_column(self::$loadedClasses, $className);
 
@@ -99,6 +134,14 @@ class Application {
         return $instance;
     }
 
+    /**
+    * U can refresh a instance, that is saved in the obj array.
+    * Dont use it to create a new instacne
+    *
+    * @example Application::refreshInstance($myFooBarInstance);
+    * @var Instane instance class instance
+    * @return void
+    */
     public static function refreshInstance($instance) {
         if(self::$loadedClasses[get_class($instance)]) {
             self::$loadedClasses[get_class($instance)] = $instance;
@@ -111,6 +154,11 @@ class Application {
 
     }
 
+    /**
+    * Clenas the view cache
+    *
+    * @deprecated
+    */
     public static function purgeCache() {
         if (is_dir(self::$mainConf['view']['cacheDir'])) {
             $objects = scandir(self::$mainConf['view']['cacheDir']);
@@ -126,6 +174,11 @@ class Application {
         }
     }
 
+    /**
+    * Get caller class
+    *
+    * @deprecated
+    */
     public static function getCaller() {
         return get_called_class();
     }

@@ -23,13 +23,13 @@ class Role extends BaseModel {
 
     /**
      * One Role has Many UserRole.
-     * @OneToMany(targetEntity="FM\App\Models\RolePermission", mappedBy="role_id")
+     * @OneToMany(targetEntity="FM\App\Models\RolePermission", mappedBy="role")
      */
     protected $rolePermission= null;
 
     /**
      * One Role has Many UserRole.
-     * @OneToMany(targetEntity="FM\App\Models\ResourceRole", mappedBy="role_id")
+     * @OneToMany(targetEntity="FM\App\Models\ResourceRole", mappedBy="role")
      */
     protected $resourceRole= null;
 

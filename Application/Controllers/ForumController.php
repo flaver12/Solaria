@@ -13,20 +13,7 @@ use FM\App\Models\Resource;
  class ForumController extends BaseController {
 
   	public function indexAction(){
-        $catgeories = Category::findAll();
-        $topics = array();
-        foreach ($catgeories as $catgeory) {
-            $topic = Topic::findBy(array('category_id' => $catgeory->getId()));
-
-            $i = 0;
-            foreach ($topic as $topic) {
-                $topics[$catgeory->getId()][$i] = $topic;
-                $i ++;
-            }
-        }
-
-        $this->set('categories', $catgeories);
-        $this->set('topics', $topics);
+        $this->set('categories', Category::findAll());
     }
 
     public function viewTopicAction($id) {
@@ -35,9 +22,6 @@ use FM\App\Models\Resource;
         if($this->aclCheck('viewTopicAction', $id)) {
             //load topic
             $topic = Topic::find($id);
-
-            //load posts
-            $posts = Post::findBy(array('topic_id' => $topic->getId()));
 
             //created breadcrumbs
             $breadcrumbs = array(
@@ -54,7 +38,6 @@ use FM\App\Models\Resource;
             );
             $this->set('breadcrumb', $breadcrumbs);
             $this->set('topic', $topic);
-            $this->set('posts', $posts);
             $this->set('bbCodeForm', new BBCodeForm('forum/create-post'));
         } else {
             $this->response->redirect('forum');
@@ -64,7 +47,7 @@ use FM\App\Models\Resource;
     public function viewPostAction($id) {
 
         //Load form
-        $this->set('bbCodeForm', new BBCodeForm('forum/create-response'));
+        $this->set('bbCodeForm', new BBCodeForm('forum/create-response', true));
 
         //load post
         $post = Post::find($id);
@@ -103,7 +86,7 @@ use FM\App\Models\Resource;
         if($this->request->isPost()) {
 
             $post = new Post();
-            $post->setTitle('NOT IMPLEMENTED');
+            $post->setTitle($this->request->getPost('title'));
             $post->setContent($this->request->getPost('content'));
             $post->setTopic(Topic::find($this->request->getPost('topic_id')));
 
@@ -114,6 +97,7 @@ use FM\App\Models\Resource;
 
             return;
         }
+        $this->response->redirect('forum');
     }
 
     public function createResponseAction() {
@@ -133,14 +117,16 @@ use FM\App\Models\Resource;
             $this->response->redirect('forum/view-post/'.$this->request->getPost('post_id'));
             return;
         }
+        $this->response->redirect('forum');
     }
 
     protected function aclCheck($name, $id) {
         $result = Resource::findBy(array('name' => $name.'.'.$id));
+        $this->acl->setUser(Session::get('user'));
         if(empty($result)) {
             return true;
         } else {
-            if($this->acl->hasPermission($result)) {
+            if($this->acl->hasNeededRole($result)) {
                 return true;
             } else {
                 return false;

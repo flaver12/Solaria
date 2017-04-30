@@ -22,10 +22,8 @@ class BaseController {
         $this->response = Application::singleton('FM\Framework\Url\Response');
         if(Session::exist('user')) {
             $this->set('user', Session::get('user'));
-            $this->acl = new Acl(Session::get('user'));
-        } else {
-            $this->acl = new Acl();
         }
+        $this->acl = new Acl();
     }
 
     public function __destruct() {

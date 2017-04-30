@@ -26,7 +26,7 @@ class Category extends BaseModel {
 
     /**
      * One Category has Many Topics.
-     * @OneToMany(targetEntity="FM\App\Models\Topic", mappedBy="category_id")
+     * @OneToMany(targetEntity="FM\App\Models\Topic", mappedBy="category")
      */
     protected $topics = null;
 
