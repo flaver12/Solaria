@@ -1,0 +1,10 @@
+[db]
+host = localhost
+username = root
+password =
+dbname = test
+
+[view]
+cacheDir = cache/view
+debug = true
+auto_reload = true
