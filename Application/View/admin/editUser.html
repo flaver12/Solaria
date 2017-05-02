@@ -1,7 +1,8 @@
-{% extends "base.html" %}
+{% extends "admin_base.html" %}
 
-{% block content %}
+{% block admin_content %}
     <div class="row">
+        {{ include('partials/admin/sidebar.html') }}
         <div class="col-md-9">
             <h1>{{ editUser.getUsername() }}</h1>
             <br />

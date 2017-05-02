@@ -58,4 +58,8 @@ class Role extends BaseModel {
     public function getResourceRole() {
         return $this->resourceRole;
     }
+
+    public function setName($name) {
+        $this->name = $name;
+    }
 }

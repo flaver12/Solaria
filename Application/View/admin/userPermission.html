@@ -1,22 +1,35 @@
-{% extends "base.html" %}
+{% extends "admin_base.html" %}
 
-{% block content %}
+{% block admin_content %}
     <div class="row">
+        {{ include('partials/admin/sidebar.html') }}
         <div class="col-md-9">
-            <h1>Userverwaltung</h1>
-            <ul>
-                {% for i in users %}
-                    <li>
-                        {{ view.link_to(i.getUsername(), 'admin/edit-user/'~i.getId()) }}
-                        <ul>
-                            {% for j in userGroups[i.getUsername()] %}
-                                <li>{{ j }}</li>
-                            {% endfor %}
-                        </ul>
-                    </li>
-                {% endfor %}
-            <ul>
-        </div>
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Neue Usergruppe erstellen</h3>
+              </div>
+              <div class="panel-body">
+                  {{ user_group_form.render() }}
+              </div>
+            </div>
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Userverwaltung</h3>
+              </div>
+              <div class="panel-body">
+                  <ul>
+                      {% for i in users %}
+                          <li>
+                              {{ view.link_to(i.getUsername(), 'admin/edit-user/'~i.getId()) }}
+                              <ul>
+                                  {% for j in userGroups[i.getUsername()] %}
+                                      <li>{{ j }}</li>
+                                  {% endfor %}
+                              </ul>
+                          </li>
+                      {% endfor %}
+                  <ul>
+            </div>
         </div>
     </div>
 {% endblock %}

@@ -21,6 +21,9 @@ class Topic extends BaseModel {
   /** @Column(type="integer") **/
   protected $category_id;
 
+  /** @Column(name="created", type="datetime")*/
+  protected $created;
+
  /**
   * Many Topics have One Category.
   * @ManyToOne(targetEntity="FM\App\Models\Category", inversedBy="topics")
@@ -58,6 +61,10 @@ class Topic extends BaseModel {
 
   public function getEnabled() {
     return $this->enabled;
+  }
+
+  public function getCreated() {
+      return $this->created;
   }
 
   public function getCategory() {

@@ -27,7 +27,7 @@ class RolePermission extends BaseModel {
 
      /**
       * Many Users have One UserGroupId.
-      * @ManyToOne(targetEntity="FM\App\Models\Permission")
+      * @ManyToOne(targetEntity="FM\App\Models\Permission", inversedBy="rolePermission")
       * @JoinColumn(name="permission_id", referencedColumnName="id")
       */
      protected $permission;
@@ -47,5 +47,13 @@ class RolePermission extends BaseModel {
 
      public function getRoleId() {
          return $this->role_id;
+     }
+
+     public function setRole($role) {
+         $this->role = $role;
+     }
+
+     public function setPermission($permission) {
+         $this->permission = $permission;
      }
 }

@@ -21,6 +21,19 @@ body {
     .panel-body {
         color: black;
         background-color: #0B243B;
+
+        table {
+            color: white;
+            border-color: black;
+
+            .table-hover {
+                tbody {
+                    tr:hover {
+                        background-color: @bgDefault !important;
+                    }
+                }
+            }
+        }
     }
     .well {
         h1,h2,h3,h4 {

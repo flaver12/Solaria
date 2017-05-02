@@ -7,6 +7,7 @@ use FM\Framework\Acl\Acl;
 use FM\App\Models\User;
 use FM\App\Models\UserRole;
 use FM\App\Models\Role;
+use FM\App\Models\RolePermission;
 use FM\App\Models\Post;
 use FM\App\Models\Topic;
 use FM\App\Models\Permission;
@@ -15,6 +16,7 @@ use FM\App\Models\Resource;
 use FM\App\Models\ResourceRole;
 use FM\App\Forms\CategoryCreationForm;
 use FM\App\Forms\CreateTopicForm;
+use FM\App\Forms\CreateUserGroup;
 
 class AdminController extends BaseController {
 
@@ -47,7 +49,7 @@ class AdminController extends BaseController {
             $roleArr[$role->getName()] = $role->getId();
         }
 
-
+        $this->set('topics', Topic::findAll());
         $this->set('catform', new CategoryCreationForm());
         $this->set('topicform', new CreateTopicForm($catArr, $roleArr));
     }
@@ -55,6 +57,14 @@ class AdminController extends BaseController {
     public function userPermissionAction() {
         $allUsers = User::findAll();
         $userRoles = array();
+
+        //load all permissions
+        $permissions = Permission::findAll();
+        $perArr = array();
+
+        foreach ($permissions as $permission) {
+            $perArr[$permission->getName()] = $permission->getId();
+        }
 
         foreach ($allUsers as $user) {
             $roles = UserRole::findBy(array('user_id' => $user->getId()));
@@ -66,6 +76,7 @@ class AdminController extends BaseController {
 
         $this->set('users', $allUsers);
         $this->set('userGroups', $userRoles);
+        $this->set('user_group_form', new CreateUserGroup($perArr));
     }
 
     public function editUserAction($id) {
@@ -155,6 +166,43 @@ class AdminController extends BaseController {
             $this->response->redirect('admin');
         }
         $this->response->redirect('admin');
+    }
+
+    public function createGroupAction() {
+        if($this->request->isPost()) {
+            $role = new Role();
+            $role->setName($this->request->getPost('name'));
+            $role->save($role);
+            $tempArr = $this->request->getPost();
+            unset($tempArr['name']);
+
+            if(!empty($tempArr)) {
+                foreach ($tempArr as $name => $id) {
+                    $rolePer = new RolePermission();
+                    $rolePer->setRole($role);
+                    $rolePer->setPermission(Permission::find($id));
+                    $rolePer->save($rolePer);
+                }
+
+            }
+
+            $this->response->redirect('admin/user-permission');
+
+        } else {
+            $this->response->redirect('admin');
+        }
+    }
+
+    public function editTopicPermissionAction($id) {
+        if($this->request->isPost()) {
+            $resource = Resource::find(array(self::VIEW_TOPIC.'.'.$this->request->isPost('topic_id')));
+            if(empty($resource) && count($this->request->isPost()) > 1) {
+
+            }
+            $this->response->redirect('admin/edit-forum');
+        } else {
+            var_dump($id);die;
+        }
     }
 
 }

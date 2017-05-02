@@ -17,7 +17,7 @@ class Permission extends BaseModel {
 
     /**
      * One Role has Many UserRole.
-     * @OneToMany(targetEntity="FM\App\Models\RolePermission", mappedBy="permission_id")
+     * @OneToMany(targetEntity="FM\App\Models\RolePermission", mappedBy="permission")
      */
     protected $rolePermission = null;
 
