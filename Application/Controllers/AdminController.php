@@ -17,6 +17,7 @@ use FM\App\Models\ResourceRole;
 use FM\App\Forms\CategoryCreationForm;
 use FM\App\Forms\CreateTopicForm;
 use FM\App\Forms\CreateUserGroup;
+use FM\App\Forms\BBCodeForm;
 
 class AdminController extends BaseController {
 
@@ -74,6 +75,7 @@ class AdminController extends BaseController {
             }
         }
 
+        $this->set('allRoles', Role::findAll());
         $this->set('users', $allUsers);
         $this->set('userGroups', $userRoles);
         $this->set('user_group_form', new CreateUserGroup($perArr));
@@ -271,7 +273,43 @@ class AdminController extends BaseController {
     }
 
     public function newsFeedAction() {
-        
+        $this->set('form', new BBCodeForm('admin/create-news'));
+    }
+
+    public function deleteGroupAction($id) {
+        $this->noRenderer();
+
+        //find the group
+        $role = Role::find($id);
+
+        //delet first all relations with the users
+        $userRoles = $role->getUserRole();
+        if(!empty($userRoles)) {
+            foreach ($userRoles as $userRole) {
+                UserRole::delete($userRole);
+            }
+        }
+
+        //delete now all role permissions
+        $rolePermissions = $role->getRolePermission();
+        if(!empty($rolePermissions)) {
+            foreach ($rolePermissions as $rolePermission) {
+                RolePermission::delete($rolePermission);
+            }
+        }
+
+        //delete now all resources for that role
+        $resourceRoles = $role->getResourceRole();
+        if(!empty($resourceRoles)) {
+            foreach ($resourceRoles as $resourceRole) {
+                ResourceRole::delete($resourceRole);
+            }
+        }
+
+        //finaly delete the group it self ;(
+        Role::delete($role);
+
+        $this->response->redirect('admin/user-permission');
     }
 
 }
