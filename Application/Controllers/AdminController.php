@@ -193,12 +193,53 @@ class AdminController extends BaseController {
         }
     }
 
-    public function editTopicPermissionAction($id) {
+    public function editTopicPermissionAction($id = null) {
         if($this->request->isPost()) {
-            $resource = Resource::findBy(array('name' => self::VIEW_TOPIC.'.'.$id));
-            if(empty($resource) && count($this->request->isPost()) > 1) {
+            $topicId = $this->request->getPost('topic_id');
+            $data = $this->request->getPost();
+            unset($data['topic_id']);
+            $resource = Resource::findBy(array('name' => self::VIEW_TOPIC.'.'.$topicId));
 
+            if(!empty($resource) && count($data) > 1) {
+                $resourceRoles = $resource[0]->getResourceRole();
+                $res = $resource[0];
+                //we do it simple at the moment, we remove all roles
+                //than we add the checked one, need to be redone soon!
+                foreach ($resourceRoles as $role) {
+                    ResourceRole::delete($role);
+                }
+
+                foreach ($data as $name => $id) {
+                    $resRole = new ResourceRole();
+                    $resRole->setResource($res);
+                    $resRole->setRole(Role::find($id));
+                    $resRole->save($resRole);
+                }
+            } else if(count($data) < 1 && !empty($resource)) {
+                $resourceRoles = $resource[0]->getResourceRole();
+                //we do it simple at the moment, we remove all roles
+                //than we add the checked one, need to be redone soon!
+                foreach ($resourceRoles as $role) {
+                    ResourceRole::delete($role);
+                }
+                Resource::delete($resource[0]);
+
+                $this->response->redirect('admin/edit-forum');
+            } else {
+                $res = new Resource();
+                $res->setPermission(Permission::find(self::DEFAULT_PERMISSION));
+                $res->setName(self::VIEW_TOPIC.'.'.$topicId);
+                $res->save($res);
+                foreach ($data as $name => $id) {
+                    $resRole = new ResourceRole();
+                    $resRole->setResource($res);
+                    $resRole->setRole(Role::find($id));
+                    $resRole->save($resRole);
+                }
             }
+
+
+
             $this->response->redirect('admin/edit-forum');
         } else {
 
@@ -220,9 +261,7 @@ class AdminController extends BaseController {
             }
 
             foreach ($roles as $role) {
-
                 array_push($resArr, $role);
-
             }
 
             $this->set('topic', $topic);

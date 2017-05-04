@@ -21,7 +21,7 @@ class BaseModel {
     $entityManager = Application::singleton('entityManager');
     $entityManager->remove($obj);
     $entityManager->flush();
-    return $obj;
+    return true;
   }
 
   public static function findAll() {
