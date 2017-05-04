@@ -195,13 +195,39 @@ class AdminController extends BaseController {
 
     public function editTopicPermissionAction($id) {
         if($this->request->isPost()) {
-            $resource = Resource::find(array(self::VIEW_TOPIC.'.'.$this->request->isPost('topic_id')));
+            $resource = Resource::findBy(array('name' => self::VIEW_TOPIC.'.'.$id));
             if(empty($resource) && count($this->request->isPost()) > 1) {
 
             }
             $this->response->redirect('admin/edit-forum');
         } else {
-            var_dump($id);die;
+
+            $topic = Topic::find($id);
+            $roles = Role::findAll();
+            $resArr = array();
+            $resGroups = array();
+            $resource = Resource::findBy(array('name' => self::VIEW_TOPIC.'.'.$id));
+
+            if(empty(!$resource)) {
+
+                foreach ($resource as $res) {
+                    $resRoles = $res->getResourceRole();
+                    foreach ($resRoles as $resRole) {
+                        $resGroups[$resRole->getRole()->getName()] = $resRole->getRole()->getId();
+                    }
+                }
+
+            }
+
+            foreach ($roles as $role) {
+
+                array_push($resArr, $role);
+
+            }
+
+            $this->set('topic', $topic);
+            $this->set('res', $resArr);
+            $this->set('resGroup', $resGroups);
         }
     }
 

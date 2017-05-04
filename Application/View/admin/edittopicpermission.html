@@ -4,6 +4,29 @@
     <div class="row">
         {{ include('partials/admin/sidebar.html') }}
         <div class="col-md-9">
+            <h3>{{ topic.getName() }}</h3>
+            <p>Einstellungen</p>
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Berechtigungen</h3>
+              </div>
+              <div class="panel-body">
+                  {% for i in res %}
+                     {% if resGroup[i.getName()] is not empty %}
+                         <input type="checkbox" name="{{ i.getName() }}" value="{{ i.getId() }}" checked>{{ i.getName() }}<br>
+                     {% else %}
+                         <input type="checkbox" name="{{ i.getName() }}" value="{{ i.getId() }}" >{{ i.getName() }}<br>
+                     {% endif %}
+                  {% endfor %}
+              </div>
+            </div>
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Lorem Ipsum</h3>
+              </div>
+              <div class="panel-body">
+              </div>
+            </div>
         </div>
     </div>
 {% endblock %}
