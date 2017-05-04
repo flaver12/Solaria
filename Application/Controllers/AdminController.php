@@ -270,4 +270,8 @@ class AdminController extends BaseController {
         }
     }
 
+    public function newsFeedAction() {
+        
+    }
+
 }

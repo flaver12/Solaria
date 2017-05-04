@@ -1,0 +1,49 @@
+{% extends "admin_base.html" %}
+
+{% block admin_content %}
+    <div class="row">
+        {{ include('partials/admin/sidebar.html') }}
+        <div class="col-md-9">
+            <h1>Newsfeed</h1>
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Letze News</h3>
+              </div>
+              <div class="panel-body">
+                <table class="table">
+                    <tr>
+                        <th>Von</th>
+                        <th>Wann</th>
+                        <th>News</th>
+                        <th>Forumlink</th>
+                    </tr>
+                    <tr>
+                        <td>{{ view.link_to('flaver', 'profile/1') }}</td>
+                        <td>03.03.17</td>
+                        <td>Test,ssdasda, adsdad,dasdasdsad dsadsa dsadsa dasdsad</td>
+                        <td>X</td>
+                    </tr>
+                    <tr>
+                        <td>member</td>
+                        <td>03.03.17</td>
+                        <td>Test</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>meber</td>
+                        <td>03.03.17</td>
+                        <td>Test</td>
+                        <td>X</td>
+                    </tr>
+                    <tr>
+                        <td>flaver</td>
+                        <td>03.03.17</td>
+                        <td>Test</td>
+                        <td></td>
+                    </tr>
+                </table>
+              </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
