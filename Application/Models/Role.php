@@ -17,7 +17,7 @@ class Role extends BaseModel {
 
     /**
      * One Role has Many UserRole.
-     * @OneToMany(targetEntity="FM\App\Models\UserRole", mappedBy="role_id")
+     * @OneToMany(targetEntity="FM\App\Models\UserRole", mappedBy="role")
      */
     protected $userRoles = null;
 

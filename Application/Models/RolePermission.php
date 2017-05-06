@@ -20,7 +20,7 @@ class RolePermission extends BaseModel {
 
     /**
      * Many Users have One UserGroupId.
-     * @ManyToOne(targetEntity="FM\App\Models\Role")
+     * @ManyToOne(targetEntity="FM\App\Models\Role", inversedBy="rolePermission")
      * @JoinColumn(name="role_id", referencedColumnName="id")
      */
      protected $role;

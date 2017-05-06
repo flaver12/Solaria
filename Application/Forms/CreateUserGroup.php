@@ -14,7 +14,7 @@ class CreateUserGroup extends Form {
         $this->setFormClass('.form-inline ');
         $this->setURL('admin/create-group');
         $this->addItem(new InputField('Name', 'name', array('class' => 'bbcode-form-topic-id',  'type' => 'text', 'value' => '',)));
-        $this->addItem(new CheckboxField('Berechtigungen(View sollte immer gesetzt werden)', 'allow_see', $permissions));
+        $this->addItem(new CheckboxField('Berechtigungen(Read sollte immer gesetzt werden!)', 'allow_see', $permissions));
         $this->addItem(new Button('Erstellen'));
     }
 }

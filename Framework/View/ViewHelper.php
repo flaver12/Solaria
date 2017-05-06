@@ -11,8 +11,12 @@ use FM\App\Models\Post;
 //basic view helper fncs!
 class ViewHelper {
 
-    public function link_to($name, $value = "", $class="", $id=""){
-        echo '<a href="'.Url::getBaseURL().'/'.$value.'" class="'.$class.'">'.$name.'</a>';
+    public function link_to($name, $value = "", $class="", $id="", $message=''){
+        if($message != '') {
+            echo '<a href="'.Url::getBaseURL().'/'.$value.'" class="'.$class.'" onclick="return confirm(\''.$message.'\')">'.$name.'</a>';
+        } else {
+            echo '<a href="'.Url::getBaseURL().'/'.$value.'" class="'.$class.'">'.$name.'</a>';
+        }
     }
 
     public function start_link($value = "", $class="", $id="") {

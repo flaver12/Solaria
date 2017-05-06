@@ -33,4 +33,8 @@ class BaseController {
     protected function set($name, $value) {
         Application::singleton('FM\Framework\view\Template')->set($name, $value);
     }
+
+    protected function noRenderer() {
+        Application::singleton('FM\Framework\view\Template')->noRenderer();
+    }
 }
