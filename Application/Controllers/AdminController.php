@@ -312,4 +312,44 @@ class AdminController extends BaseController {
         $this->response->redirect('admin/user-permission');
     }
 
+    public function editGroupAction($id) {
+        if($this->request->isPost()) {
+            $postArr = $this->request->getPost();
+            $role = Role::find($id);
+            $role->setName($postArr['role_name']);
+            unset($postArr['role_name']);
+            if(count($postArr) > 1) {
+
+                $rolePermissions = $role->getRolePermission();
+                //we do it simple at the moment, we remove all roles
+                //than we add the checked one, need to be redone soon!
+                foreach ($rolePermissions as $rolePermission) {
+                    RolePermission::delete($rolePermission);
+                }
+
+                foreach ($postArr as $name => $value) {
+                    $rolePermission = new RolePermission();
+                    $rolePermission->setRole($role);
+                    $rolePermission->setPermission(Permission::find($value));
+                    $rolePermission->save($rolePermission);
+                }
+
+            }
+            $this->response->redirect('admin/user-permission');
+        } else {
+            $role = Role::find($id);
+            $rolePermissions = $role->getRolePermission();
+            $allPermissions = Permission::findAll();
+            $rolePermArray = array();
+
+            foreach ($rolePermissions as $rolePermission) {
+                $rolePermArray[$rolePermission->getPermission()->getName()] = $rolePermission->getPermission()->getId();
+            }
+
+            $this->set('role', $role);
+            $this->set('all_permissions', $allPermissions);
+            $this->set('role_permissions', $rolePermArray);
+        }
+    }
+
 }

@@ -1,0 +1,29 @@
+{% extends "admin_base.html" %}
+
+{% block admin_content %}
+    <div class="row">
+        {{ include('partials/admin/sidebar.html') }}
+        <div class="col-md-9">
+            <!--website overview-->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">{{ role.getName() }}</h3>
+              </div>
+              <div class="panel-body">
+                  <form method="post" action="{{ url }}/admin/edit-group/{{ role.getId() }}">
+                      <input type="text" name="role_name" value="{{ role.getName() }}"><br />
+                      {% for i in all_permissions %}
+                         {% if role_permissions[i.getName()] is not empty %}
+                             <input type="checkbox" name="{{ i.getName() }}" value="{{ i.getId() }}" checked>{{ i.getName() }}<br>
+                         {% else %}
+                             <input type="checkbox" name="{{ i.getName() }}" value="{{ i.getId() }}" >{{ i.getName() }}<br>
+                         {% endif %}
+                      {% endfor %}
+                      <br />
+                      <button type="submit" class="btn btn-default">Submit</button>
+                  </form>
+              </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

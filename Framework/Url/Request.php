@@ -28,6 +28,30 @@ class Request {
     }
 
     /**
+    * Check if the request is a get request
+    *
+    * @return bool
+    */
+    public function isGet() {
+        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+    * Check if the request is a ajax request
+    *
+    * @return bool
+    */
+    public function isAjax() {
+        if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH'])) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
     * Get the content of the post array
     * if the value is empty you get the post array
     *
