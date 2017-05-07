@@ -13,7 +13,7 @@ class Dispatcher {
 
     public function buildAndCallController($controller, $action, $arguments = array()) {
         $this->currentController = str_replace('controller', '', strtolower($controller));
-        $this->currentAction = str_replace('action', '', strtolower($action));
+        $this->currentAction = $this->from_camel_case(str_replace('Action', '', $action));
 
         //resourceName
         $resourceName = $controller;
@@ -70,6 +70,18 @@ class Dispatcher {
 
     public function setAction($action) {
         $this->currentAction = strtolower($action);
+    }
+
+    /**
+    *@see http://stackoverflow.com/questions/1993721/how-to-convert-camelcase-to-camel-case
+    */
+    private function from_camel_case($input) {
+      preg_match_all('!([A-Z][A-Z0-9]*(?=$|[A-Z][a-z0-9])|[A-Za-z][a-z0-9]+)!', $input, $matches);
+      $ret = $matches[0];
+      foreach ($ret as &$match) {
+        $match = $match == strtoupper($match) ? strtolower($match) : lcfirst($match);
+      }
+      return implode('-', $ret);
     }
 
 }

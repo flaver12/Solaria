@@ -40,7 +40,7 @@ class SessionController extends BaseController {
           //AS_TODO: when user not found then handel that
           if($user != array()) {
             Session::set('user', User::find($user[0]->getId()));
-            $this->response->redirect('/');
+            $this->response->redirect('');
           }
 
       } else {
@@ -51,7 +51,7 @@ class SessionController extends BaseController {
 
     public function logoutUserAction() {
         Session::delete('user');
-        $this->response->redirect('/');
+        $this->response->redirect('');
     }
 
 }
