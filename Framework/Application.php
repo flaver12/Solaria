@@ -15,15 +15,16 @@ use \Doctrine\ORM\EntityManager;
 use FM\Framework\Url\Url;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
+use DI\ContainerBuilder;
 use ReflectionClass;
 use Exception;
 
 class Application {
 
     /**
-    * @var array contains all objs of the singleton fnc
+    * @var object contains the DI Container
     */
-    private static $loadedClasses = array();
+    private static $container = null;
 
     /**
     * @var array contains the content of the main.ini conf
@@ -80,10 +81,12 @@ class Application {
             'auto_reload ' => $mainConf['view']['auto_reload']
         ));
 
-        //save some data
-        array_push(self::$loadedClasses, array('view' => $twig));
-        array_push(self::$loadedClasses, array('entityManager' => $entityManager));
-        array_push(self::$loadedClasses, array('logger' => $log));
+        //DI stuff done here
+        self::$container = ContainerBuilder::buildDevContainer();
+        self::$container->set('view', $twig);
+        self::$container->set('entityManager', $entityManager);
+        self::$container->set('logger', $log);
+
     }
 
     /**
@@ -112,23 +115,14 @@ class Application {
     * @var array params if the class needs params to be created the can be given here
     * @return Object
     */
-    public static function singleton($className, $params = array()) {
-        $instance = array_column(self::$loadedClasses, $className);
-
-        if($instance == array()) {
-            if(empty($params)) {
-                $instance = new $className();
+    public static function singleton($className) {
+        if(empty($params)) {
+            if(self::$container->has($className)) {
+                return self::$container->get($className);
             } else {
-                //create with params
-                $class = new ReflectionClass($className);
-                $instance = $class->newInstanceArgs($params);
+                throw new Exception($className.' does not exist');
             }
 
-            array_push(self::$loadedClasses, array($className => $instance));
-        }
-
-        if(is_array($instance)) {
-            $instance = $instance[0];
         }
 
         return $instance;
@@ -138,20 +132,19 @@ class Application {
     * U can refresh a instance, that is saved in the obj array.
     * Dont use it to create a new instacne
     *
-    * @example Application::refreshInstance($myFooBarInstance);
+    * @example Application::injectOn($myFooBarInstance);
     * @var Instane instance class instance
     * @return void
     */
-    public static function refreshInstance($instance) {
-        if(self::$loadedClasses[get_class($instance)]) {
-            self::$loadedClasses[get_class($instance)] = $instance;
-            return;
-        } else if(strpos(get_class($instance), 'Acl') !== false) {
-            self::$loadedClasses['acl'] = $instance;
-            return;
-        }
-        throw new Exception("Don't use refreshInstance to create a new instance, use singleton!");
+    public static function injectOn($instance) {
+        self::$container->injectOn($instance);
+    }
 
+    public static function replaceObj($instance, $name = '') {
+        if($name == '') {
+            $name = get_class($instance);
+        }
+        self::$container->set($name, $instance);
     }
 
     /**

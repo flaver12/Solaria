@@ -17,7 +17,6 @@ class BaseController {
     protected $flashSession;
 
     public function __construct() {
-        Application::singleton('logger')->warning('base controller loading');
         $this->request = URL::getRequest();
         $this->view = Application::singleton('FM\Framework\View\Template');
         $this->response = Application::singleton('FM\Framework\Url\Response');
