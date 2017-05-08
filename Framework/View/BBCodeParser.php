@@ -11,7 +11,7 @@ class BBCodeParser {
         $parser->addCodeDefinitionSet(new \JBBCode\DefaultCodeDefinitionSet());
         $parser->parse($text);
 
-        print $parser->getAsHtml();
+        return $parser->getAsHtml();
     }
 
 }

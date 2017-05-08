@@ -2,6 +2,7 @@
 namespace FM\App\Controllers;
 
 use FM\Framework\Controller\BaseController;
+use FM\Framework\Application;
 use FM\App\Models\Category;
 use FM\App\Forms\BBCodeForm;
 use FM\App\Models\Topic;
@@ -46,6 +47,13 @@ use FM\App\Models\Resource;
 
     public function viewPostAction($id) {
 
+        if($this->request->isAjax()) {
+            $this->noRenderer();
+            $post = Post::find($id);
+            $arr = array('title' => $post->getTitle(), 'content' => $post->getContent());
+
+            echo json_encode($arr);die;
+        }
         //Load form
         $this->set('bbCodeForm', new BBCodeForm('forum/create-response', true));
 
@@ -76,6 +84,7 @@ use FM\App\Models\Resource;
         //\Doctrine\Common\Util\Debug::dump($post->getPost()[0]->getTitle());die;
 
         $this->set('topic_id', $post->getTopic()->getId());
+        $this->set('post_id', $post->getId());
         $this->set('breadcrumb', $breadcrumbs);
         $this->set('post', $post);
         $this->set('response', $response);
@@ -133,6 +142,18 @@ use FM\App\Models\Resource;
             }
         }
 
+    }
+
+    public function parseContentAction() {
+        if($this->request->isAjax()) {
+            $this->noRenderer();
+            $toParse = $this->request->getPost('content');
+            $content = Application::singleton('FM\Framework\View\BBCodeParser')->parse($toParse);
+            $arr = array('content' => $content);
+            echo json_encode($arr);die;
+        } else {
+            $this->response->redirect('');
+        }
     }
 
 

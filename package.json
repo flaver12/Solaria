@@ -16,6 +16,7 @@
     "webpack": "^2.2.1"
   },
   "devDependencies": {
+    "@types/jquery": "^2.0.43",
     "gulp": "^3.9.1"
   },
   "scripts": {
