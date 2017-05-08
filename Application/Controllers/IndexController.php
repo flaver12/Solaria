@@ -3,12 +3,14 @@
 namespace FM\App\Controllers;
 
 use FM\Framework\Controller\BaseController;
-use FM\App\Models\User;
+use FM\Framework\Cronjob\Cronjobs\TestCronjob;
+use FM\Framework\Application;
 
 class IndexController extends BaseController {
 
     public function indexAction() {
-        $this->set('the', 'test!');
+        $test = new TestCronjob();
+        Application::singleton('FM\Framework\Cronjob\CronjobHandler')->runCrons();
     }
 
     public function testAction() {
