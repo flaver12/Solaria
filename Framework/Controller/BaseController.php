@@ -7,6 +7,7 @@ use FM\Framework\Url\Url;
 use FM\Framework\Application;
 use FM\Framework\Session;
 use FM\Framework\Acl\Acl;
+use FM\App\Models\Cronjobs;
 
 class BaseController {
 
@@ -25,17 +26,28 @@ class BaseController {
             $this->set('user', Session::get('user'));
         }
         $this->acl = new Acl();
+        if(!URL::isAdmin()) {
+            $this->runCrons();
+        }
     }
 
     public function __destruct() {
-        Application::singleton('FM\Framework\view\Template')->render();
+        Application::singleton('FM\Framework\View\Template')->render();
     }
 
     protected function set($name, $value) {
-        Application::singleton('FM\Framework\view\Template')->set($name, $value);
+        Application::singleton('FM\Framework\View\Template')->set($name, $value);
     }
 
     protected function noRenderer() {
-        Application::singleton('FM\Framework\view\Template')->noRenderer();
+        Application::singleton('FM\Framework\View\Template')->noRenderer();
+    }
+
+    protected function runCrons() {
+        $crons = Cronjobs::findAll();
+        foreach ($crons as $cron) {
+            Application::singleton('FM\Framework\Cronjob\CronjobHandler')->register(Application::singleton('FM\Framework\Cronjob\Cronjobs\\'.$cron->getName()));
+        }
+        Application::singleton('FM\Framework\Cronjob\CronjobHandler')->runCrons();
     }
 }

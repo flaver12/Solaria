@@ -13,6 +13,7 @@ class Url {
     private static $url = '';
     private static $urlPath = '';
     private static $request = null;
+    private static $isAdmin = false;
 
     public static function init($config) {
 
@@ -81,7 +82,9 @@ class Url {
         if(strpos($action, '-') !== false) {
              $action = lcfirst(str_replace('-', '', ucwords($action, '-')));
         }
-
+        if($controller == 'AdminController') {
+            self::$isAdmin = true;
+        }
         $dp->buildAndCallController($controller, $action, $params);
     }
 
@@ -95,6 +98,10 @@ class Url {
 
     public static function getRequest() {
         return self::$request;
+    }
+
+    public static function isAdmin() {
+        return self::$isAdmin;
     }
 
 }

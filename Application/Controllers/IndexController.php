@@ -3,16 +3,11 @@
 namespace FM\App\Controllers;
 
 use FM\Framework\Controller\BaseController;
-use FM\App\Models\User;
+use FM\Framework\Cronjob\Cronjobs\TestCronjob;
+use FM\Framework\Application;
 
 class IndexController extends BaseController {
 
-    public function indexAction() {
-        $this->set('the', 'test!');
-    }
-
-    public function testAction() {
-        printf("Hello world2!");
-    }
+    public function indexAction() {}
 
 }
