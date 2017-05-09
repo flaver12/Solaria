@@ -14,10 +14,13 @@ use FM\App\Models\Permission;
 use FM\App\Models\Category;
 use FM\App\Models\Resource;
 use FM\App\Models\ResourceRole;
+use FM\App\Models\Cronjobs;
 use FM\App\Forms\CategoryCreationForm;
 use FM\App\Forms\CreateTopicForm;
 use FM\App\Forms\CreateUserGroup;
 use FM\App\Forms\BBCodeForm;
+
+use DirectoryIterator;
 
 class AdminController extends BaseController {
 
@@ -350,6 +353,27 @@ class AdminController extends BaseController {
             $this->set('all_permissions', $allPermissions);
             $this->set('role_permissions', $rolePermArray);
         }
+    }
+
+    public function cronjobAction() {
+        $corns = array();
+        $activeCrons = array();
+        $cronsInDB = Cronjobs::findAll();
+        $dir = new DirectoryIterator(APP_PATH.'/Framework/Cronjob/Cronjobs');
+        foreach ($dir as $fileinfo) {
+            if (!$fileinfo->isDot()) {
+                $cronName = str_replace(".php", "", $fileinfo->getFilename());
+                array_push($corns, $cronName);
+                foreach ($cronsInDB as $cron) {
+                    if($cron->getName() == $cronName) {
+                        array_push($activeCrons, $cron->getName());
+                    }
+                }
+            }
+        }
+
+        $this->set('all_crons', $corns);
+        $this->set('active_crons', $activeCrons);
     }
 
 }

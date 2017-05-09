@@ -24,7 +24,7 @@ class Dispatcher {
         if(!class_exists($controller)) {
             throw new \Exception("Class ".$controller. " does not exist!");
         }
-
+        
         if(method_exists($controller, $action)) {
             //do the acl check
             $acl            = new Acl(Session::get('user'));
