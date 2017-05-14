@@ -356,23 +356,26 @@ class AdminController extends BaseController {
     }
 
     public function cronjobAction() {
-        $corns = array();
+
         $activeCrons = array();
+        $inactiveCrons = array();
         $cronsInDB = Cronjobs::findAll();
         $dir = new DirectoryIterator(APP_PATH.'/Framework/Cronjob/Cronjobs');
+
         foreach ($dir as $fileinfo) {
             if (!$fileinfo->isDot()) {
                 $cronName = str_replace(".php", "", $fileinfo->getFilename());
-                array_push($corns, $cronName);
+                $inactiveCrons[$cronName] = $cronName;
                 foreach ($cronsInDB as $cron) {
                     if($cron->getName() == $cronName) {
                         array_push($activeCrons, $cron->getName());
+                        unset($inactiveCrons[$cron->getName()]);
                     }
                 }
             }
         }
 
-        $this->set('all_crons', $corns);
+        $this->set('inactive_crons', $inactiveCrons);
         $this->set('active_crons', $activeCrons);
     }
 

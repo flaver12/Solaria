@@ -16,6 +16,16 @@
                   {% endfor %}
               </div>
             </div>
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Nicht aktive Cronjobs</h3>
+              </div>
+              <div class="panel-body">
+                  {% for i in inactive_crons %}
+                    {{ i }}
+                  {% endfor %}
+              </div>
+            </div>
         </div>
     </div>
 {% endblock %}
