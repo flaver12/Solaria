@@ -6,6 +6,9 @@ php:
 notifications:
   email: false
 
+install:
+  - |
+  
 -deploy:
  -  provider: heroku
  -  api_key: $API_KEY
