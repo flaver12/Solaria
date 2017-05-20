@@ -1,7 +1,7 @@
 <?php
 namespace FM\Framework\View;
 
-require_once APP_PATH."/framework/external/jbbcode/Parser.php";
+require_once APP_PATH."/Framework/external/jbbcode/Parser.php";
 
 class BBCodeParser {
 
