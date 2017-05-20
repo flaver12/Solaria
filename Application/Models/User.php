@@ -1,8 +1,8 @@
 <?php
 
-namespace FM\App\Models;
+namespace Solaria\App\Models;
 
-use FM\Framework\Model\BaseModel;
+use Solaria\Framework\Model\BaseModel;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
@@ -21,13 +21,13 @@ class User extends BaseModel {
 
     /**
      * One User has Many Posts.
-     * @OneToMany(targetEntity="FM\App\Models\Post", mappedBy="user_id")
+     * @OneToMany(targetEntity="Solaria\App\Models\Post", mappedBy="user_id")
      */
     protected $posts = null;
 
     /**
      * One User has Many UserRole ids.
-     * @OneToMany(targetEntity="FM\App\Models\UserRole", mappedBy="user")
+     * @OneToMany(targetEntity="Solaria\App\Models\UserRole", mappedBy="user")
      */
     protected $userRoles = null;
 

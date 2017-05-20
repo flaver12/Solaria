@@ -5,14 +5,15 @@
 * soo look what you are chaning here
 *
 * @author Flavio Kleiber <flaverkleiber@yahoo.de>
-* @package FM\Framework
+* @package Solaria\Framework
 * @copyright 2016-2017 Flavio Kleiber
 */
-namespace FM\Framework;
+namespace Solaria\Framework;
 
 use \Doctrine\ORM\Tools\Setup;
 use \Doctrine\ORM\EntityManager;
-use FM\Framework\Url\Url;
+use Solaria\Framework\Url\Url;
+use Solaria\Framework\Acl\Acl;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 use DI\ContainerBuilder;
@@ -81,11 +82,16 @@ class Application {
             'auto_reload ' => $mainConf['view']['auto_reload']
         ));
 
+        //set up acl
+        $acl = new Acl();
+        $acl->setDefaultAction(Acl::DENY);
+
         //DI stuff done here
         self::$container = ContainerBuilder::buildDevContainer();
         self::$container->set('view', $twig);
         self::$container->set('entityManager', $entityManager);
         self::$container->set('logger', $log);
+        self::$container->set('acl', $acl)
 
     }
 

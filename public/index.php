@@ -1,5 +1,5 @@
 <?php
-use FM\Framework\Application;
+use Solaria\Framework\Application;
 
 /*
 * Farming manager index class

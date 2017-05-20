@@ -3,12 +3,12 @@
  * FlashClass
  *
  * @author Flavio Kleiber
- * @package FM\Framework\View\Flash
+ * @package Solaria\Framework\View\Flash
  * @copyright (c) 2016-2017, Flavio Kleiber
  */
-namespace FM\Framework\View\Flash;
+namespace Solaria\Framework\View\Flash;
 
-use FM\Framework\Session;
+use Solaria\Framework\Session;
 
 class SessionFlash {
 

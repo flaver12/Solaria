@@ -1,11 +1,11 @@
 <?php
-namespace FM\App\Controllers;
+namespace Solaria\App\Controllers;
 
-use FM\Framework\Controller\BaseController;
-use FM\App\Forms\SingUpForm;
-use FM\App\Forms\LoginForm;
-use FM\App\Models\User;
-use FM\Framework\Session;
+use Solaria\Framework\Controller\BaseController;
+use Solaria\App\Forms\SingUpForm;
+use Solaria\App\Forms\LoginForm;
+use Solaria\App\Models\User;
+use Solaria\Framework\Session;
 
 class SessionController extends BaseController {
 

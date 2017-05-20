@@ -1,7 +1,7 @@
 <?php
 
-namespace FM\App\Models;
-use FM\Framework\Model\BaseModel;
+namespace Solaria\App\Models;
+use Solaria\Framework\Model\BaseModel;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
@@ -20,14 +20,14 @@ class Resource extends BaseModel {
 
     /**
      * Many Users have One UserGroupId.
-     * @ManyToOne(targetEntity="FM\App\Models\Permission")
+     * @ManyToOne(targetEntity="Solaria\App\Models\Permission")
      * @JoinColumn(name="permission_id", referencedColumnName="id")
      */
     protected $permission;
 
     /**
      * One Role has Many UserRole.
-     * @OneToMany(targetEntity="FM\App\Models\ResourceRole", mappedBy="resource")
+     * @OneToMany(targetEntity="Solaria\App\Models\ResourceRole", mappedBy="resource")
      */
     protected $resourceRole = null;
 

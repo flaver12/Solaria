@@ -1,15 +1,15 @@
 <?php
-namespace FM\App\Controllers;
+namespace Solaria\App\Controllers;
 
-use FM\Framework\Controller\BaseController;
-use FM\Framework\Application;
-use FM\App\Models\Category;
-use FM\App\Forms\BBCodeForm;
-use FM\App\Models\Topic;
-use FM\App\Models\Post;
-use FM\App\Models\User;
-use FM\Framework\Session;
-use FM\App\Models\Resource;
+use Solaria\Framework\Controller\BaseController;
+use Solaria\Framework\Application;
+use Solaria\App\Models\Category;
+use Solaria\App\Forms\BBCodeForm;
+use Solaria\App\Models\Topic;
+use Solaria\App\Models\Post;
+use Solaria\App\Models\User;
+use Solaria\Framework\Session;
+use Solaria\App\Models\Resource;
 
  class ForumController extends BaseController {
 
@@ -140,7 +140,7 @@ use FM\App\Models\Resource;
         if($this->request->isAjax()) {
             $this->noRenderer();
             $toParse = $this->request->getPost('content');
-            $content = Application::singleton('FM\Framework\View\BBCodeParser')->parse($toParse);
+            $content = Application::singleton('Solaria\Framework\View\BBCodeParser')->parse($toParse);
             $arr = array('content' => $content);
             echo json_encode($arr);die;
         } else {

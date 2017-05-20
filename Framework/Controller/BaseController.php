@@ -1,13 +1,13 @@
 <?php
 //by flaver
 
-namespace FM\Framework\Controller;
+namespace Solaria\Framework\Controller;
 
-use FM\Framework\Url\Url;
-use FM\Framework\Application;
-use FM\Framework\Session;
-use FM\Framework\Acl\Acl;
-use FM\App\Models\Cronjobs;
+use Solaria\Framework\Url\Url;
+use Solaria\Framework\Application;
+use Solaria\Framework\Session;
+use Solaria\Framework\Acl\Acl;
+use Solaria\App\Models\Cronjobs;
 
 class BaseController {
 
@@ -19,9 +19,9 @@ class BaseController {
 
     public function __construct() {
         $this->request = URL::getRequest();
-        $this->view = Application::singleton('FM\Framework\View\Template');
-        $this->response = Application::singleton('FM\Framework\Url\Response');
-        $this->flashSession = Application::singleton('FM\Framework\View\Flash\SessionFlash');
+        $this->view = Application::singleton('Solaria\Framework\View\Template');
+        $this->response = Application::singleton('Solaria\Framework\Url\Response');
+        $this->flashSession = Application::singleton('Solaria\Framework\View\Flash\SessionFlash');
         if(Session::exist('user')) {
             $this->set('user', Session::get('user'));
         }
@@ -32,22 +32,22 @@ class BaseController {
     }
 
     public function __destruct() {
-        Application::singleton('FM\Framework\View\Template')->render();
+        Application::singleton('Solaria\Framework\View\Template')->render();
     }
 
     protected function set($name, $value) {
-        Application::singleton('FM\Framework\View\Template')->set($name, $value);
+        Application::singleton('Solaria\Framework\View\Template')->set($name, $value);
     }
 
     protected function noRenderer() {
-        Application::singleton('FM\Framework\View\Template')->noRenderer();
+        Application::singleton('Solaria\Framework\View\Template')->noRenderer();
     }
 
     protected function runCrons() {
         $crons = Cronjobs::findAll();
         foreach ($crons as $cron) {
-            Application::singleton('FM\Framework\Cronjob\CronjobHandler')->register(Application::singleton('FM\Framework\Cronjob\Cronjobs\\'.$cron->getName()));
+            Application::singleton('Solaria\Framework\Cronjob\CronjobHandler')->register(Application::singleton('Solaria\Framework\Cronjob\Cronjobs\\'.$cron->getName()));
         }
-        Application::singleton('FM\Framework\Cronjob\CronjobHandler')->runCrons();
+        Application::singleton('Solaria\Framework\Cronjob\CronjobHandler')->runCrons();
     }
 }

@@ -1,7 +1,7 @@
 <?php
-namespace FM\Framework\View\Forms\Fields;
+namespace Solaria\Framework\View\Forms\Fields;
 
-use FM\Framework\View\Forms\Fields\FieldInterface;
+use Solaria\Framework\View\Forms\Fields\FieldInterface;
 
 class Button implements FieldInterface {
 

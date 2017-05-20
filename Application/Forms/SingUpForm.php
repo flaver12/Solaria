@@ -1,10 +1,10 @@
 <?php
 
-namespace FM\App\forms;
+namespace Solaria\App\forms;
 
-use FM\Framework\view\Forms\Form;
-use FM\Framework\view\Forms\fields\InputField;
-use FM\Framework\view\Forms\fields\Button;
+use Solaria\Framework\view\Forms\Form;
+use Solaria\Framework\view\Forms\fields\InputField;
+use Solaria\Framework\view\Forms\fields\Button;
 
 class SingUpForm extends Form {
 
