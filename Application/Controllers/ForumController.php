@@ -46,14 +46,6 @@ use FM\App\Models\Resource;
     }
 
     public function viewPostAction($id) {
-
-        if($this->request->isAjax()) {
-            $this->noRenderer();
-            $post = Post::find($id);
-            $arr = array('title' => $post->getTitle(), 'content' => $post->getContent());
-
-            echo json_encode($arr);die;
-        }
         //Load form
         $this->set('bbCodeForm', new BBCodeForm('forum/create-response', true));
 
@@ -82,7 +74,7 @@ use FM\App\Models\Resource;
 
         );
         //\Doctrine\Common\Util\Debug::dump($post->getPost()[0]->getTitle());die;
-
+        
         $this->set('topic_id', $post->getTopic()->getId());
         $this->set('post_id', $post->getId());
         $this->set('breadcrumb', $breadcrumbs);
