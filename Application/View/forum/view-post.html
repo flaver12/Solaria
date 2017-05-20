@@ -4,9 +4,8 @@
     <article class="overview">
                 <section class="category">
                 <div class="panel panel-default">
-                  <div class="panel-body post_name" id="main-post-title">
-                      <!-- Title, insert by jquery -->
-                      {{ post.getTitle() }}
+                  <div class="panel-body topic_name">
+                    {{ post.getTitle() }}
                   </div>
                 </div>
                 <header class="row">
@@ -16,12 +15,8 @@
                         <div class="post-numbers">Beiträge {{ view.countUserPosts(post.getUser().getId()) }}</div>
                     </div>
                     <div class="col-md-10">
-                        <div class="list-group list-group-first post_body" id="main-post-content">
-                          <!-- Content, insert by jquery -->
+                        <div class="list-group list-group-first post_body">
                           {{ view.parserBBCode(post.getContent()) }}
-                          <div id="LoadingImage" style="display: none" >
-                              <img class="img-responsive center-block" src="https://media.giphy.com/media/h53aZhPiGKhr2/giphy.gif" />
-                          </div>
                           <div class="post-edit-bar"><span class="glyphicon glyphicon glyphicon-pencil" aria-hidden="true"></span> Bearbeiten</div>
                         </div>
                     </div>
@@ -48,8 +43,6 @@
     {% if user %}
       <section class="create-post">
           <script>
-
-
               var wbbOpt = {
                   buttons: "bold,italic,underline,strike,sup,sub,|,img,video,link,|,bullist,numlist,|,fontcolor,fontsize,fontfamily,|, justifyleft, justifycenter,justifyright,|, quote,code,table,removeFormat",
                   smileList: [
