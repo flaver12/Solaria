@@ -8,7 +8,6 @@ use Solaria\Framework\Session;
 class IndexController extends BaseController {
 
     public function indexAction() {
-        echo Session::get('user')->getUserRole()->getRole()->getName();
     }
 
 }
