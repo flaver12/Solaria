@@ -46,7 +46,7 @@ class Dispatcher {
                     return;
                 }
             }
-            echo " nope!";
+            echo "This need to be changed!";
         } else {
             throw new Exception("Method ".$action. " does not exist!");
         }
