@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 09. Mai 2017 um 20:36
+-- Erstellungszeit: 22. Mai 2017 um 12:28
 -- Server-Version: 10.1.21-MariaDB
 -- PHP-Version: 7.0.15
 
@@ -114,7 +114,6 @@ INSERT INTO `post` (`id`, `topic_id`, `user_id`, `post_id`, `title`, `content`, 
 
 CREATE TABLE `resource` (
   `id` int(11) NOT NULL,
-  `permission_id` int(11) DEFAULT NULL,
   `name` varchar(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -122,11 +121,11 @@ CREATE TABLE `resource` (
 -- Daten für Tabelle `resource`
 --
 
-INSERT INTO `resource` (`id`, `permission_id`, `name`) VALUES
-(3, 1, 'AdminController.*'),
-(4, 2, 'ForumController.createCategoryAction'),
-(8, 1, 'viewTopicAction.4'),
-(15, 1, 'viewTopicAction.2');
+INSERT INTO `resource` (`id`, `name`) VALUES
+(1, 'IndexController.indexAction.*'),
+(2, 'ForumController.indexAction.*'),
+(3, 'AdminController.*.*'),
+(4, 'SessionController.*.*');
 
 -- --------------------------------------------------------
 
@@ -138,19 +137,17 @@ CREATE TABLE `resource_role` (
   `id` int(11) NOT NULL,
   `resource_id` int(11) NOT NULL,
   `role_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 --
 -- Daten für Tabelle `resource_role`
 --
 
 INSERT INTO `resource_role` (`id`, `resource_id`, `role_id`) VALUES
-(1, 3, 1),
-(2, 4, 1),
-(7, 8, 1),
-(29, 15, 1),
-(30, 15, 2),
-(31, 15, 5);
+(2, 1, 6),
+(3, 2, 6),
+(4, 3, 1),
+(5, 4, 6);
 
 -- --------------------------------------------------------
 
@@ -160,44 +157,19 @@ INSERT INTO `resource_role` (`id`, `resource_id`, `role_id`) VALUES
 
 CREATE TABLE `role` (
   `id` int(11) NOT NULL,
-  `name` varchar(45) NOT NULL
+  `name` varchar(45) NOT NULL,
+  `extend_id` int(11) NOT NULL COMMENT 'If this id is set it means that this role extends from a other group'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Daten für Tabelle `role`
 --
 
-INSERT INTO `role` (`id`, `name`) VALUES
-(1, 'Admin'),
-(2, 'Moderator'),
-(5, 'Member');
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `role_permission`
---
-
-CREATE TABLE `role_permission` (
-  `id` int(11) NOT NULL,
-  `role_id` int(11) DEFAULT NULL,
-  `permission_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Daten für Tabelle `role_permission`
---
-
-INSERT INTO `role_permission` (`id`, `role_id`, `permission_id`) VALUES
-(11, 5, 1),
-(12, 5, 2),
-(18, 2, 1),
-(19, 2, 2),
-(20, 2, 3),
-(21, 1, 1),
-(22, 1, 2),
-(23, 1, 3),
-(24, 1, 4);
+INSERT INTO `role` (`id`, `name`, `extend_id`) VALUES
+(1, 'Admin', 2),
+(2, 'Moderator', 5),
+(5, 'Member', 6),
+(6, 'Guest', 0);
 
 -- --------------------------------------------------------
 
@@ -243,18 +215,6 @@ INSERT INTO `user` (`id`, `username`, `password`) VALUES
 (1, 'flaver', '3da541559918a808c2402bba5012f6c60b27661c'),
 (2, 'mod', '3da541559918a808c2402bba5012f6c60b27661c'),
 (4, 'member ', '3da541559918a808c2402bba5012f6c60b27661c');
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `user_permission`
---
-
-CREATE TABLE `user_permission` (
-  `id` int(11) NOT NULL,
-  `user_id` int(11) DEFAULT NULL,
-  `permission_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -324,12 +284,6 @@ ALTER TABLE `role`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indizes für die Tabelle `role_permission`
---
-ALTER TABLE `role_permission`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indizes für die Tabelle `topic`
 --
 ALTER TABLE `topic`
@@ -339,12 +293,6 @@ ALTER TABLE `topic`
 -- Indizes für die Tabelle `user`
 --
 ALTER TABLE `user`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indizes für die Tabelle `user_permission`
---
-ALTER TABLE `user_permission`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -381,22 +329,17 @@ ALTER TABLE `post`
 -- AUTO_INCREMENT für Tabelle `resource`
 --
 ALTER TABLE `resource`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT für Tabelle `resource_role`
 --
 ALTER TABLE `resource_role`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT für Tabelle `role`
 --
 ALTER TABLE `role`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
---
--- AUTO_INCREMENT für Tabelle `role_permission`
---
-ALTER TABLE `role_permission`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT für Tabelle `topic`
 --
@@ -407,11 +350,6 @@ ALTER TABLE `topic`
 --
 ALTER TABLE `user`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
---
--- AUTO_INCREMENT für Tabelle `user_permission`
---
-ALTER TABLE `user_permission`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT für Tabelle `user_role`
 --

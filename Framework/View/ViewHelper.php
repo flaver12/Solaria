@@ -46,4 +46,8 @@ class ViewHelper {
         return count(Post::findBy(array('user_id' => $userId)));
     }
 
+    public function isAllowed($group, $resource) {
+        return Application::singleton('acl')->isAllowed($group, $resource);
+    }
+
 }

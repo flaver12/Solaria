@@ -15,16 +15,6 @@ class Resource extends BaseModel {
     /** @Column(type="string") **/
     protected $name;
 
-    /** @Column(type="integer") **/
-    protected $permission_id;
-
-    /**
-     * Many Users have One UserGroupId.
-     * @ManyToOne(targetEntity="Solaria\App\Models\Permission")
-     * @JoinColumn(name="permission_id", referencedColumnName="id")
-     */
-    protected $permission;
-
     /**
      * One Role has Many UserRole.
      * @OneToMany(targetEntity="Solaria\App\Models\ResourceRole", mappedBy="resource")
@@ -32,7 +22,6 @@ class Resource extends BaseModel {
     protected $resourceRole = null;
 
     public function __construct() {
-        $this->permission       = new ArrayCollection();
         $this->resourceRole     = new ArrayCollection();
     }
 
@@ -44,16 +33,8 @@ class Resource extends BaseModel {
         return $this->name;
     }
 
-    public function getPermission() {
-        return $this->permission;
-    }
-
     public function getResourceRole() {
         return $this->resourceRole;
-    }
-
-    public function setPermission($permission) {
-        $this->permission = $permission;
     }
 
     public function setName($name) {

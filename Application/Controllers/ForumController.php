@@ -18,31 +18,25 @@ use Solaria\App\Models\Resource;
     }
 
     public function viewTopicAction($id) {
+        //load topic
+        $topic = Topic::find($id);
 
-        //aclCheck
-        if($this->aclCheck('viewTopicAction', $id)) {
-            //load topic
-            $topic = Topic::find($id);
+        //created breadcrumbs
+        $breadcrumbs = array(
+          0 => array(
+              'name' => $topic->getCategory()->getName(),
+              'link' => 'forum'
+          ),
 
-            //created breadcrumbs
-            $breadcrumbs = array(
-              0 => array(
-                  'name' => $topic->getCategory()->getName(),
-                  'link' => 'forum'
-              ),
+          1 => array(
+              'name' => $topic->getName(),
+              'link' => 'forum/view-topic/'.$topic->getId()
+          )
 
-              1 => array(
-                  'name' => $topic->getName(),
-                  'link' => 'forum/view-topic/'.$topic->getId()
-              )
-
-            );
-            $this->set('breadcrumb', $breadcrumbs);
-            $this->set('topic', $topic);
-            $this->set('bbCodeForm', new BBCodeForm('forum/create-post'));
-        } else {
-            $this->response->redirect('forum');
-        }
+        );
+        $this->set('breadcrumb', $breadcrumbs);
+        $this->set('topic', $topic);
+        $this->set('bbCodeForm', new BBCodeForm('forum/create-post'));
     }
 
     public function viewPostAction($id) {
@@ -74,7 +68,7 @@ use Solaria\App\Models\Resource;
 
         );
         //\Doctrine\Common\Util\Debug::dump($post->getPost()[0]->getTitle());die;
-        
+
         $this->set('topic_id', $post->getTopic()->getId());
         $this->set('post_id', $post->getId());
         $this->set('breadcrumb', $breadcrumbs);

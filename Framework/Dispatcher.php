@@ -3,6 +3,8 @@ namespace Solaria\Framework;
 
 use Solaria\Framework\Application;
 use Solaria\Framework\Session;
+use Solaria\Framework\Acl\Role;
+use Solaria\Framework\Acl\Acl;
 use Exception;
 
 class Dispatcher {
@@ -29,13 +31,22 @@ class Dispatcher {
 
             //acl
             $acl = Application::singleton('acl');
-            if(Session::exist('user')) {
-                
+            if(empty($arguments[0])) {
+                $param = "*";
             } else {
-
+                $param = $arguments[0];
             }
-
-            call_user_func_array(array(new $controller, $action), $arguments);
+            foreach ($acl->getRole() as $role) {
+                if(
+                    $acl->isAllowed($role->getName(), $resourceName.'.'.$action.'.'.$param) == Acl::ALLOW
+                    ||
+                    $acl->isAllowed($role->getName(), $resourceName.'.*.*') == Acl::ALLOW
+                ) {
+                    call_user_func_array(array(new $controller, $action), $arguments);
+                    return;
+                }
+            }
+            echo " nope!";
         } else {
             throw new Exception("Method ".$action. " does not exist!");
         }

@@ -23,7 +23,7 @@
              {% if user is not null %}
              <li> {{ view.link_to('Willkommen, '~user.getUsername(), 'profile/'~user.getId()) }}</li>
              <li>{{view.link_to('Logout', 'sing-out')}}</li>
-                {% if view.checkRole('AdminController', '*', user) %}
+                {% if view.isAllowed(user.getUserRole().getRole().getName(), 'AdminController.*.*') == 1 %}
                     <li>{{view.link_to('Admin-Panel', 'admin')}}</li>
                 {% endif %}
 

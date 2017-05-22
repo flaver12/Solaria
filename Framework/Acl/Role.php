@@ -15,10 +15,16 @@ class Role {
 
     private $name;
     private $allowResources = array();
-    private $denyResources = array();
 
-    public function __construct($name) {
+    public function __construct($name, $extends = array()) {
         $this->name = $name;
+
+        if(!empty($extends)) {
+            foreach ($extends as $extend) {
+                $this->allowResources = $this->allowResources + $extend->getAllowedResource();
+            }
+        }
+
     }
 
     public function getName() {
@@ -35,7 +41,10 @@ class Role {
 
     }
 
-    public function getAllowedResource($name) {
+    public function getAllowedResource($name = '') {
+        if($name == '') {
+            return $this->allowResources;
+        }
         return $this->allowResources[$name];
     }
 

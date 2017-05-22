@@ -13,6 +13,7 @@ namespace Solaria\Framework;
 use \Doctrine\ORM\Tools\Setup;
 use \Doctrine\ORM\EntityManager;
 use Solaria\Framework\Url\Url;
+use Solaria\Framework\Acl\AclDbSetup;
 use Solaria\Framework\Acl\Acl;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
@@ -82,16 +83,11 @@ class Application {
             'auto_reload ' => $mainConf['view']['auto_reload']
         ));
 
-        //set up acl
-        $acl = new Acl();
-        $acl->setDefaultAction(Acl::DENY);
-
         //DI stuff done here
         self::$container = ContainerBuilder::buildDevContainer();
         self::$container->set('view', $twig);
         self::$container->set('entityManager', $entityManager);
         self::$container->set('logger', $log);
-        self::$container->set('acl', $acl)
 
     }
 
@@ -104,6 +100,15 @@ class Application {
 
         //start the session
         Session::start();
+
+        //set up acl
+        if(Session::exist('user')) {
+            $acl = new AclDbSetup(Session::get('user')->getId());
+        } else {
+            $acl = new AclDbSetup();
+        }
+        $acl = $acl->getLoadedAcl();
+        self::$container->set('acl', $acl);
 
         //just for phpunit
         if(!isset($_GET['_url'])) {

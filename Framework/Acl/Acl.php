@@ -22,58 +22,64 @@ class Acl {
     const ALLOW     = 1;
     const DENY      = 0;
 
-    private $defaultAction = Acl::ALLOW;
-    private $roles = array();
+    private $defaultAction = Acl::DENY;
+    private $role = array();
     private $resources = array();
+    private $userRole = null;
 
     public function setDefaultAction($action) {
         $this->defaultAction = $action;
     }
 
     public function addRole(Role $role) {
-        $this->roles[$role->getName()] = $role;
+        $this->role[$role->getName()] = $role;
+    }
+
+    public function getRole() {
+        return $this->role;
     }
 
     public function addResource(Resource $resource) {
         $this->resources[$resource->getName()] = $resource;
     }
 
-    public function allow($role, $resource, $permission) {
-        $this->setPermission($role, $resource, $permission, self::ALLOW);
+    public function allow($role, $resource) {
+        $this->setPermission($role, $resource, array(), self::ALLOW);
     }
 
-    public function deny($role, $resource, $permission) {
-        $this->setPermission($role, $resource, $permission, self::DENY);
+    public function deny($role, $resource) {
+        $this->setPermission($role, $resource, array(), self::DENY);
     }
 
     private function setPermission($role, $resource, $permission, $mod) {
-        $role = $this->roles[$role];
-        $resourceArr = array('name' => $resource, 'permission' => $permission);
+        $role = $this->role[$role];
+        $resourceArr = array('name' => $resource, 'permission' => true);
         $role->addResource($resourceArr, $mod);
     }
 
-    public function isAllowed($role, $resource, $permission) {
-        $role = $this->roles[$role];
+    public function isAllowed($role, $resource) {
+        if(!empty($this->role[$role])) {
+            $role = $this->role[$role];
+            if(!empty($role->getAllowedResource($resource))) {
+                return self::ALLOW;
+                /*
+                if(is_array($permissions)) {
+                    foreach ($resource as $rper) {
+                        if($permission == $rper) {
+                            return self::ALLOW;
+                        }
+                    }
 
-        if(!empty($role->getAllowedResource($resource))) {
-            $permissions = $role->getAllowedResource($resource);
-            if(is_array($permissions)) {
-                foreach ($resource as $rper) {
-                    if($permission == $rper) {
+                } else {
+                    if($permissions == $permission) {
                         return self::ALLOW;
                     }
-                }
-
-            } else {
-                if($permissions == $permission) {
-                    return self::ALLOW;
-                }
+                }*/
             }
-
-            return self::DENY;
         }
 
-        return self::DENY;
+
+        return $this->defaultAction;
     }
 
 

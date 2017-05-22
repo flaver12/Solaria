@@ -33,8 +33,8 @@ class ResourceRole extends BaseModel {
      protected $resource;
 
      public function __construct() {
-       $this->resource  = new ArrayCollection();
-       $this->role      = new ArrayCollection();
+       $this->resource        = new ArrayCollection();
+       $this->role            = new ArrayCollection();
      }
 
      public function getResource() {
