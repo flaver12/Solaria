@@ -27,7 +27,7 @@ class AdminController extends BaseController {
     const VIEW_TOPIC = 'viewTopicAction';
     const DELETE_POST = 'deletePostAction';
     const EDIT_POST = 'editPostAction';
-    const DEFAULT_PERMISSION = 1;
+    const FORUM_BASE = 'ForumController';
 
     public function __construct() {
         parent::__construct();
@@ -157,8 +157,7 @@ class AdminController extends BaseController {
 
             if(!empty($tempArr)) {
                 $res = new Resource();
-                $res->setPermission(Permission::find(self::DEFAULT_PERMISSION));
-                $res->setName(self::VIEW_TOPIC.'.'.$topic->getId());
+                $res->setName(self::FORUM_BASE.'.'.self::VIEW_TOPIC.'.'.$topic->getId());
                 $res->save($res);
                 foreach ($tempArr as $name => $id) {
                     $resRole = new ResourceRole();
@@ -203,7 +202,7 @@ class AdminController extends BaseController {
             $topicId = $this->request->getPost('topic_id');
             $data = $this->request->getPost();
             unset($data['topic_id']);
-            $resource = Resource::findBy(array('name' => self::VIEW_TOPIC.'.'.$topicId));
+            $resource = Resource::findBy(array('name' => self::FORUM_BASE.'.'.self::VIEW_TOPIC.'.'.$topicId));
 
             if(!empty($resource) && count($data) > 1) {
                 $resourceRoles = $resource[0]->getResourceRole();
@@ -232,8 +231,7 @@ class AdminController extends BaseController {
                 $this->response->redirect('admin/edit-forum');
             } else {
                 $res = new Resource();
-                $res->setPermission(Permission::find(self::DEFAULT_PERMISSION));
-                $res->setName(self::VIEW_TOPIC.'.'.$topicId);
+                $res->setName(self::FORUM_BASE.'.'.self::VIEW_TOPIC.'.'.$topicId);
                 $res->save($res);
                 foreach ($data as $name => $id) {
                     $resRole = new ResourceRole();
@@ -252,7 +250,7 @@ class AdminController extends BaseController {
             $roles = Role::findAll();
             $resArr = array();
             $resGroups = array();
-            $resource = Resource::findBy(array('name' => self::VIEW_TOPIC.'.'.$id));
+            $resource = Resource::findBy(array('name' => self::FORUM_BASE.'.'.self::VIEW_TOPIC.'.'.$id));
 
             if(empty(!$resource)) {
 
