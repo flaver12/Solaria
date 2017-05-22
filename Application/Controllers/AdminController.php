@@ -1,24 +1,24 @@
 <?php
-namespace FM\App\Controllers;
+namespace Solaria\App\Controllers;
 
-use FM\Framework\Controller\BaseController;
-use FM\Framework\Acl\Acl;
+use Solaria\Framework\Controller\BaseController;
+use Solaria\Framework\Acl\Acl;
 
-use FM\App\Models\User;
-use FM\App\Models\UserRole;
-use FM\App\Models\Role;
-use FM\App\Models\RolePermission;
-use FM\App\Models\Post;
-use FM\App\Models\Topic;
-use FM\App\Models\Permission;
-use FM\App\Models\Category;
-use FM\App\Models\Resource;
-use FM\App\Models\ResourceRole;
-use FM\App\Models\Cronjobs;
-use FM\App\Forms\CategoryCreationForm;
-use FM\App\Forms\CreateTopicForm;
-use FM\App\Forms\CreateUserGroup;
-use FM\App\Forms\BBCodeForm;
+use Solaria\App\Models\User;
+use Solaria\App\Models\UserRole;
+use Solaria\App\Models\Role;
+use Solaria\App\Models\RolePermission;
+use Solaria\App\Models\Post;
+use Solaria\App\Models\Topic;
+use Solaria\App\Models\Permission;
+use Solaria\App\Models\Category;
+use Solaria\App\Models\Resource;
+use Solaria\App\Models\ResourceRole;
+use Solaria\App\Models\Cronjobs;
+use Solaria\App\Forms\CategoryCreationForm;
+use Solaria\App\Forms\CreateTopicForm;
+use Solaria\App\Forms\CreateUserGroup;
+use Solaria\App\Forms\BBCodeForm;
 
 use DirectoryIterator;
 

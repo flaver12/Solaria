@@ -1,13 +1,14 @@
 <?php
 
-namespace FM\App\Controllers;
+namespace Solaria\App\Controllers;
 
-use FM\Framework\Controller\BaseController;
-use FM\Framework\Cronjob\Cronjobs\TestCronjob;
-use FM\Framework\Application;
+use Solaria\Framework\Controller\BaseController;
+use Solaria\Framework\Session;
 
 class IndexController extends BaseController {
 
-    public function indexAction() {}
+    public function indexAction() {
+        echo Session::get('user')->getUserRole()->getRole()->getName();
+    }
 
 }

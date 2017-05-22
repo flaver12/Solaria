@@ -1,10 +1,10 @@
 <?php
-namespace FM\App\Forms;
+namespace Solaria\App\Forms;
 
-use FM\Framework\View\Forms\Form;
-use FM\Framework\View\Forms\Fields\InputField;
-use FM\Framework\View\Forms\Fields\Button;
-use FM\Framework\View\Forms\Fields\TextAreaField;
+use Solaria\Framework\View\Forms\Form;
+use Solaria\Framework\View\Forms\Fields\InputField;
+use Solaria\Framework\View\Forms\Fields\Button;
+use Solaria\Framework\View\Forms\Fields\TextAreaField;
 
 class CategoryCreationForm extends Form {
 

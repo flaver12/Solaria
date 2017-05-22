@@ -1,9 +1,9 @@
 <?php
 
-namespace FM\App\Controllers;
+namespace Solaria\App\Controllers;
 
-use FM\Framework\Controller\BaseController;
-use FM\App\Models\User;
+use Solaria\Framework\Controller\BaseController;
+use Solaria\App\Models\User;
 
 class UserController extends BaseController {
 

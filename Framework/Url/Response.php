@@ -4,13 +4,13 @@
 * Response wrapper class
 *
 * @author Flavio Kleiber <flaverkleiber@yahoo.de>
-* @package FM\Framework\Url
+* @package Solaria\Framework\Url
 * @copyright 2016-2017 Flavio Kleiber
 */
 
-namespace FM\Framework\Url;
+namespace Solaria\Framework\Url;
 
-use FM\Framework\Url\Url;
+use Solaria\Framework\Url\Url;
 
 class Response {
 

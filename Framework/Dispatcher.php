@@ -1,8 +1,10 @@
 <?php
-namespace FM\Framework;
+namespace Solaria\Framework;
 
-use FM\Framework\Acl\Acl;
-use FM\App\Models\Resource;
+use Solaria\Framework\Application;
+use Solaria\Framework\Session;
+use Solaria\Framework\Acl\Role;
+use Solaria\Framework\Acl\Acl;
 use Exception;
 
 class Dispatcher {
@@ -18,39 +20,33 @@ class Dispatcher {
         //resourceName
         $resourceName = $controller;
         //add namespace
-        $controller = 'FM\App\Controllers\\'.$controller;
+        $controller = 'Solaria\App\Controllers\\'.$controller;
 
         //prepare the vars
         if(!class_exists($controller)) {
             throw new \Exception("Class ".$controller. " does not exist!");
         }
-        
+
         if(method_exists($controller, $action)) {
-            //do the acl check
-            $acl            = new Acl(Session::get('user'));
-            $result         = Resource::findBy(array('name' => $resourceName.'.'.$action));
-            $resultStart    = Resource::findBy(array('name' => $resourceName.'.*'));
 
-            if(empty($result) && empty($resultStart)) {
-                call_user_func_array(array(new $controller, $action), $arguments);
+            //acl
+            $acl = Application::singleton('acl');
+            if(empty($arguments[0])) {
+                $param = "*";
             } else {
-                if(empty($result) && !empty($resultStart)) {
-                    if($acl->hasNeededRole($resultStart)) {
-                        call_user_func_array(array(new $controller, $action), $arguments);
-                    } else {
-                        throw new Exception("NO ERROR CONTROLLER DEFINED!");
-
-                    }
-                } else {
-                    if($acl->hasPermission($result)) {
-                        call_user_func_array(array(new $controller, $action), $arguments);
-                    } else {
-                        throw new Exception("NO ERROR CONTROLLER DEFINED!");
-
-                    }
+                $param = $arguments[0];
+            }
+            foreach ($acl->getRole() as $role) {
+                if(
+                    $acl->isAllowed($role->getName(), $resourceName.'.'.$action.'.'.$param) == Acl::ALLOW
+                    ||
+                    $acl->isAllowed($role->getName(), $resourceName.'.*.*') == Acl::ALLOW
+                ) {
+                    call_user_func_array(array(new $controller, $action), $arguments);
+                    return;
                 }
             }
-
+            echo " nope!";
         } else {
             throw new Exception("Method ".$action. " does not exist!");
         }

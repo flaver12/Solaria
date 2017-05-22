@@ -1,9 +1,9 @@
 <?php
 //basic form class
 
-namespace FM\Framework\View\Forms;
+namespace Solaria\Framework\View\Forms;
 
-use FM\Framework\Url\Url;
+use Solaria\Framework\Url\Url;
 
 class Form {
 

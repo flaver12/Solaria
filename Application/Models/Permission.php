@@ -1,7 +1,7 @@
 <?php
 
-namespace FM\App\Models;
-use FM\Framework\Model\BaseModel;
+namespace Solaria\App\Models;
+use Solaria\Framework\Model\BaseModel;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
@@ -17,13 +17,13 @@ class Permission extends BaseModel {
 
     /**
      * One Role has Many UserRole.
-     * @OneToMany(targetEntity="FM\App\Models\RolePermission", mappedBy="permission")
+     * @OneToMany(targetEntity="Solaria\App\Models\RolePermission", mappedBy="permission")
      */
     protected $rolePermission = null;
 
     /**
      * One Role has Many UserRole.
-     * @OneToMany(targetEntity="FM\App\Models\Resource", mappedBy="permission_id")
+     * @OneToMany(targetEntity="Solaria\App\Models\Resource", mappedBy="permission_id")
      */
     protected $resourcePermission = null;
 

@@ -1,7 +1,7 @@
 <?php
 
-namespace FM\App\Models;
-use FM\Framework\Model\BaseModel;
+namespace Solaria\App\Models;
+use Solaria\Framework\Model\BaseModel;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
@@ -15,28 +15,37 @@ class Role extends BaseModel {
     /** @Column(type="string") **/
     protected $name;
 
+    /** @Column(type="integer") **/
+    protected $extend_id;
     /**
      * One Role has Many UserRole.
-     * @OneToMany(targetEntity="FM\App\Models\UserRole", mappedBy="role")
+     * @OneToMany(targetEntity="Solaria\App\Models\UserRole", mappedBy="role")
      */
     protected $userRoles = null;
 
     /**
      * One Role has Many UserRole.
-     * @OneToMany(targetEntity="FM\App\Models\RolePermission", mappedBy="role")
+     * @OneToMany(targetEntity="Solaria\App\Models\ResourceRole", mappedBy="role")
      */
-    protected $rolePermission= null;
+    protected $resourceRole = null;
 
     /**
-     * One Role has Many UserRole.
-     * @OneToMany(targetEntity="FM\App\Models\ResourceRole", mappedBy="role")
+     * One Category has Many Categories.
+     * @OneToMany(targetEntity="Solaria\App\Models\Role", mappedBy="extend")
      */
-    protected $resourceRole= null;
+    protected $extendRole = null;
+
+    /**
+     * Many Responses have One Post.
+     * @ManyToOne(targetEntity="Solaria\App\Models\Role", inversedBy="extendRole")
+     * @JoinColumn(name="extend_id", referencedColumnName="id")
+     */
+    protected $extend = null;
 
     public function __construct() {
         $this->userRoles  = new ArrayCollection();
-        $this->rolePermission  = new ArrayCollection();
         $this->resourceRole  = new ArrayCollection();
+        $this->extendRole = new ArrayCollection();
     }
 
     public function getId() {
@@ -57,6 +66,14 @@ class Role extends BaseModel {
 
     public function getResourceRole() {
         return $this->resourceRole;
+    }
+
+    public function getExtendRole() {
+        return $this->extendRole;
+    }
+
+    public function getExtendId() {
+        return $this->extend_id;
     }
 
     public function setName($name) {

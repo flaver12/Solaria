@@ -1,7 +1,7 @@
 <?php
 
-namespace FM\App\Models;
-use FM\Framework\Model\BaseModel;
+namespace Solaria\App\Models;
+use Solaria\Framework\Model\BaseModel;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
@@ -26,14 +26,14 @@ class Topic extends BaseModel {
 
  /**
   * Many Topics have One Category.
-  * @ManyToOne(targetEntity="FM\App\Models\Category", inversedBy="topics")
+  * @ManyToOne(targetEntity="Solaria\App\Models\Category", inversedBy="topics")
   * @JoinColumn(name="category_id", referencedColumnName="id")
   */
   protected $category;
 
   /**
    * One Topic has Many Posts.
-   * @OneToMany(targetEntity="FM\App\Models\Post", mappedBy="topic")
+   * @OneToMany(targetEntity="Solaria\App\Models\Post", mappedBy="topic")
    */
   protected $posts = null;
 

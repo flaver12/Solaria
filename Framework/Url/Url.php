@@ -1,9 +1,9 @@
 <?php
 
-namespace FM\Framework\Url;
+namespace Solaria\Framework\Url;
 
-use FM\Framework\Url\Request;
-use FM\Framework\Application;
+use Solaria\Framework\Url\Request;
+use Solaria\Framework\Application;
 
 class Url {
 
@@ -25,7 +25,7 @@ class Url {
 
     public static function resolve($url) {
 
-        $dp = Application::singleton('FM\Framework\Dispatcher');
+        $dp = Application::singleton('Solaria\Framework\Dispatcher');
 
         //if we have no url set it to root
         //and start the index controller
@@ -71,7 +71,7 @@ class Url {
     }
 
     private static function resolveWithParams($controller, $action, $uri) {
-        $dp = Application::singleton('FM\Framework\Dispatcher');
+        $dp = Application::singleton('Solaria\Framework\Dispatcher');
         $params = array();
 
         for ($i=2; $i < (count($uri)); $i++) {

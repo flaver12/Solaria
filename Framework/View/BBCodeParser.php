@@ -1,5 +1,5 @@
 <?php
-namespace FM\Framework\View;
+namespace Solaria\Framework\View;
 
 require_once APP_PATH."/Framework/external/jbbcode/Parser.php";
 

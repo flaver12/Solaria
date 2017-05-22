@@ -1,7 +1,7 @@
 <?php
 
-namespace FM\App\Models;
-use FM\Framework\Model\BaseModel;
+namespace Solaria\App\Models;
+use Solaria\Framework\Model\BaseModel;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
@@ -29,27 +29,27 @@ class Post extends BaseModel {
 
   /**
    * Many Posts have One Topic.
-   * @ManyToOne(targetEntity="FM\App\Models\Topic", inversedBy="posts")
+   * @ManyToOne(targetEntity="Solaria\App\Models\Topic", inversedBy="posts")
    * @JoinColumn(name="topic_id", referencedColumnName="id")
    */
    protected $topic;
 
    /**
     * Many Posts have One User.
-    * @ManyToOne(targetEntity="FM\App\Models\User")
+    * @ManyToOne(targetEntity="Solaria\App\Models\User")
     * @JoinColumn(name="user_id", referencedColumnName="id")
     */
     protected $user;
 
     /**
      * One Category has Many Categories.
-     * @OneToMany(targetEntity="FM\App\Models\Post", mappedBy="response")
+     * @OneToMany(targetEntity="Solaria\App\Models\Post", mappedBy="response")
      */
     protected $post = null;
 
     /**
      * Many Responses have One Post.
-     * @ManyToOne(targetEntity="FM\App\Models\Post", inversedBy="post")
+     * @ManyToOne(targetEntity="Solaria\App\Models\Post", inversedBy="post")
      * @JoinColumn(name="post_id", referencedColumnName="id")
      */
     protected $response = null;

@@ -1,9 +1,9 @@
 <?php
 
-namespace FM\Framework\View;
+namespace Solaria\Framework\View;
 
-use FM\Framework\Application;
-use FM\Framework\Url\Url;
+use Solaria\Framework\Application;
+use Solaria\Framework\Url\Url;
 use Exception;
 
 class Template {
@@ -19,8 +19,8 @@ class Template {
 
     public function render() {
         if($this->renderView) {
-            $this->set('view', Application::singleton('FM\Framework\View\ViewHelper'));
-            $this->set('flashSession', Application::singleton('FM\Framework\View\Flash\SessionFlash'));
+            $this->set('view', Application::singleton('Solaria\Framework\View\ViewHelper'));
+            $this->set('flashSession', Application::singleton('Solaria\Framework\View\Flash\SessionFlash'));
             $this->set('url', Url::getBaseURL());
             $this->parentTemplates();
             echo $this->renderChildes();
@@ -35,8 +35,8 @@ class Template {
     }
 
     private function renderChildes() {
-        $folder = Application::singleton('FM\Framework\Dispatcher')->getController();
-        $file = Application::singleton('FM\Framework\Dispatcher')->getAction();
+        $folder = Application::singleton('Solaria\Framework\Dispatcher')->getController();
+        $file = Application::singleton('Solaria\Framework\Dispatcher')->getAction();
         $template = $this->renderer->load($folder.'/'.$file.'.html');
         return $template->render($this->prepVars());
     }

@@ -1,5 +1,5 @@
 <?php
-namespace FM\Framework\View\Forms\Fields;
+namespace Solaria\Framework\View\Forms\Fields;
 
 
 interface FieldInterface {

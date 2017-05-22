@@ -1,7 +1,7 @@
 <?php
 
-namespace FM\App\Models;
-use FM\Framework\Model\BaseModel;
+namespace Solaria\App\Models;
+use Solaria\Framework\Model\BaseModel;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
@@ -20,14 +20,14 @@ class UserRole extends BaseModel {
 
     /**
      * Many Users have One UserGroupId.
-     * @ManyToOne(targetEntity="FM\App\Models\User", inversedBy="userRoles")
+     * @ManyToOne(targetEntity="Solaria\App\Models\User", inversedBy="userRoles")
      * @JoinColumn(name="user_id", referencedColumnName="id")
      */
      protected $user;
 
      /**
       * Many Users have One UserGroupId.
-      * @ManyToOne(targetEntity="FM\App\Models\Role", inversedBy="userRoles")
+      * @ManyToOne(targetEntity="Solaria\App\Models\Role", inversedBy="userRoles")
       * @JoinColumn(name="role_id", referencedColumnName="id")
       */
      protected $role;

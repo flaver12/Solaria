@@ -1,8 +1,8 @@
 <?php
 
-namespace FM\Framework\Cronjob;
+namespace Solaria\Framework\Cronjob;
 
-use FM\Framework\Cronjob\Cronjob;
+use Solaria\Framework\Cronjob\Cronjob;
 use Exception;
 
 class CronjobHandler {
