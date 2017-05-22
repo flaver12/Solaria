@@ -1,114 +1,86 @@
 <?php
+/**
+*
+* Main acl class it handels all the operation
+*
+* @author Flavio Kleiber <flaverkleiber@yahoo.de>
+* @package Solaria\Framework\ACL
+* @copyright 2016-2017 Flavio Kleiber
+*/
 
-namespace FM\Framework\Acl;
+namespace Solaria\Framework\Acl;
 
-use FM\Framework\Session;
-use FM\Framework\Application;
-
-use FM\App\Models\User;
-use FM\App\Models\Role;
-use FM\App\Models\UserRole;
+use Solaria\Framework\Acl\Role;
+use Solaria\Framework\Application;
 
 class Acl {
 
+    const READ      = 'read';
+    const WRITE     = 'write';
+    const UPDATE    = 'update';
+    const DELETE    = 'delete';
+    const ALLOW     = 1;
+    const DENY      = 0;
 
-    const ALLOW = 'allow';
-    const FORBID = 'forbid';
-    protected $roles = array();
-    protected $user = null;
-    protected $usedGroupes = array();
+    private $defaultAction = Acl::DENY;
+    private $role = array();
+    private $resources = array();
+    private $userRole = null;
 
-    public function __construct($user = null) {
-
-        if (isset($user)) {
-            $this->user = $user;
-        } else {
-            $this->user = null;
-            return false;
-        }
-
-        //fix for some stupid session fails!
-        if(is_bool($this->user)) {
-            return false;
-        }
-
-        $this->user = User::find($this->user->getId());
-
-        $this->setUpgetRoles($this->user);
+    public function setDefaultAction($action) {
+        $this->defaultAction = $action;
     }
 
-    protected function setUpgetRoles($user) {
-        $roles = $user->getUserRole();
-        foreach($roles as $role) {
-            foreach ($role->getRole()->getRolePermission() as $rolePermission) {
-                $this->roles[$role->getRole()->getName()][$rolePermission->getPermission()->getName()] = self::ALLOW;
-            }
-        }
-
-        //Application::refreshInstance($this);
+    public function addRole(Role $role) {
+        $this->role[$role->getName()] = $role;
     }
 
     public function getRole() {
-        return $this->roles;
+        return $this->role;
     }
 
-    public function setUser($user) {
-        $this->user = User::find($user->getId());
-        $this->setUpgetRoles($this->user);
+    public function addResource(Resource $resource) {
+        $this->resources[$resource->getName()] = $resource;
     }
 
-    public function isAdmin() {
-        if(isset($this->getRole()['admin'])) {
-            return true;
-        } else {
-            return false;
-        }
+    public function allow($role, $resource) {
+        $this->setPermission($role, $resource, array(), self::ALLOW);
     }
 
-    public function hasPermission($result) {
-        foreach ($result as $resource) {
-            $permission = $resource->getPermission();
-            if(is_null($permission)) {
-                return true;
-            }
-
-            if(is_null($this->user)) {
-                return false;
-            }
-            $neddedPermission = $permission->getName();
-            foreach ($this->getRole() as $permissions) {
-                foreach ($permissions as $permission => $value) {
-                    if($permission == $neddedPermission && $value == self::ALLOW) {
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
+    public function deny($role, $resource) {
+        $this->setPermission($role, $resource, array(), self::DENY);
     }
 
-    public function hasNeededRole($result) {
-        $hasPermission = false;
-        foreach ($result as $resource) {
-            $resourceRoles = $resource->getResourceRole();
+    private function setPermission($role, $resource, $permission, $mod) {
+        $role = $this->role[$role];
+        $resourceArr = array('name' => $resource, 'permission' => true);
+        $role->addResource($resourceArr, $mod);
+    }
 
-            $permission = $resource->getPermission();
-            $neddedPermission = $permission->getName();
-
-            foreach ($resourceRoles as $resourceRole) {
-                $name = $resourceRole->getRole()->getName();
-
-                if(isset($this->getRole()[$name])) {
-                    foreach ($this->getRole()[$name] as $permission => $value) {
-                        if($permission == $neddedPermission && $value == self::ALLOW) {
-                            $hasPermission = true;;
+    public function isAllowed($role, $resource) {
+        if(!empty($this->role[$role])) {
+            $role = $this->role[$role];
+            if(!empty($role->getAllowedResource($resource))) {
+                return self::ALLOW;
+                /*
+                if(is_array($permissions)) {
+                    foreach ($resource as $rper) {
+                        if($permission == $rper) {
+                            return self::ALLOW;
                         }
                     }
-                }
+
+                } else {
+                    if($permissions == $permission) {
+                        return self::ALLOW;
+                    }
+                }*/
             }
         }
 
-        return $hasPermission;
+
+        return $this->defaultAction;
     }
+
 
 }

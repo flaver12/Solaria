@@ -1,5 +1,5 @@
 <?php
-namespace FM\Framework;
+namespace Solaria\Framework;
 
 class Session {
 
@@ -12,26 +12,26 @@ class Session {
     }
 
     public static function set($name, $value) {
-        $_SESSION['fm'][$name] = $value;
+        $_SESSION['Solaria'][$name] = $value;
     }
 
     public static function get($name) {
-        if(isset($_SESSION['fm'][$name]))
-            return $_SESSION['fm'][$name];
+        if(isset($_SESSION['Solaria'][$name]))
+            return $_SESSION['Solaria'][$name];
         else
             return false;
     }
 
     public static function exist($name) {
-        if(isset($_SESSION['fm'][$name]))
+        if(isset($_SESSION['Solaria'][$name]))
             return true;
         else
             return false;
     }
 
     public static function delete($name) {
-        if(isset($_SESSION['fm'][$name]))
-            unset($_SESSION['fm'][$name]);
+        if(isset($_SESSION['Solaria'][$name]))
+            unset($_SESSION['Solaria'][$name]);
         else
             return false;
     }

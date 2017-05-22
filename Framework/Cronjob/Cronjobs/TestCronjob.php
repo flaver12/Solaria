@@ -1,8 +1,8 @@
 <?php
 
-namespace FM\Framework\Cronjob\Cronjobs;
+namespace Solaria\Framework\Cronjob\Cronjobs;
 
-use FM\Framework\Cronjob\Cronjob;
+use Solaria\Framework\Cronjob\Cronjob;
 
 class TestCronjob extends Cronjob {
 

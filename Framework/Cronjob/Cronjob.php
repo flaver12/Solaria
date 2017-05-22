@@ -1,8 +1,8 @@
 <?php
 
-namespace FM\Framework\Cronjob;
+namespace Solaria\Framework\Cronjob;
 
-use FM\Framework\Application;
+use Solaria\Framework\Application;
 
 abstract class Cronjob {
 
@@ -11,7 +11,7 @@ abstract class Cronjob {
     public abstract function run();
 
     protected function register($instanceOfCron) {
-        Application::singleton('FM\Framework\Cronjob\CronjobHandler')->register($instanceOfCron);
+        Application::singleton('Solaria\Framework\Cronjob\CronjobHandler')->register($instanceOfCron);
     }
 
 }

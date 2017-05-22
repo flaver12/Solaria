@@ -1,12 +1,12 @@
 <?php
 
-namespace FM\Framework\View;
+namespace Solaria\Framework\View;
 
-use FM\Framework\Url\Url;
-use FM\Framework\Application;
-use FM\Framework\Acl\Acl;
-use FM\App\Models\Resource;
-use FM\App\Models\Post;
+use Solaria\Framework\Url\Url;
+use Solaria\Framework\Application;
+use Solaria\Framework\Acl\Acl;
+use Solaria\App\Models\Resource;
+use Solaria\App\Models\Post;
 
 //basic view helper fncs!
 class ViewHelper {
@@ -39,44 +39,15 @@ class ViewHelper {
     }
 
     public function parserBBCode($code) {
-        echo Application::singleton('FM\Framework\View\BBCodeParser')->parse($code);
-    }
-
-    public function checkPermission($name, $id, $user){
-        $acl = new Acl($user);
-        $result = Resource::findBy(array('name' => $name.'.'.$id));
-        if(empty($result)) {
-            return true;
-        } else {
-            if($acl->hasPermission($result)) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-    }
-
-    public function checkRole($name, $id, $user){
-        $acl = new Acl($user);
-        $result = Resource::findBy(array('name' => $name.'.'.$id));
-        if(empty($result)) {
-            return true;
-        } else {
-            if($acl->hasNeededRole($result)) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-    }
-
-    public function isAdmin($user) {
-        $acl = new Acl($user);
-        return $acl-isAdmin();
+        echo Application::singleton('Solaria\Framework\View\BBCodeParser')->parse($code);
     }
 
     public function countUserPosts($userId) {
         return count(Post::findBy(array('user_id' => $userId)));
+    }
+
+    public function isAllowed($group, $resource) {
+        return Application::singleton('acl')->isAllowed($group, $resource);
     }
 
 }

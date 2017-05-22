@@ -4,9 +4,9 @@
 *
 * This is a simple wrapper class for a doctrine model
 */
-namespace FM\Framework\Model;
+namespace Solaria\Framework\Model;
 
-use FM\Framework\Application;
+use Solaria\Framework\Application;
 
 class BaseModel {
 

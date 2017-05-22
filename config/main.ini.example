@@ -8,3 +8,10 @@ dbname = test
 cacheDir = cache/view
 debug = true
 auto_reload = true
+
+[acl]
+userTable                       = "Solaria\App\Models\User"
+userRoleTable                   = "Solaria\App\Models\UserRole"
+roleTable                       = "Solaria\App\Models\Role"
+resourceTable                   = "Solaria\App\Models\Resource"
+resourceRolePermissionTable     = "Solaria\App\Models\ResourceRolePermission"

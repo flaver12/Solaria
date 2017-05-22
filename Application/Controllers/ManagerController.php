@@ -1,7 +1,7 @@
 <?php
-namespace FM\App\Controllers;
+namespace Solaria\App\Controllers;
 
-use FM\Framework\Controller\BaseController;
+use Solaria\Framework\Controller\BaseController;
 
  class ManagerController extends BaseController {
 

@@ -17,17 +17,15 @@
                     <div class="col-md-12">
                         <div class="list-group list-group-first">
                         {% for j in i.getTopics() %}
-                            {% if view.checkRole('viewTopicAction', j.getId(), user) == true %}
-                                {{ view.start_link('forum/view-topic/'~j.getId(), 'list-group-item post_pre') }}
-                                    <h4 class="list-group-item-heading post_pre_title">{{ j.getName() }}</h4>
-                                    <p class="list-group-item-text"><ul class="list-inline">
-                                          <li><b>Topics:</b> 12</li>
-                                          <li><b>Post:</b> 43</li>
-                                          <li><b>Latest Post:</b> xxxxx</li>
-                                        </ul>
-                                    </p>
-                                  {{ view.end_link() }}
-                            {% endif %}
+                            {{ view.start_link('forum/view-topic/'~j.getId(), 'list-group-item post_pre') }}
+                                <h4 class="list-group-item-heading post_pre_title">{{ j.getName() }}</h4>
+                                <p class="list-group-item-text"><ul class="list-inline">
+                                      <li><b>Topics:</b> 12</li>
+                                      <li><b>Post:</b> 43</li>
+                                      <li><b>Latest Post:</b> xxxxx</li>
+                                    </ul>
+                                </p>
+                              {{ view.end_link() }}
                         {% endfor %}
                         </div>
                     </div>

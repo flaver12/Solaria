@@ -1,7 +1,7 @@
 <?php
 
-namespace FM\App\models;
-use FM\Framework\model\BaseModel;
+namespace Solaria\App\models;
+use Solaria\Framework\model\BaseModel;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
@@ -26,7 +26,7 @@ class Category extends BaseModel {
 
     /**
      * One Category has Many Topics.
-     * @OneToMany(targetEntity="FM\App\Models\Topic", mappedBy="category")
+     * @OneToMany(targetEntity="Solaria\App\Models\Topic", mappedBy="category")
      */
     protected $topics = null;
 

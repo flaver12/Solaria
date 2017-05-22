@@ -1,8 +1,8 @@
 {
     "autoload": {
       "psr-4": {
-        "FM\\Framework\\": "Framework",
-        "FM\\App\\": "Application"
+        "Solaria\\Framework\\": "Framework",
+        "Solaria\\App\\": "Application"
       }
     },
     "require": {
