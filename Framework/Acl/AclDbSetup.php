@@ -61,7 +61,7 @@ class AclDbSetup {
             foreach ($resourceRoles as $resourceRole) {
                 $resource = $resourceRole->getResource();
                 $this->acl->addResource(new Resource($resource->getName()));
-                $resRol = $this->aclConf['resourceRolePermissionTable']::findBy(array('resource_id' => $resource->getId()))[0];
+                $resRol = $this->aclConf['resourceRolePermissionTable']::findBy(array('resource_id' => $resource->getId(), 'role_id' => $role->getId()))[0];
                 $this->acl->allow($resRol->getRole()->getName(), $resource->getName());
             }
         }
