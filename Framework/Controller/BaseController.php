@@ -25,7 +25,6 @@ class BaseController {
         if(Session::exist('user')) {
             $this->set('user', Session::get('user'));
         }
-        $this->acl = new Acl();
         if(!URL::isAdmin()) {
             $this->runCrons();
         }

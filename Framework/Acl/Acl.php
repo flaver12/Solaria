@@ -58,6 +58,15 @@ class Acl {
     }
 
     public function isAllowed($role, $resource) {
+        if(is_array($role)) {
+            foreach ($role as $value) {
+                if(!empty($value->getAllowedResource($resource))) {
+                    return self::ALLOW;
+                }
+            }
+            return $this->defaultAction;
+        }
+
         if(!empty($this->role[$role])) {
             $role = $this->role[$role];
             if(!empty($role->getAllowedResource($resource))) {

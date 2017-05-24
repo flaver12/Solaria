@@ -45,7 +45,11 @@ class Role {
         if($name == '') {
             return $this->allowResources;
         }
-        return $this->allowResources[$name];
+
+        if(isset($this->allowResources[$name]) || array_key_exists($name, $this->allowResources)) {
+            return $this->allowResources[$name];
+        }
+        return null;
     }
 
 }

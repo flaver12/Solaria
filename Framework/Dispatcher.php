@@ -31,7 +31,7 @@ class Dispatcher {
 
             //acl
             $acl = Application::singleton('acl');
-            if(empty($arguments[0])) {
+            if(empty($arguments[0]) || $action == 'viewPostAction') { //dirty hack need to be changed!
                 $param = "*";
             } else {
                 $param = $arguments[0];
