@@ -15,10 +15,12 @@ use Solaria\App\Models\Category;
 use Solaria\App\Models\Resource;
 use Solaria\App\Models\ResourceRole;
 use Solaria\App\Models\Cronjobs;
+use Solaria\App\Models\Page;
 use Solaria\App\Forms\CategoryCreationForm;
 use Solaria\App\Forms\CreateTopicForm;
 use Solaria\App\Forms\CreateUserGroup;
 use Solaria\App\Forms\BBCodeForm;
+use Solaria\App\Forms\CreatePageForm;
 
 use DirectoryIterator;
 
@@ -375,6 +377,26 @@ class AdminController extends BaseController {
 
         $this->set('inactive_crons', $inactiveCrons);
         $this->set('active_crons', $activeCrons);
+    }
+
+    public function pagesAction() {
+        $this->set('pages', Page::findAll());
+    }
+
+    public function createPagesAction() {
+
+        if($this->request->isPost()) {
+            $page = new Page();
+            $page->setTitle($this->request->getPost('title'));
+            $page->setContent($this->request->getPost('content'));
+            $page->setEnabled(1);
+            $page->save($page);
+            $this->flashSession->success('Page created');
+            $this->response->redirect('admin/pages');
+        } else {
+            $this->set('pageform', new CreatePageForm());
+        }
+
     }
 
 }

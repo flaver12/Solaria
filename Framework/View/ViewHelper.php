@@ -38,6 +38,10 @@ class ViewHelper {
         echo '<img src="'.Url::getUrlPath().'/'.$path.'" class="img-responsive center-block" />';
     }
 
+    public function include_content($path) {
+        echo Url::getUrlPath().'/'.$path.'"';
+    }
+
     public function parserBBCode($code) {
         echo Application::singleton('Solaria\Framework\View\BBCodeParser')->parse($code);
     }

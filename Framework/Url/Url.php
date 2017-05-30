@@ -61,6 +61,12 @@ class Url {
                 $uri = array_splice($uri, 1);
             }
 
+            if(count($uri) == 2 && is_numeric($uri[1])) {
+                $param = $uri[1];
+                $uri[1] = 'index';
+                $uri[2] = $param;
+            }
+
             $controller = ucwords($uri[0]).'Controller';
             $action = (isset($uri[1]) && $uri[1] != '' ) ? $uri[1]."Action" : 'indexAction';
             self::resolveWithParams($controller, $action, $uri);
