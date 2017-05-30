@@ -42,6 +42,10 @@ class BaseController {
         Application::singleton('Solaria\Framework\View\Template')->noRenderer();
     }
 
+    public function getAcl() {
+        return Application::singleton('acl');
+    }
+
     protected function runCrons() {
         $crons = Cronjobs::findAll();
         foreach ($crons as $cron) {

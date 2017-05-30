@@ -64,14 +64,6 @@ class AdminController extends BaseController {
         $allUsers = User::findAll();
         $userRoles = array();
 
-        //load all permissions
-        $permissions = Permission::findAll();
-        $perArr = array();
-
-        foreach ($permissions as $permission) {
-            $perArr[$permission->getName()] = $permission->getId();
-        }
-
         foreach ($allUsers as $user) {
             $roles = UserRole::findBy(array('user_id' => $user->getId()));
             $userRoles[$user->getUsername()] = array();
@@ -83,7 +75,7 @@ class AdminController extends BaseController {
         $this->set('allRoles', Role::findAll());
         $this->set('users', $allUsers);
         $this->set('userGroups', $userRoles);
-        $this->set('user_group_form', new CreateUserGroup($perArr));
+        $this->set('user_group_form', new CreateUserGroup());
     }
 
     public function editUserAction($id) {
@@ -132,8 +124,7 @@ class AdminController extends BaseController {
             $user = User::find($id);
             $this->set('editUser', $user);
 
-            $acl = new Acl($user);
-            $this->set('userGroups',$acl->getRole());
+            $this->set('userGroups',$this->getAcl()->getRole());
             $this->set('allGroups', Role::findAll());
         }
     }
@@ -179,18 +170,6 @@ class AdminController extends BaseController {
             $role = new Role();
             $role->setName($this->request->getPost('name'));
             $role->save($role);
-            $tempArr = $this->request->getPost();
-            unset($tempArr['name']);
-
-            if(!empty($tempArr)) {
-                foreach ($tempArr as $name => $id) {
-                    $rolePer = new RolePermission();
-                    $rolePer->setRole($role);
-                    $rolePer->setPermission(Permission::find($id));
-                    $rolePer->save($rolePer);
-                }
-
-            }
 
             $this->response->redirect('admin/user-permission');
 
