@@ -21,7 +21,6 @@
                     <ul class="list-inline">
                         <li>{{ i.getName() }}</li>
                         <li>{{ view.link_to('Löschen', 'admin/delete-group/'~i.getId(), '', '', 'Wollen Sie wirklich die Gruppe '~i.getName()~' löschen?') }}</li>
-                        <li>{{ view.link_to('Bearbeiten', 'admin/edit-group/'~i.getId()) }}</li>
                     </ul>
                   {% endfor %}
               </div>

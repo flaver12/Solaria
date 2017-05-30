@@ -1,7 +1,7 @@
 <?php
 
-namespace FM\App\Models;
-use FM\Framework\Model\BaseModel;
+namespace Solaria\App\Models;
+use Solaria\Framework\Model\BaseModel;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
