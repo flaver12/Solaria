@@ -1,7 +1,8 @@
 <?php
 
-namespace Solaria\App\Models;
-use Solaria\Framework\Model\BaseModel;
+namespace Solaria\Application\Models;
+
+use Solaria\Framework\Application\BaseModel;
 
 /**
  * @Entity @Table(name="cronjobs")

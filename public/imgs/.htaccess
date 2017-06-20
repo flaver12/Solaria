@@ -1,0 +1,37 @@
+# WCF-SEO-START
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /
+RewriteCond %{QUERY_STRING} ^f=([0-9]+)$
+RewriteRule ^forumdisplay\.php$ forum/index.php?board/%1/ [R=301,L]
+RewriteCond %{QUERY_STRING} ^p=([0-9]+)$
+RewriteRule ^showthread\.php$ forum/index.php?thread/postID=%1#post%1/ [R=301,L]
+RewriteCond %{QUERY_STRING} ^p=([0-9]+)#post([0-9]+)$
+RewriteRule ^showthread\.php$ forum/index.php?thread/postID=%1#post%2/ [R=301,L]
+RewriteCond %{QUERY_STRING} ^([0-9]+)-([^/\.]+)&goto=newpost$
+RewriteRule ^showthread\.php$ forum/index.php?thread/%1-%2/&action=firstNew [R=301,L]
+RewriteCond %{QUERY_STRING} ^t=([0-9]+)$
+RewriteRule ^showthread\.php$ forum/index.php?thread/%1/ [R=301,L]
+RewriteCond %{QUERY_STRING} ^t=([0-9]+)&s=(.*)$
+RewriteRule ^showthread\.php$ forum/index.php?thread/%1/ [R=301,L]
+RewriteCond %{QUERY_STRING} ^t=([0-9]+)&langid=([0-9]+)$
+RewriteRule ^showthread\.php$ forum/index.php?thread/%1/ [R=301,L]
+RewriteCond %{QUERY_STRING} ^t=([0-9]+)&p=([0-9]+)$
+RewriteRule ^showthread\.php$ forum/index.php?thread/%1-%2/&postID=%3#post%3 [R=301,L]
+RewriteCond %{QUERY_STRING} ^t=([0-9]+)&page=([0-9]+)$
+RewriteRule ^showthread\.php$ forum/index.php?thread/%1/&pageNo=%2 [R=301,L]
+RewriteCond %{QUERY_STRING} ^t=([0-9]+)&page=([0-9]+)&langid=([0-9]+)$
+RewriteRule ^showthread\.php$ forum/index.php?thread/%1/&pageNo=%2 [R=301,L]
+RewriteCond %{QUERY_STRING} ^attachmentid=([0-9]+)&d=([0-9]+)$
+RewriteRule ^attachment\.php$ forum/index.php?attachment/%1/ [R=301,L]
+RewriteCond %{QUERY_STRING} ^p=([0-9]+)&postcount=([0-9]+)$
+RewriteRule ^showpost\.php$ forum/index.php?thread/&postID=%1#post%1 [R=301,L]
+RewriteCond %{QUERY_STRING} ^([0-9]+)-([^/\.]+)$
+RewriteRule ^member\.php$ index.php?user/%1-%2/ [R=301,L]
+RewriteCond %{QUERY_STRING} ^do=getnew&contenttype=vBForum_Post$
+RewriteRule ^search\.php$ index.php?board-quick-search/&mode=unreadPosts [R=301,L]
+RewriteRule ^forum\.php$ forum/index.php?board-list/ [R=301,L]
+RewriteRule ^online\.php$ index.php?users-online-list/ [R=301,L]
+RewriteRule ^activity\.php$ index.php?dashboard/ [R=301,L]
+</IfModule>
+# WCF-SEO-END

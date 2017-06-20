@@ -2,7 +2,7 @@
     "autoload": {
       "psr-4": {
         "Solaria\\Framework\\": "Framework",
-        "Solaria\\App\\": "Application"
+        "Solaria\\Application\\": "Application"
       }
     },
     "require": {
@@ -13,6 +13,7 @@
         "symfony/yaml": "2.*",
         "monolog/monolog": "*",
         "phpdocumentor/phpdocumentor": "2.*",
-        "php-di/php-di": "^5.4"
+        "php-di/php-di": "^5.4",
+        "zendframework/zend-permissions-acl": "^2.6"
     }
 }

@@ -1,8 +1,8 @@
 <?php
 
-namespace Solaria\App\Models;
+namespace Solaria\Application\Models;
 
-use Solaria\Framework\Model\BaseModel;
+use Solaria\Framework\Application\BaseModel;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
